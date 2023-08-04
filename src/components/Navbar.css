@@ -1,0 +1,37 @@
+ul {
+    list-style: none;
+    display: flex;
+    font-size: 1.6rem;
+    font-family: 'Helvetica Neue';
+    font-weight: 700;
+    border-radius: 2rem;
+    background-color: #EBF4F8;
+    justify-content: center;
+align-items: center;
+}
+
+.nav_list_container li{
+    padding: 1.25rem 3rem;
+    color: #7C9CBF;
+}
+.logo_container {
+background: #0E518E;
+border-radius: 2rem;
+}
+
+.logo_container li {
+    font-size: 1.6rem;
+    padding: 1.25rem 3rem;
+    color: white;
+    list-style: none;
+    font-family: 'Helvetica Neue';
+    display: flex;
+    font-weight: 700;
+    
+    justify-content: center;
+align-items: center;
+}
+
+nav {
+    display: flex;
+}
