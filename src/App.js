@@ -1,12 +1,14 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
-import Cta from './components/Cta/Cta';
+import Hero from './components/Hero/Hero';
+import Instruction1 from './components/Instruction1/Instruction1';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Cta />
+      <Hero />
+      <Instruction1 />
     </div>
   );
 }
