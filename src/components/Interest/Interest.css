@@ -1,0 +1,45 @@
+.interest_container {
+    width: 122rem;
+    display: flex;
+    gap: 8.6rem;
+}
+
+.interest_left_container {
+
+}
+
+.interest_left_container h2 {
+    color: #1E2019;
+font-family: Helvetica Neue;
+font-size: 36px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}
+
+.interest_left_container ul {
+    width: 58.7rem;
+    display: flex;
+padding: 12.5px 30px;
+align-items: center;
+gap: 10px;
+
+border-radius: 20px;
+background: var(--disabled, #EBF4F8);
+}
+
+.interest_left_container li {
+    color: #7C9CBF;
+
+/* description */
+font-family: Helvetica Neue;
+font-size: 20px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.interest_right_container {
+    width: 597px;
+    height: 597px;
+}

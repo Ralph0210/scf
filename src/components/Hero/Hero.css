@@ -18,7 +18,7 @@
     flex-shrink: 0;
 }
 
-h1 {
+.cta_container h1 {
     color: #1E2019;
 
 /* Heading1 */
@@ -33,7 +33,7 @@ line-height: normal;
     margin-top: 3rem;
 }
 
-p {
+.cta_container p {
     width: 484px;
     color: #1E2019;
 
@@ -45,7 +45,7 @@ font-weight: 400;
 line-height: normal;
 }
 
-button {
+.cta_container button {
     margin-top: 9rem;
     display: inline-flex;
     padding: 12.5px 30px;
@@ -77,7 +77,7 @@ border-radius: 2rem;
 background: #0E518E;
 }
 
-img {
+.cta_container img {
     z-index: 100;
     width: 738px;
 height: 750px;
