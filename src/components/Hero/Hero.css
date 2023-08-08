@@ -1,12 +1,15 @@
 .cta_container {
     display: flex;
     margin: 9rem auto 11.8rem auto;
-    width: 122.2rem;
+    width: 122rem;
     height: 75rem;
     flex-shrink: 0;
 }
 
 .left_container {
+    width: 80rem;
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
 }
 
@@ -65,7 +68,7 @@ button {
 
 .background {
     position:absolute;
-    left: 91.2rem;
+    
     width: 42rem;
     margin-left: auto;
 height: 75rem;
