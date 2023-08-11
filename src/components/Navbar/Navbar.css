@@ -34,8 +34,10 @@ align-items: center;
 }
 
 nav {
+    position: fixed;
     display: flex;
     margin-top: 6.1rem;
     margin-left: 7.1rem;
     gap: 47.6rem;
+    z-index: 200;
 }

@@ -13,8 +13,6 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/analyticsPage' element={<Analytics_page />} />
       </Routes>
-
-      <Footer />
     </div>
   );
 }

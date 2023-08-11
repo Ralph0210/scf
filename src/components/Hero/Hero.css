@@ -1,6 +1,8 @@
 .cta_container {
     display: flex;
-    margin: 9rem auto 11.8rem auto;
+    /* margin: 9rem auto 11.8rem auto; */
+    margin-left: 11.8rem;
+    padding-top: 19.5rem;
     width: 122rem;
     height: 75rem;
     flex-shrink: 0;

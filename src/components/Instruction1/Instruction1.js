@@ -9,7 +9,7 @@ const Instruction1 = () => {
         </div>
 
         <div className='content'>
-            <div className='map'></div>
+            <div className='instruction_map'></div>
             <div className='description'>
                 <h2>Comprehensive <span className='new-line'>Financial Survey.</span></h2>
                 <div className='details'>

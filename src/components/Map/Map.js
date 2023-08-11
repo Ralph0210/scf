@@ -3,7 +3,7 @@ import './Map.css'
 
 const Map = () => {
   return (
-    <div>Map</div>
+    <div className='map'>Map</div>
   )
 }
 
