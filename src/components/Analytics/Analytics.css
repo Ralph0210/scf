@@ -5,6 +5,7 @@
 .source {
      display: flex;
      gap: 16.8rem;
+     margin-bottom: 3.7rem;
 }
 
 .data_container,
@@ -50,4 +51,66 @@ select {
 
 .display_container select{
      background: #FF9F1C;
+}
+
+.adjustment {
+     width: 99rem;
+height: 14.5rem;
+flex-shrink: 0;
+border-radius: 2rem;
+background: #EBF4F8;
+margin-left: 3rem;
+display: flex;
+gap: 14rem;
+align-items: center;
+padding-left: 3.6rem;
+margin-bottom: 3.2rem;
+}
+
+.unit {
+     display: flex;
+     flex-direction: column;
+}
+
+.unit > label {
+     color: #000;
+
+/* description */
+font-family: Helvetica Neue;
+font-size: 2rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.year_range_container > label {
+     color: #000;
+
+/* description */
+font-family: Helvetica Neue;
+font-size: 2rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+}
+
+.units {
+     margin-top: 3.6rem;
+}
+
+.year_range {
+     margin-top: 3.6rem;
+}
+
+.units label {
+     color: #000;
+font-family: Helvetica Neue;
+font-size: 1.6rem;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.units input {
+     background-color: #0E518E;
 }

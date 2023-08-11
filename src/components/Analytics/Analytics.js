@@ -93,37 +93,40 @@ const Analytics = () => {
 
       <div className='adjustment'>
         <div className='unit'>
+          <label htmlFor='units'>Unit</label>
+        <div className='units'>
         <label>
-        <input
+          <input
           type="radio"
           value="Mean"
           checked={selectedOption === 'Mean'}
           onChange={handleOptionChange}
-        />
-        Mean
-      </label>
+          />
+          Mean
+        </label>
 
-      <label>
-        <input
+        <label>
+          <input
           type="radio"
           value="Median"
           checked={selectedOption === 'Median'}
           onChange={handleOptionChange}
-        />
-        Median
-      </label>
+          />
+          Median
+       </label>
         </div>
-
-      <label htmlFor='year_range'>Year range</label>
-        <div className='year_range'>
-      <YearRangeSelection />
+        </div>
+        
+        <div className='year_range_container'>
+            <label htmlFor='year_range'>Year range</label>
+            <div className='year_range'>
+          <YearRangeSelection />
     </div>
-      
-      
-      
-      
-      
+        </div>
       </div>
+
+
+
       <LineChart
       width={900}
       height={300}
