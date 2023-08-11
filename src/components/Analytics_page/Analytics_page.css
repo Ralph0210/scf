@@ -1,0 +1,8 @@
+.analytics_page_container {
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    display: inline;
+}
