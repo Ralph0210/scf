@@ -1,7 +1,7 @@
 .cta_container {
     display: flex;
-    /* margin: 9rem auto 11.8rem auto; */
-    margin-left: 11.8rem;
+    margin: 0 auto 11.8rem auto;
+    /* margin-left: 11.8rem; */
     padding-top: 19.5rem;
     width: 122rem;
     height: 75rem;
@@ -33,6 +33,7 @@ line-height: normal;
 
 .intro {
     margin-top: 3rem;
+    width: 48.4rem;
 }
 
 .cta_container p {
