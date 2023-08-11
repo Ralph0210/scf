@@ -7,6 +7,7 @@
     background: #D81E5B;
     margin-left: 12rem;
     margin-bottom: 12rem;
+    cursor: pointer;
 
     color: #FFF;
     font-family: Helvetica Neue;
@@ -15,3 +16,4 @@
     font-weight: 600;
     line-height: normal;
 }
+

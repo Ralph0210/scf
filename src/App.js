@@ -3,7 +3,7 @@ import Navbar from './components/Navbar/Navbar'
 import Home from './components/Home/Home';
 import Footer from './components/Footer/Footer';
 import { Link, Route, Routes } from 'react-router-dom';
-import Analytics from './components/Analytics/Analytics';
+import Analytics_page from './components/Analytics_page/Analytics_page';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/analytics' element={<Analytics />} />
+        <Route path='/analyticsPage' element={<Analytics_page />} />
       </Routes>
 
       <Footer />
