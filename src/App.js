@@ -1,16 +1,20 @@
 import './App.css';
 import Navbar from './components/Navbar/Navbar'
-import Hero from './components/Hero/Hero';
-import Instruction1 from './components/Instruction1/Instruction1';
-import Interests from './components/Interests/Interests';
+import Home from './components/Home/Home';
+import Footer from './components/Footer/Footer';
+import { Link, Route, Routes } from 'react-router-dom';
+import Analytics from './components/Analytics/Analytics';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
-      <Hero />
-      <Instruction1 />
-      <Interests />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/analytics' element={<Analytics />} />
+      </Routes>
+
+      <Footer />
     </div>
   );
 }

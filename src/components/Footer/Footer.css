@@ -1,0 +1,16 @@
+.footer_container {
+    background: #EBF4F8;
+    width: 100%;
+    height: 31.8rem;
+    margin: 0;
+}
+
+.copyright {
+    position: relative;
+    color: #7C9CBF;
+    font-family: Open Sans;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

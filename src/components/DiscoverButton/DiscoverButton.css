@@ -1,0 +1,17 @@
+.discoverbutton {
+    border: 0;
+    width: 27.4rem;
+    height: 6.5rem;
+    flex-shrink: 0;
+    border-radius: 2rem;
+    background: #D81E5B;
+    margin-left: 12rem;
+    margin-bottom: 12rem;
+
+    color: #FFF;
+    font-family: Helvetica Neue;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
