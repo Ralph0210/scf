@@ -4,7 +4,7 @@ import './Hero.css'
 const Hero = () => {
   return (
     <div className='cta_container'>
-        <div className='left_container'>
+        <div className='cta_left_container'>
         <div className='header'>
             <h1>Unlock Financial Insights</h1>
         </div>

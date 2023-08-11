@@ -1,9 +1,23 @@
 import React from 'react'
 import './Analytics.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useState } from 'react';
+import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 
 
 const Analytics = () => {
+  const [selectedOption, setSelectedOption] = useState('Mean'); // Set initial selected option
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const [selectedValue, setSelectedValue] = useState(50); // Set initial selected value
+
+  const handleRangeChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
   const data = [
     {
       name: 'Page A',
@@ -77,11 +91,39 @@ const Analytics = () => {
         </div>
       </div>
 
+      <div className='adjustment'>
+        <div className='unit'>
+        <label>
+        <input
+          type="radio"
+          value="Mean"
+          checked={selectedOption === 'Mean'}
+          onChange={handleOptionChange}
+        />
+        Mean
+      </label>
 
+      <label>
+        <input
+          type="radio"
+          value="Median"
+          checked={selectedOption === 'Median'}
+          onChange={handleOptionChange}
+        />
+        Median
+      </label>
+        </div>
 
-
-
-
+      <label htmlFor='year_range'>Year range</label>
+        <div className='year_range'>
+      <YearRangeSelection />
+    </div>
+      
+      
+      
+      
+      
+      </div>
       <LineChart
       width={900}
       height={300}
@@ -89,7 +131,7 @@ const Analytics = () => {
       margin={{
         top: 5,
         right: 30,
-        left: 20,
+        left: 65,
         bottom: 5
       }}
     >

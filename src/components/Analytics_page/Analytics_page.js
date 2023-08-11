@@ -9,10 +9,10 @@ const Analytics_page = () => {
   return (
     <>
     <div className='analytics_page_container'>
-        <div className='left_container'>
+        <div className='analytics_page_map_container'>
             <Map />
             </div>
-        <div className='right_container'>
+        <div className='analytics_page_analytics_container'>
             <Analytics />
             </div>
     </div>

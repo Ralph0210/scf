@@ -4,4 +4,50 @@
 
 .source {
      display: flex;
+     gap: 16.8rem;
+}
+
+.data_container,
+.distribution_container,
+.display_container {
+     display: flex;
+     flex-direction: column;
+     padding-top: 16.5rem;
+     margin-left: 6.5rem;
+     gap: 3rem;
+     font-family: Helvetica Neue;
+font-size: 2rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+color: #1E2019;
+}
+
+select {
+     display: inline-flex;
+     padding: 0.75rem 3rem;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+     border-radius: 2rem;
+     border: 0;
+
+     color: #FDFFFC;
+     font-family: Helvetica Neue;
+     font-size: 1.6rem;
+     font-style: normal;
+     font-weight: 400;
+     line-height: normal;
+}
+
+.data_container select{
+     background: #0E518E;
+}
+
+.distribution_container select{
+     background: #70B77E;
+}
+
+.display_container select{
+     background: #FF9F1C;
 }

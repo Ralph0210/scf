@@ -8,7 +8,7 @@
     flex-shrink: 0;
 }
 
-.left_container {
+.cta_left_container {
     width: 80rem;
     display: flex;
     flex-direction: column;
