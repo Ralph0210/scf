@@ -1,3 +1,7 @@
 .analytics_container {
      width: 90rem;
 }
+
+.source {
+     display: flex;
+}

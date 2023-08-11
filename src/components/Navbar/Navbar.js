@@ -6,8 +6,8 @@ import {Routes, Route, Link} from 'react-router-dom';
 const Navbar = () => {
     const Nav = () => (
         <ul className='nav_list'>
-                <li>Home</li>
-                <li>Analysis</li>
+                <Link to='/' className='navlink'><li>Home</li></Link>
+                <Link to='/analyticsPage' className='navlink'><li>Analysis</li></Link>
                 <li>Explore Data</li>
                 <li>About</li>
                 <li>Search</li>

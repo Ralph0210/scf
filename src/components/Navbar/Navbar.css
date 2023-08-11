@@ -7,7 +7,8 @@ ul {
     border-radius: 2rem;
     background-color: #EBF4F8;
     justify-content: center;
-align-items: center;
+    align-items: center;
+    text-decoration: none;
 }
 
 .nav_list_container li{
@@ -41,3 +42,14 @@ nav {
     gap: 47.6rem;
     z-index: 200;
 }
+
+.nav_list_container li:hover {
+    color: #FDFFFC;
+    border-radius: 2rem;
+background: var(--main, #0E518E);
+}
+
+/* styles.css */
+.navlink {
+    text-decoration: none;
+  }

@@ -51,8 +51,39 @@ const Analytics = () => {
 
   return (
     <div className='analytics_container'>
+      <div className='source'>
+        <div className='data_container'>
+        <label htmlFor='Data'>Data</label>
+        <select className='Data' value={"Debt"} >
+          <option>Asset</option>
+          <option>Debt</option>
+        </select>
+        </div>
+
+        <div className='distribution_container'>
+        <label htmlFor='Distribution'>Distributed by</label>
+        <select className='Distribution' value={"Age"} >
+          <option>Age</option>
+          <option>Education</option>
+        </select>
+        </div>
+
+        <div className='display_container'>
+        <label htmlFor='Display'>Display</label>
+        <select className='Display' value={"35 - 44"} >
+          <option>0 - 18</option>
+          <option>19 - 24</option>
+        </select>
+        </div>
+      </div>
+
+
+
+
+
+
       <LineChart
-      width={500}
+      width={900}
       height={300}
       data={data}
       margin={{
