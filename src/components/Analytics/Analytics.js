@@ -1,13 +1,14 @@
 import React from 'react'
 import './Analytics.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 
 
 const Analytics = () => {
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
-  const [selectedDisplay, setSelectedDisplay] = useState("25-45")
+  const [selectedDisplay, setSelectedDisplay] = useState("0-18")
+  const [filteredData, setFilteredData] = useState([])
 
   const data2 = [
     {
@@ -87,7 +88,7 @@ const Analytics = () => {
       }))
     }));
 
-    console.log("selectedData:", selectedData); // Log the selected data
+    // console.log("selectedData:", selectedData); // Log the selected data
 
   // You can return the selectedData array if needed
   return selectedData;
@@ -98,13 +99,18 @@ const Analytics = () => {
       year: yearEntry.year,
       data: yearEntry.data.filter(item => {
         const age = item.age;
-        console.log(age)
         if (selectedDisplay === "25-45") {
           return age >= 25 && age <= 45;
         }
         else if (selectedDisplay === "19-24") {
-          console.log()
-          return age >= 30;
+          return age >= 19 && age <= 24;
+        }
+        else if (selectedDisplay === "0-18") {
+          return age <= 18;
+        }
+
+        else {
+          return age > 45;
         }
         // Add more conditions for other age groups if needed
         return false; // Return true by default if no conditions match
@@ -115,7 +121,7 @@ const Analytics = () => {
 
 
   const selectedData = DataDistribution(data2)
-  const filteredData = DataDisplay(selectedData)
+  // const filteredData = DataDisplay(selectedData)
 
 
 
@@ -124,13 +130,20 @@ const Analytics = () => {
     const selectedData = DataDistribution(data2);
   }
 
+  useEffect(() => {
+    const selectedData = DataDistribution(data2);
+  }, [selectedData]);
+
 
 
   const handleDisplayChange = (e) => {
     setSelectedDisplay(e.target.value);
-    const filteredData = DataDisplay(selectedData)
-    console.log("filteredData:", filteredData)
   }
+
+  useEffect(() => {
+    const filteredData = DataDisplay(selectedData, selectedDisplay);
+    console.log("filteredData:", filteredData, selectedDisplay)
+  }, [selectedDisplay, selectedData]);
 
   const [selectedOption, setSelectedOption] = useState('Mean'); // Set initial selected option
 

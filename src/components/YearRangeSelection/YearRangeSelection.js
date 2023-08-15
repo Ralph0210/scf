@@ -35,8 +35,7 @@ const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
 
   return (
     <div>
-
-<StyledSlider max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb} />
+      <StyledSlider max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb} />
     </div>
   )
 }
