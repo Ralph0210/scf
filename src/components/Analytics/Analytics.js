@@ -14,6 +14,7 @@ const Analytics = () => {
   const [selectedUnit, setSelectedUnit] = useState('Mean'); // Set initial selected option
   const [currentData, setCurrentData] = useState([]);
   const [value, setValue] = useState([2010, 2019]);
+  const [yearData, setYearData] = useState([])
 
   const data2 = [
     {
@@ -156,7 +157,6 @@ const calculateByUnit = (data, selectedUnit) => {
     for (const person of yearDataArray) {
       total += person.income;
     }
-    console.log(total)
 
     const calculate = total / yearDataArray.length;
     console.log(calculate)
@@ -164,7 +164,6 @@ const calculateByUnit = (data, selectedUnit) => {
       year: year,
       income: calculate,
     });
-    console.log(calculated)
 
   } else {
     console.log("median")
@@ -190,7 +189,26 @@ return calculated
     setSelectedDisplay(e.target.value);
   }
 
+  const changeYear = (data, value) => {
+    const newYearData = []
 
+    for (const dataEntry of data) {
+      if (dataEntry.year >= value[0] && dataEntry.year <= value[1]){
+        newYearData.push({
+          year: dataEntry.year,
+          income: dataEntry.income
+        })
+      }
+    }
+
+    console.log("YearData: ", newYearData)
+    return newYearData
+  }
+
+  useEffect(() => {
+    const newData = changeYear(UnitData, value)
+    setYearData(newData)
+  }, [value, distributedData, filteredData, selectedUnit])
 
   return (
     <div className='analytics_container'>
@@ -264,7 +282,7 @@ return calculated
       <LineChart
       width={900}
       height={300}
-      data={UnitData}
+      data={yearData}
       margin={{
         top: 5,
         right: 30,
