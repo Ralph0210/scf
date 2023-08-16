@@ -8,7 +8,11 @@ import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 const Analytics = () => {
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
   const [selectedDisplay, setSelectedDisplay] = useState("0-18")
+  const [distributedData, setDistributedData] = useState([])
   const [filteredData, setFilteredData] = useState([])
+  const [UnitData, setUnitData] = useState([])
+  const [selectedUnit, setSelectedUnit] = useState('Mean'); // Set initial selected option
+  const [currentData, setCurrentData] = useState([]);
 
   const data2 = [
     {
@@ -94,6 +98,17 @@ const Analytics = () => {
   return selectedData;
   }
 
+    const handleDistributionChange = (e) => {
+    setSelectedDistribution(e.target.value);
+    // const selectedData = DataDistribution(data2);
+  }
+
+  useEffect(() => {
+    const newDistributionData = DataDistribution(data2);
+    setDistributedData(newDistributionData)
+    console.log("distributedData:", distributedData)
+  }, [selectedDistribution]);
+
   const DataDisplay = (data, selectedDisplay) => {
     const filteredData = data.map(yearEntry => ({
       year: yearEntry.year,
@@ -108,6 +123,9 @@ const Analytics = () => {
         else if (selectedDisplay === "0-18") {
           return age <= 18;
         }
+        else if (selectedDisplay === "45+") {
+          return age > 45;
+        }
 
         else {
           return age > 45;
@@ -119,97 +137,52 @@ const Analytics = () => {
     return filteredData;
   };
 
+    useEffect(() => {
+    const newfilteredData = DataDisplay(distributedData, selectedDisplay);
+    setFilteredData(newfilteredData)
+    console.log("filteredData:", newfilteredData, selectedDisplay)
+  }, [selectedDisplay]);
 
-  const selectedData = DataDistribution(data2)
-  // const filteredData = DataDisplay(selectedData)
+const calculateByUnit = (data, selectedUnit) => {
+  const calculated = [];
 
+  for (const yearData of data) {
+    const year = yearData.year;
+    const yearDataArray = yearData.data;
+    
+    let total = 0;
+    for (const person of yearDataArray) {
+      total += person.income;
+    }
 
+    const calculate = total / yearDataArray.length;
+    
+    calculated.push({
+      year: year,
+      Income: calculate,
+    });
 
-  const handleDistributionChange = (e) => {
-    setSelectedDistribution(e.target.value);
-    const selectedData = DataDistribution(data2);
-  }
+    
+
+}
+return calculated
+}
 
   useEffect(() => {
-    const selectedData = DataDistribution(data2);
-  }, [selectedData]);
+    const newCalculated = calculateByUnit(filteredData, selectedUnit)
+    setUnitData(newCalculated)
+    console.log("unitData:", UnitData)
+  },[selectedUnit])
 
 
+
+  const handleUnitChange = (event) => {
+    setSelectedUnit(event.target.value);
+  };
 
   const handleDisplayChange = (e) => {
     setSelectedDisplay(e.target.value);
   }
-
-  useEffect(() => {
-    const filteredData = DataDisplay(selectedData, selectedDisplay);
-    console.log("filteredData:", filteredData, selectedDisplay)
-  }, [selectedDisplay, selectedData]);
-
-  const [selectedOption, setSelectedOption] = useState('Mean'); // Set initial selected option
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
-  const [selectedValue, setSelectedValue] = useState(50); // Set initial selected value
-
-  const handleRangeChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
-
-  const data = [
-    {
-      name: 'Page A',
-      uv: 4000,
-      pv: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      uv: 3000,
-      pv: 1398,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
-    },
-  ];
-
-
-
- 
-
-
-
-
-
 
 
 
@@ -240,11 +213,13 @@ const Analytics = () => {
             <option value="0-18">0-18</option>
             <option value="19-24">19-24</option>
             <option value="25-45">25-45</option>
+            <option value="45+">45+</option>
         </select>
         </div>
       </div>
 
       <div className='adjustment'>
+
         <div className='unit'>
           <label htmlFor='units'>Unit</label>
         <div className='units'>
@@ -252,8 +227,8 @@ const Analytics = () => {
           <input
           type="radio"
           value="Mean"
-          checked={selectedOption === 'Mean'}
-          onChange={handleOptionChange}
+          checked={selectedUnit === 'Mean'}
+          onChange={handleUnitChange}
           />
           Mean
         </label>
@@ -262,8 +237,8 @@ const Analytics = () => {
           <input
           type="radio"
           value="Median"
-          checked={selectedOption === 'Median'}
-          onChange={handleOptionChange}
+          checked={selectedUnit === 'Median'}
+          onChange={handleUnitChange}
           />
           Median
        </label>
