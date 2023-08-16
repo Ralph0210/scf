@@ -7,7 +7,7 @@ import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 
 const Analytics = () => {
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
-  const [selectedDisplay, setSelectedDisplay] = useState("0-18")
+  const [selectedDisplay, setSelectedDisplay] = useState("45+")
   const [distributedData, setDistributedData] = useState([])
   const [filteredData, setFilteredData] = useState([])
   const [UnitData, setUnitData] = useState([])
@@ -48,7 +48,7 @@ const Analytics = () => {
       ]
     },
     {
-      year: 2013,
+      year: 2016,
       data: [
         {age: 60,
           EDCU: "no high school diploma/GED",
@@ -141,7 +141,7 @@ const Analytics = () => {
     const newfilteredData = DataDisplay(distributedData, selectedDisplay);
     setFilteredData(newfilteredData)
     console.log("filteredData:", newfilteredData, selectedDisplay)
-  }, [selectedDisplay]);
+  }, [distributedData, selectedDisplay]);
 
 const calculateByUnit = (data, selectedUnit) => {
   const calculated = [];
@@ -150,19 +150,24 @@ const calculateByUnit = (data, selectedUnit) => {
     const year = yearData.year;
     const yearDataArray = yearData.data;
     
+    if (selectedUnit === "Mean") {
     let total = 0;
     for (const person of yearDataArray) {
       total += person.income;
     }
+    console.log(total)
 
     const calculate = total / yearDataArray.length;
-    
+    console.log(calculate)
     calculated.push({
       year: year,
-      Income: calculate,
+      income: calculate,
     });
+    console.log(calculated)
 
-    
+  } else {
+    console.log("median")
+  }
 
 }
 return calculated
@@ -172,7 +177,7 @@ return calculated
     const newCalculated = calculateByUnit(filteredData, selectedUnit)
     setUnitData(newCalculated)
     console.log("unitData:", UnitData)
-  },[selectedUnit])
+  },[distributedData, filteredData, selectedUnit])
 
 
 
@@ -258,7 +263,7 @@ return calculated
       <LineChart
       width={900}
       height={300}
-      data={data2}
+      data={UnitData}
       margin={{
         top: 5,
         right: 30,
