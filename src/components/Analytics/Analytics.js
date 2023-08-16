@@ -13,6 +13,7 @@ const Analytics = () => {
   const [UnitData, setUnitData] = useState([])
   const [selectedUnit, setSelectedUnit] = useState('Mean'); // Set initial selected option
   const [currentData, setCurrentData] = useState([]);
+  const [value, setValue] = useState([2010, 2019]);
 
   const data2 = [
     {
@@ -253,7 +254,7 @@ return calculated
         <div className='year_range_container'>
             <label htmlFor='year_range'>Year range</label>
             <div className='year_range'>
-          <YearRangeSelection />
+          <YearRangeSelection value={value} setValue={setValue}/>
     </div>
         </div>
       </div>

@@ -4,7 +4,8 @@ import './YearRangeSelection.css'
 import styled from 'styled-components';
 
 
-const YearRangeSelection = () => {
+const YearRangeSelection = (props) => {
+  const {value, setValue} = props;
     const StyledSlider = styled(ReactSlider)`
     width: 25rem;
     height: 2.5rem;
@@ -35,7 +36,17 @@ const Track = (props, state) => <StyledTrack {...props} index={state.index} />;
 
   return (
     <div>
-      <StyledSlider max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb} />
+      {/* <StyledSlider max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb} /> */}
+      <StyledSlider
+    value={value}
+    onAfterChange={(value, index) =>setValue(value,index)
+    }
+    // className="horizontal-slider"
+    // thumbClassName="example-thumb"
+    // trackClassName="example-track"
+    // renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+    max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb}
+/>
     </div>
   )
 }
