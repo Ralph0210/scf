@@ -3,6 +3,7 @@ import './Analytics.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useState, useEffect } from 'react';
 import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
+import DistributionSelection from '../DistributionSelection/DistributionSelection';
 
 
 const Analytics = () => {
@@ -85,32 +86,6 @@ const Analytics = () => {
     },
   ]
 
-  const DataDistribution = (data) => {
-    const selectedData = data.map(yearEntry => ({
-      year: yearEntry.year,
-      data: yearEntry.data.map(item => ({
-        income: item.income,
-        age: item.age
-      }))
-    }));
-
-    // console.log("selectedData:", selectedData); // Log the selected data
-
-  // You can return the selectedData array if needed
-  return selectedData;
-  }
-
-    const handleDistributionChange = (e) => {
-    setSelectedDistribution(e.target.value);
-    // const selectedData = DataDistribution(data2);
-  }
-
-  useEffect(() => {
-    const newDistributionData = DataDistribution(data2);
-    setDistributedData(newDistributionData)
-    console.log("distributedData:", distributedData)
-  }, [selectedDistribution]);
-
   const DataDisplay = (data, selectedDisplay) => {
     const filteredData = data.map(yearEntry => ({
       year: yearEntry.year,
@@ -159,7 +134,7 @@ const calculateByUnit = (data, selectedUnit) => {
     }
 
     const calculate = total / yearDataArray.length;
-    console.log(calculate)
+    // console.log(calculate)
     calculated.push({
       year: year,
       income: calculate,
@@ -215,7 +190,7 @@ return calculated
       <div className='source'>
         <div className='data_container'>
         <label htmlFor='Data'>Data</label>
-        <select className='Data' value={"Income"} >
+        <select id='Data' className='Data' value={"Income"} >
           <option>Asset</option>
           <option>Debt</option>
           <option>Income</option>
@@ -223,17 +198,17 @@ return calculated
         </select>
         </div>
 
-        <div className='distribution_container'>
-        <label htmlFor='Distribution'>Distributed by</label>
-        <select className='Distribution' value={selectedDistribution} onChange={handleDistributionChange}>
-          <option>Age</option>
-          <option>Education</option>
-        </select>
-        </div>
+        <DistributionSelection 
+        selectedDistribution={selectedDistribution}
+        setSelectedDistribution={setSelectedDistribution}
+        data={data2}
+        distributedData={distributedData}
+        setDistributedData={setDistributedData}
+        />
 
         <div className='display_container'>
         <label htmlFor='Display'>Display</label>
-        <select className='Display' value={selectedDisplay} onChange={handleDisplayChange} >
+        <select id='Display' className='Display' value={selectedDisplay} onChange={handleDisplayChange} >
             <option value="0-18">0-18</option>
             <option value="19-24">19-24</option>
             <option value="25-45">25-45</option>
@@ -246,7 +221,7 @@ return calculated
 
         <div className='unit'>
           <label htmlFor='units'>Unit</label>
-        <div className='units'>
+        <div className='units' id='unit'>
         <label>
           <input
           type="radio"
@@ -272,7 +247,7 @@ return calculated
         <div className='year_range_container'>
             <label htmlFor='year_range'>Year range</label>
             <div className='year_range'>
-          <YearRangeSelection value={value} setValue={setValue}/>
+          <YearRangeSelection id='year_range' value={value} setValue={setValue}/>
     </div>
         </div>
       </div>
