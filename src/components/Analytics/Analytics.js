@@ -6,9 +6,13 @@ import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 import DistributionSelection from '../DistributionSelection/DistributionSelection';
 import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from '../UnitSelection/UnitSelection';
+import DataSelection from '../DataSelection/DataSelection';
 
 
 const Analytics = () => {
+  const [selectedData, setSelectedData] = useState('Income')
+  const [outputSelectedData, setOutputSelectedData] = useState([])
+
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
   const [distributedData, setDistributedData] = useState([])
 
@@ -28,16 +32,16 @@ const Analytics = () => {
     {
       year: 2010,
       data: [
-      {age: 54, EDCU: "no high school diploma/GED", income: 148534.91704, wage: 56000},
+      {age: 54, EDCU: "no high school diploma/GED", income: 1, wage: 56000},
       {age: 54,
         EDCU: "high school diploma or GED",
-        income: 22288.787771,wage: 35000},
+        income: 1,wage: 35000},
       {age: 28,
         EDCU: "Ph.D",
-        income: 64675.086566,wage: 82000},
+        income: 2,wage: 82000},
       {age: 23,
         EDCU: "bachelors degree or higher",
-        income: 14004.770629,wage: 56000}
+        income: 3,wage: 56000}
       ],
     },
     {
@@ -45,16 +49,16 @@ const Analytics = () => {
       data: [
         {age: 34,
           EDCU: "high school diploma or GED",
-          income: 148534.91704, wage: 36000},
+          income: 1, wage: 36000},
         {age: 48,
           EDCU: "high school diploma or GED",
-          income: 64675.086566, wage: 46000 },
+          income: 3, wage: 46000 },
         {age: 28,
           EDCU: "Ph.D",
-          income: 22288.787771, wage: 92000},
+          income: 4, wage: 92000},
         {age: 23,
           EDCU: "bachelors degree or higher",
-          income: 14004.770629, wage: 70000}
+          income: 5, wage: 70000}
       ]
     },
     {
@@ -62,16 +66,16 @@ const Analytics = () => {
       data: [
         {age: 60,
           EDCU: "no high school diploma/GED",
-          income: 148534.91704, wage: 56000},
+          income: 3, wage: 56000},
         {age: 54,
           EDCU: "MA/MS/MBA",
-          income: 64675.086566, wage: 65000},
+          income: 4, wage: 65000},
         {age: 28,
           EDCU: "Ph.D",
-          income: 22288.787771, wage: 120000},
+          income: 1, wage: 120000},
         {age: 49,
           EDCU: "Associate degree in college - occupation/vocation program",
-          income: 14004.770629, wage: 60000}
+          income: 1, wage: 60000}
       ]
     },
     {
@@ -79,16 +83,16 @@ const Analytics = () => {
       data: [
         {age: 76,
           EDCU: "high school diploma or GED",
-          income: 148534.91704, wage: 56000},
+          income: 1, wage: 56000},
         {age: 54,
           EDCU: "high school diploma or GED",
-          income: 64675.086566, wage: 66000},
+          income: 5, wage: 66000},
         {age: 41,
           EDCU: "Ph.D",
-          income: 22288.787771, wage: 90000},
+          income: 2, wage: 90000},
         {age: 23,
           EDCU: "achelors degree or higher",
-          income: 14004.770629, wage: 59000}
+          income: 1, wage: 59000}
       ]
     },
   ]
@@ -117,15 +121,13 @@ const Analytics = () => {
   return (
     <div className='analytics_container'>
       <div className='source'>
-        <div className='data_container'>
-        <label htmlFor='Data'>Data</label>
-        <select id='Data' className='Data' value={"Income"} >
-          <option>Asset</option>
-          <option>Debt</option>
-          <option>Income</option>
-          <option>Wage</option>
-        </select>
-        </div>
+
+        <DataSelection
+        selectedData={selectedData}
+        setSelectedData={setSelectedData}
+        data={data2}
+        setOutputSelectedData={setOutputSelectedData}
+        />
 
         <DistributionSelection 
         selectedDistribution={selectedDistribution}
