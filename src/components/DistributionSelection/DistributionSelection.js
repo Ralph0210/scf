@@ -2,14 +2,17 @@ import React from 'react'
 import './DistributionSelection.css'
 import { useEffect } from 'react';
 
-const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, data, distributedData, setDistributedData }) => {
-  const DataDistribution = (data) => {
+const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, data, distributedData, setDistributedData, selectedData }) => {
+  const DataDistribution = (data, properties) => {
     const selectedData = data.map(yearEntry => ({
       year: yearEntry.year,
-      data: yearEntry.data.map(item => ({
-        income: item.income,
-        age: item.age
-      }))
+      data: yearEntry.data.map(item => {
+        const extractedData = {}
+        properties.forEach(property => {
+          extractedData[property] = item[property]
+        })
+        return extractedData
+      })
     }));
 
     // console.log("selectedData:", selectedData); // Log the selected data
@@ -24,10 +27,10 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
   }
 
   useEffect(() => {
-    const newDistributionData = DataDistribution(data);
+    const newDistributionData = DataDistribution(data, [selectedData, selectedDistribution]);
     setDistributedData(newDistributionData)
-    console.log("distributedData:", newDistributionData)
-  }, [setDistributedData, selectedDistribution]);
+    console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
+  }, [setDistributedData, selectedDistribution, selectedData]);
 
 
   return (
@@ -35,8 +38,8 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
         <label htmlFor='Distribution'>Distributed by</label>
         <select id='Distribution'
         className='Distribution' value={selectedDistribution} onChange={handleDistributionChange}>
-          <option>Age</option>
-          <option>Education</option>
+          <option value={"age"}>Age</option>
+          <option value={"EDCU"}>Education</option>
         </select>
         </div>
   )

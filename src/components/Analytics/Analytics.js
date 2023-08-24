@@ -10,7 +10,7 @@ import DataSelection from '../DataSelection/DataSelection';
 
 
 const Analytics = () => {
-  const [selectedData, setSelectedData] = useState('Income')
+  const [selectedData, setSelectedData] = useState('income')
   const [outputSelectedData, setOutputSelectedData] = useState([])
 
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
@@ -32,15 +32,18 @@ const Analytics = () => {
     {
       year: 2010,
       data: [
-      {age: 54, EDCU: "no high school diploma/GED", income: 1, wage: 56000},
       {age: 54,
-        EDCU: "high school diploma or GED",
+        EDCU: 1,
+        income: 1,
+        wage: 56000},
+      {age: 54,
+        EDCU: 2,
         income: 1,wage: 35000},
       {age: 28,
-        EDCU: "Ph.D",
+        EDCU: 2,
         income: 2,wage: 82000},
       {age: 23,
-        EDCU: "bachelors degree or higher",
+        EDCU: 3,
         income: 3,wage: 56000}
       ],
     },
@@ -48,16 +51,16 @@ const Analytics = () => {
       year: 2013,
       data: [
         {age: 34,
-          EDCU: "high school diploma or GED",
+          EDCU: 3,
           income: 1, wage: 36000},
         {age: 48,
-          EDCU: "high school diploma or GED",
+          EDCU: 4,
           income: 3, wage: 46000 },
         {age: 28,
-          EDCU: "Ph.D",
+          EDCU: 3,
           income: 4, wage: 92000},
         {age: 23,
-          EDCU: "bachelors degree or higher",
+          EDCU: 1,
           income: 5, wage: 70000}
       ]
     },
@@ -65,16 +68,16 @@ const Analytics = () => {
       year: 2016,
       data: [
         {age: 60,
-          EDCU: "no high school diploma/GED",
+          EDCU: 2,
           income: 3, wage: 56000},
         {age: 54,
-          EDCU: "MA/MS/MBA",
+          EDCU: 3,
           income: 4, wage: 65000},
         {age: 28,
-          EDCU: "Ph.D",
+          EDCU: 1,
           income: 1, wage: 120000},
         {age: 49,
-          EDCU: "Associate degree in college - occupation/vocation program",
+          EDCU: 2,
           income: 1, wage: 60000}
       ]
     },
@@ -82,16 +85,16 @@ const Analytics = () => {
       year: 2019,
       data: [
         {age: 76,
-          EDCU: "high school diploma or GED",
+          EDCU: 3,
           income: 1, wage: 56000},
         {age: 54,
-          EDCU: "high school diploma or GED",
+          EDCU: 4,
           income: 5, wage: 66000},
         {age: 41,
-          EDCU: "Ph.D",
+          EDCU: 1,
           income: 2, wage: 90000},
         {age: 23,
-          EDCU: "achelors degree or higher",
+          EDCU: 1,
           income: 1, wage: 59000}
       ]
     },
@@ -135,6 +138,7 @@ const Analytics = () => {
         data={data2}
         distributedData={distributedData}
         setDistributedData={setDistributedData}
+        selectedData={selectedData}
         />
 
         <DisplaySelection 
@@ -142,7 +146,9 @@ const Analytics = () => {
         setSelectedDisplay={setSelectedDisplay}
         distributedData={distributedData}
         filteredData={filteredData}
-        setFilteredData={setFilteredData}/>
+        setFilteredData={setFilteredData}
+        selectedData={selectedData}
+        />
       </div>
 
       <div className='adjustment'>
