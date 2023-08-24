@@ -103,26 +103,25 @@ const Analytics = () => {
     },
   ]
 
-  const changeYear = (data, value) => {
+  const changeYear = (data, value, property) => {
     const newYearData = []
 
     for (const dataEntry of data) {
       if (dataEntry.year >= value[0] && dataEntry.year <= value[1]){
         newYearData.push({
           year: dataEntry.year,
-          income: dataEntry.income
+          [property]: dataEntry[property]
         })
       }
     }
-
-    console.log("YearData: ", newYearData)
     return newYearData
   }
 
   useEffect(() => {
-    const newData = changeYear(UnitData, value)
+    const newData = changeYear(UnitData, value, selectedData)
     setYearData(newData)
-  }, [value, distributedData, filteredData, selectedUnit])
+    console.log("year:", newData)
+  }, [value, distributedData, filteredData, selectedUnit, UnitData])
 
   return (
     <div className='analytics_container'>
@@ -197,7 +196,7 @@ const Analytics = () => {
       <Legend />
       <Line
         type="monotone"
-        dataKey="income"
+        dataKey={selectedData}
         stroke="#8884d8"
         activeDot={{ r: 8 }}
       />
