@@ -16,7 +16,7 @@ const Analytics = () => {
   const [selectedDistribution, setSelectedDistribution] = useState('EDCU');
   const [distributedData, setDistributedData] = useState([])
 
-  const [selectedDisplay, setSelectedDisplay] = useState("45+")
+  const [selectedDisplay, setSelectedDisplay] = useState("1")
   const [filteredData, setFilteredData] = useState([])
 
   const [UnitData, setUnitData] = useState([])

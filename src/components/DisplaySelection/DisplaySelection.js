@@ -6,7 +6,7 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
 
   const [uniqueValues, setUniqueValues] = useState([])
 
-  const DataDisplay = (data, selectedDisplay) => {
+  const ageDataDisplay = (data, selectedDisplay) => {
     const filteredData = data.map(yearEntry => ({
       year: yearEntry.year,
       data: yearEntry.data.filter(item => {
@@ -34,15 +34,48 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
     return filteredData;
   };
 
+
+
+  // const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
+  //   const filteredData = data.map(yearEntry => ({
+  //     year: yearEntry.year,
+  //     data: yearEntry.data.filter(item => item[selectedDistribution] === selectedDisplay)
+  //   }));
+  //   console.log(selectedDistribution, selectedDisplay)
+  //   return filteredData;
+  // };
+
+  const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
+    const filteredData = data.map(yearEntry => {
+      const filteredYearData = yearEntry.data.filter(item => {
+        return item[selectedDistribution] == selectedDisplay;
+      });
+
+      return {
+        year: yearEntry.year,
+        data: filteredYearData
+      };
+    });
+
+    console.log("filteredData:", filteredData);
+
+    return filteredData;
+  };
+
+
+
   const handleDisplayChange = (e) => {
     setSelectedDisplay(e.target.value);
   }
 
     useEffect(() => {
-    const newfilteredData = DataDisplay(distributedData, selectedDisplay);
+    const newfilteredData = DataDisplay(distributedData, selectedDistribution, selectedDisplay);
     setFilteredData(newfilteredData)
     console.log("filteredData:", newfilteredData, selectedDisplay)
-  }, [distributedData, selectedDisplay]);
+  }, [distributedData, selectedDisplay, selectedDistribution]);
+
+
+
 
   function extractUniqueValues(data, property) {
     const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
