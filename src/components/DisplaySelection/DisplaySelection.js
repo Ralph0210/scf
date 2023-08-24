@@ -1,8 +1,11 @@
 import React from 'react'
 import './DisplaySelection.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData}) => {
+const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution}) => {
+
+  const [uniqueValues, setUniqueValues] = useState([])
+
   const DataDisplay = (data, selectedDisplay) => {
     const filteredData = data.map(yearEntry => ({
       year: yearEntry.year,
@@ -41,14 +44,34 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
     console.log("filteredData:", newfilteredData, selectedDisplay)
   }, [distributedData, selectedDisplay]);
 
+  function extractUniqueValues(data, property) {
+    const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
+  return uniqueValues;
+  }
+
+  useEffect(() => {
+    if (distributedData.length > 0) {
+      const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution);
+      setUniqueValues(newUniqueValues);
+      console.log("uniquevalues:", newUniqueValues);
+    }
+  }, [distributedData, selectedDistribution]);
+
+
+  // useEffect(() => {
+  //   console.log("uniquevalues:", uniqueValues);
+  // }, [uniqueValues]);
+
+
   return (
     <div className='display_container'>
         <label htmlFor='Display'>Display</label>
         <select id='Display' className='Display' value={selectedDisplay} onChange={handleDisplayChange} >
-            <option value="0-18">0-18</option>
-            <option value="19-24">19-24</option>
-            <option value="25-45">25-45</option>
-            <option value="45+">45+</option>
+    {uniqueValues.map(value => (
+      <option key={value} value={value}>
+        {value}
+      </option>
+    ))}
         </select>
         </div>
   )

@@ -23,7 +23,6 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
 
   const handleDistributionChange = (e) => {
     setSelectedDistribution(e.target.value);
-    // const selectedData = DataDistribution(data2);
   }
 
   useEffect(() => {
@@ -31,6 +30,12 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
     setDistributedData(newDistributionData)
     console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
   }, [setDistributedData, selectedDistribution, selectedData]);
+
+  useEffect(() => {
+    const newDistributionData = DataDistribution(data, [selectedData, selectedDistribution]);
+    setDistributedData(newDistributionData)
+    console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
+  }, []);
 
 
   return (

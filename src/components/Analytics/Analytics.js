@@ -13,7 +13,7 @@ const Analytics = () => {
   const [selectedData, setSelectedData] = useState('income')
   const [outputSelectedData, setOutputSelectedData] = useState([])
 
-  const [selectedDistribution, setSelectedDistribution] = useState('Age');
+  const [selectedDistribution, setSelectedDistribution] = useState('EDCU');
   const [distributedData, setDistributedData] = useState([])
 
   const [selectedDisplay, setSelectedDisplay] = useState("45+")
@@ -26,7 +26,10 @@ const Analytics = () => {
   const [value, setValue] = useState([2010, 2019]);
   const [yearData, setYearData] = useState([])
 
+  // initialize the data
   const [currentData, setCurrentData] = useState([]);
+
+
 
   const data2 = [
     {
@@ -148,6 +151,7 @@ const Analytics = () => {
         filteredData={filteredData}
         setFilteredData={setFilteredData}
         selectedData={selectedData}
+        selectedDistribution={selectedDistribution}
         />
       </div>
 
