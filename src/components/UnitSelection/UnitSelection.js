@@ -2,8 +2,10 @@ import React from 'react'
 import './UnitSelection.css'
 import { useEffect } from 'react'
 
-const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filteredData, UnitData, setUnitData}) => {
-  const calculateByUnit = (data, selectedUnit) => {
+const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filteredData, UnitData, setUnitData, selectedDistribution, selectedData, selectedDisplay}) => {
+
+
+  const calculateByUnit = (data, selectedUnit, selectedData, selectedDistribution, selectedDisplay) => {
     const calculated = [];
 
     for (const yearData of data) {
@@ -13,14 +15,15 @@ const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filtered
       if (selectedUnit === "Mean") {
       let total = 0;
       for (const person of yearDataArray) {
-        total += person.income;
+        total += person[selectedData];
       }
 
       const calculate = total / yearDataArray.length;
       // console.log(calculate)
       calculated.push({
         year: year,
-        income: calculate,
+        [selectedData]: calculate,
+        [selectedDistribution]: selectedDisplay
       });
 
     } else {
@@ -31,11 +34,20 @@ const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filtered
   return calculated
   }
 
+
+
     useEffect(() => {
-      const newCalculated = calculateByUnit(filteredData, selectedUnit)
+      const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
       setUnitData(newCalculated)
-      console.log("unitData:", UnitData)
-    },[distributedData, filteredData, selectedUnit])
+      console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
+    },[selectedUnit, filteredData])
+
+    useEffect(() => {
+      const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
+      setUnitData(newCalculated)
+      console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
+    },[])
+
 
 
 

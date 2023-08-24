@@ -164,6 +164,9 @@ const Analytics = () => {
       filteredData={filteredData}
       UnitData={UnitData}
       setUnitData={setUnitData}
+      selectedDistribution={selectedDistribution}
+      selectedData={selectedData}
+      selectedDisplay={selectedDisplay}
       />
 
         <div className='year_range_container'>

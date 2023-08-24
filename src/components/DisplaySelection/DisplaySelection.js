@@ -72,7 +72,7 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
     const newfilteredData = DataDisplay(distributedData, selectedDistribution, selectedDisplay);
     setFilteredData(newfilteredData)
     console.log("filteredData:", newfilteredData, selectedDisplay)
-  }, [distributedData, selectedDisplay, selectedDistribution]);
+  }, [distributedData, selectedDisplay]);
 
 
 
