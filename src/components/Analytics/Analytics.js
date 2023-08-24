@@ -4,18 +4,24 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { useState, useEffect } from 'react';
 import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 import DistributionSelection from '../DistributionSelection/DistributionSelection';
+import DisplaySelection from '../DisplaySelection/DisplaySelection';
 
 
 const Analytics = () => {
   const [selectedDistribution, setSelectedDistribution] = useState('Age');
-  const [selectedDisplay, setSelectedDisplay] = useState("45+")
   const [distributedData, setDistributedData] = useState([])
+
+  const [selectedDisplay, setSelectedDisplay] = useState("45+")
   const [filteredData, setFilteredData] = useState([])
+
   const [UnitData, setUnitData] = useState([])
   const [selectedUnit, setSelectedUnit] = useState('Mean'); // Set initial selected option
-  const [currentData, setCurrentData] = useState([]);
+
+
   const [value, setValue] = useState([2010, 2019]);
   const [yearData, setYearData] = useState([])
+
+  const [currentData, setCurrentData] = useState([]);
 
   const data2 = [
     {
@@ -86,40 +92,6 @@ const Analytics = () => {
     },
   ]
 
-  const DataDisplay = (data, selectedDisplay) => {
-    const filteredData = data.map(yearEntry => ({
-      year: yearEntry.year,
-      data: yearEntry.data.filter(item => {
-        const age = item.age;
-        if (selectedDisplay === "25-45") {
-          return age >= 25 && age <= 45;
-        }
-        else if (selectedDisplay === "19-24") {
-          return age >= 19 && age <= 24;
-        }
-        else if (selectedDisplay === "0-18") {
-          return age <= 18;
-        }
-        else if (selectedDisplay === "45+") {
-          return age > 45;
-        }
-
-        else {
-          return age > 45;
-        }
-        // Add more conditions for other age groups if needed
-        return false; // Return true by default if no conditions match
-      })
-    }));
-    return filteredData;
-  };
-
-    useEffect(() => {
-    const newfilteredData = DataDisplay(distributedData, selectedDisplay);
-    setFilteredData(newfilteredData)
-    console.log("filteredData:", newfilteredData, selectedDisplay)
-  }, [distributedData, selectedDisplay]);
-
 const calculateByUnit = (data, selectedUnit) => {
   const calculated = [];
 
@@ -159,10 +131,6 @@ return calculated
   const handleUnitChange = (event) => {
     setSelectedUnit(event.target.value);
   };
-
-  const handleDisplayChange = (e) => {
-    setSelectedDisplay(e.target.value);
-  }
 
   const changeYear = (data, value) => {
     const newYearData = []
@@ -206,15 +174,12 @@ return calculated
         setDistributedData={setDistributedData}
         />
 
-        <div className='display_container'>
-        <label htmlFor='Display'>Display</label>
-        <select id='Display' className='Display' value={selectedDisplay} onChange={handleDisplayChange} >
-            <option value="0-18">0-18</option>
-            <option value="19-24">19-24</option>
-            <option value="25-45">25-45</option>
-            <option value="45+">45+</option>
-        </select>
-        </div>
+        <DisplaySelection 
+        selectedDisplay={selectedDisplay}
+        setSelectedDisplay={setSelectedDisplay}
+        distributedData={distributedData}
+        filteredData={filteredData}
+        setFilteredData={setFilteredData}/>
       </div>
 
       <div className='adjustment'>
