@@ -7,16 +7,17 @@ import DistributionSelection from '../DistributionSelection/DistributionSelectio
 import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from '../UnitSelection/UnitSelection';
 import DataSelection from '../DataSelection/DataSelection';
+import data from '../../data.json'
 
 
 const Analytics = () => {
-  const [selectedData, setSelectedData] = useState('income')
+  const [selectedData, setSelectedData] = useState('INCOME')
   const [outputSelectedData, setOutputSelectedData] = useState([])
 
-  const [selectedDistribution, setSelectedDistribution] = useState('EDCU');
+  const [selectedDistribution, setSelectedDistribution] = useState('EDCL');
   const [distributedData, setDistributedData] = useState([])
 
-  const [selectedDisplay, setSelectedDisplay] = useState("1")
+  const [selectedDisplay, setSelectedDisplay] = useState("2")
   const [filteredData, setFilteredData] = useState([])
 
   const [UnitData, setUnitData] = useState([])
@@ -35,70 +36,85 @@ const Analytics = () => {
     {
       year: 2010,
       data: [
-      {age: 54,
-        EDCU: 1,
-        income: 1,
-        wage: 56000},
-      {age: 54,
-        EDCU: 2,
-        income: 1,wage: 35000},
-      {age: 28,
-        EDCU: 2,
-        income: 2,wage: 82000},
-      {age: 23,
-        EDCU: 3,
-        income: 3,wage: 56000}
+      {HHSEX: 2,
+        EDCL: 1,
+        income: 67195.781504,
+        Rent: 0},
+      {HHSEX: 2,
+        EDCL: 3,
+        income: 57014.602488,
+        Rent: 1100},
+      {HHSEX: 1,
+        EDCL: 4,
+        income: 51924.01298,
+        Rent: 1000},
+      {HHSEX: 2,
+        EDCL: 2,
+        income: 41742.833964,
+        Rent: 0}
       ],
     },
     {
       year: 2013,
       data: [
-        {age: 34,
-          EDCU: 3,
-          income: 1, wage: 36000},
-        {age: 48,
-          EDCU: 4,
-          income: 3, wage: 46000 },
-        {age: 28,
-          EDCU: 3,
-          income: 4, wage: 92000},
-        {age: 23,
-          EDCU: 1,
-          income: 5, wage: 70000}
+        {HHSEX: 1,
+          EDCL: 1,
+          income: 50905.895078,
+          Rent: 500,},
+        {HHSEX: 1,
+          EDCL: 1,
+          income: 38688.48026,
+          Rent: 600},
+        {HHSEX: 2,
+          EDCL: 4,
+          income: 37670.362358,
+          Rent: 0},
+        {HHSEX: 2,
+          EDCL: 2,
+          income: 38688.48026,
+          Rent: 627.50773558}
       ]
     },
     {
       year: 2016,
       data: [
-        {age: 60,
-          EDCU: 2,
-          income: 3, wage: 56000},
-        {age: 54,
-          EDCU: 3,
-          income: 4, wage: 65000},
-        {age: 28,
-          EDCU: 1,
-          income: 1, wage: 120000},
-        {age: 49,
-          EDCU: 2,
-          income: 1, wage: 60000}
+        {HHSEX: 1,
+          EDCL: 2,
+          income: 104866.14386,
+          Rent: 0},
+        {HHSEX: 1,
+          EDCL: 1,
+          income: 14004.770629,
+          Rent: 0},
+        {HHSEX: 1,
+          EDCL: 3,
+          income: 23700.381065,
+          Rent: 542.42194093},
+        {HHSEX: 2,
+          EDCL: 2,
+          income: 121733.77547,
+          Rent: 197.67063607}
       ]
     },
     {
       year: 2019,
       data: [
-        {age: 76,
-          EDCU: 3,
-          income: 1, wage: 56000},
-        {age: 54,
-          EDCU: 4,
-          income: 5, wage: 66000},
-        {age: 41,
-          EDCU: 1,
-          income: 2, wage: 90000},
-        {age: 23,
-          EDCU: 1,
-          income: 1, wage: 59000}
+        {HHSEX: 1,
+          EDCL: 3,
+          income: 124210.38399,
+          Rent: 0},
+        {HHSEX: 2,
+          EDCL: 1,
+          income: 29525.419145,
+          Rent: 0},
+        {HHSEX: 2,
+          EDCL: 1,
+          income: 30543.537047,
+          Rent: 0},
+        {HHSEX: 2,
+          EDCL: 4,
+          income: 27489.183342,
+          Rent: 197.67063607}
       ]
     },
   ]
@@ -130,14 +146,14 @@ const Analytics = () => {
         <DataSelection
         selectedData={selectedData}
         setSelectedData={setSelectedData}
-        data={data2}
+        data={data}
         setOutputSelectedData={setOutputSelectedData}
         />
 
         <DistributionSelection 
         selectedDistribution={selectedDistribution}
         setSelectedDistribution={setSelectedDistribution}
-        data={data2}
+        data={data}
         distributedData={distributedData}
         setDistributedData={setDistributedData}
         selectedData={selectedData}

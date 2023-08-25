@@ -64,8 +64,12 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
 
 
 
-  const handleDisplayChange = (e) => {
-    setSelectedDisplay(e.target.value);
+  const handleDisplayChange = (event) => {
+    const selectedOptions = Array.from(event.target.options)
+      .filter(option => option.selected)
+      .map(option => option.value);
+
+    setSelectedDisplay(selectedOptions);
   }
 
     useEffect(() => {
@@ -99,7 +103,7 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
   return (
     <div className='display_container'>
         <label htmlFor='Display'>Display</label>
-        <select id='Display' className='Display' value={selectedDisplay} onChange={handleDisplayChange} >
+        <select id='Display' className='Display' value={selectedDisplay} onChange={handleDisplayChange}>
     {uniqueValues.map(value => (
       <option key={value} value={value}>
         {value}

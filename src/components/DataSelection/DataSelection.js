@@ -35,10 +35,10 @@ useEffect(()=>{
     <div className='data_container'>
         <label htmlFor='Data'>Data</label>
         <select id='Data' className='Data' value={selectedData} onChange={handleDataChange}>
-          <option>Asset</option>
-          <option>Debt</option>
-          <option value={"income"}>Income</option>
-          <option value={"wage"}>Wage</option>
+          <option value={"EDCL"}>Education</option>
+          <option value={"HHSEX"}>Sex</option>
+          <option value={"INCOME"}>Income</option>
+          <option value={"RENT"}>Rent</option>
         </select>
         </div>
   )

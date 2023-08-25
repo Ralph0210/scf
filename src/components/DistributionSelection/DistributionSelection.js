@@ -43,8 +43,8 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
         <label htmlFor='Distribution'>Distributed by</label>
         <select id='Distribution'
         className='Distribution' value={selectedDistribution} onChange={handleDistributionChange}>
-          <option value={"age"}>Age</option>
-          <option value={"EDCU"}>Education</option>
+          <option value={"HHSEX"}>Sex</option>
+          <option value={"EDCL"}>Education</option>
         </select>
         </div>
   )
