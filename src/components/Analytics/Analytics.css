@@ -45,6 +45,24 @@ select {
      background: #0E518E;
 }
 
+.data_container p{
+     background: #EBF4F8;
+     display: inline-flex;
+     padding: 0.75rem 3rem;
+     justify-content: center;
+     align-items: center;
+     gap: 1rem;
+     border-radius: 2rem;
+     border: 0;
+
+     color: #7C9CBF;
+     font-family: Helvetica Neue;
+     font-size: 1.6rem;
+     font-style: normal;
+     font-weight: 400;
+     line-height: normal;
+}
+
 .distribution_container select{
      background: #70B77E;
 }

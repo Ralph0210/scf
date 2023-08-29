@@ -3,11 +3,12 @@ import './Analytics.css'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useState, useEffect } from 'react';
 import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
-import DistributionSelection from '../DistributionSelection/DistributionSelection';
-import DisplaySelection from '../DisplaySelection/DisplaySelection';
+// import DistributionSelection from '../DistributionSelection/DistributionSelection';
+// import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from '../UnitSelection/UnitSelection';
-import DataSelection from '../DataSelection/DataSelection';
-import data from '../../data.json'
+// import DataSelection from '../DataSelection/DataSelection';
+import dataL from '/Users/ralph/Desktop/dataL.json'
+import DataPipeline from '../DataPipeline/DataPipeline';
 
 
 const Analytics = () => {
@@ -141,34 +142,20 @@ const Analytics = () => {
 
   return (
     <div className='analytics_container'>
-      <div className='source'>
-
-        <DataSelection
-        selectedData={selectedData}
-        setSelectedData={setSelectedData}
-        data={data}
-        setOutputSelectedData={setOutputSelectedData}
-        />
-
-        <DistributionSelection 
-        selectedDistribution={selectedDistribution}
-        setSelectedDistribution={setSelectedDistribution}
-        data={data}
-        distributedData={distributedData}
-        setDistributedData={setDistributedData}
-        selectedData={selectedData}
-        />
-
-        <DisplaySelection 
-        selectedDisplay={selectedDisplay}
+      <DataPipeline
+      selectedData={selectedData}
+      setSelectedData={setSelectedData}
+      data={dataL}
+      setOutputSelectedData={setOutputSelectedData}
+      selectedDistribution={selectedDistribution}
+      setSelectedDistribution={setSelectedDistribution}
+      distributedData={distributedData}
+      setDistributedData={setDistributedData}
+      selectedDisplay={selectedDisplay}
         setSelectedDisplay={setSelectedDisplay}
-        distributedData={distributedData}
         filteredData={filteredData}
         setFilteredData={setFilteredData}
-        selectedData={selectedData}
-        selectedDistribution={selectedDistribution}
-        />
-      </div>
+      />
 
       <div className='adjustment'>
 
