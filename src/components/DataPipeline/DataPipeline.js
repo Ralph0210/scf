@@ -15,7 +15,7 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         setOutputSelectedData={setOutputSelectedData}
         />
 
-        <DistributionSelection 
+        <DistributionSelection
         selectedDistribution={selectedDistribution}
         setSelectedDistribution={setSelectedDistribution}
         data={data}
@@ -24,7 +24,7 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         selectedData={selectedData}
         />
 
-        <DisplaySelection 
+        <DisplaySelection
         selectedDisplay={selectedDisplay}
         setSelectedDisplay={setSelectedDisplay}
         distributedData={distributedData}
