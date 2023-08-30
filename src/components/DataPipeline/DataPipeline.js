@@ -10,11 +10,13 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
     const [additionalDataSelections, setAdditionalDataSelections] = useState([]);
     const [additionalDistributionSelections, setAdditionalDistributionSelections] = useState([]);
     const [additionalDisplaySelections, setAdditionalDisplaySelections] = useState([]);
+    const [additionalUniqueValues, setAdditionalUniqueValues] = useState([]);
 
     const addAdditionalElement = () => {
       setAdditionalDataSelections(prevElements => [...prevElements, { selectedData: '' }]);
       setAdditionalDistributionSelections(prevElements => [...prevElements, { selectedDistribution: '' }]);
       setAdditionalDisplaySelections(prevElements => [...prevElements, { selectedDisplay: '' }]);
+      setAdditionalUniqueValues(prevValues => [...prevValues, []]);
     };
 
 
@@ -52,6 +54,8 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         selectedDistribution={selectedDistribution}
         additionalDisplaySelections={additionalDisplaySelections}
         setAdditionalDisplaySelections={setAdditionalDisplaySelections}
+        additionalUniqueValues={additionalUniqueValues}
+        setAdditionalUniqueValues={setAdditionalUniqueValues}
         />
       </div>
   )

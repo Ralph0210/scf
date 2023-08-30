@@ -2,7 +2,7 @@ import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections}) => {
+const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
 
   const [uniqueValues, setUniqueValues] = useState([])
 
@@ -89,37 +89,49 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
   // return uniqueValues;
   // }
 
-  function extractUniqueValues(data, property) {
+  function extractUniqueValues(data, property, index) {
     if (property === "None") {
       return ["None"];
     }
     
     const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
+    
+    // Update the specific array of unique values
+    setAdditionalUniqueValues(prevValues => {
+      const updatedValues = [...prevValues];
+      updatedValues[index] = uniqueValues;
+      return updatedValues;
+    });
+    
     return uniqueValues;
   }
+  
   
 
   useEffect(() => {
     if (distributedData.length > 0) {
-      const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution);
+      const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution, 0); // Use appropriate index
       setUniqueValues(newUniqueValues);
-      console.log("uniquevalues:", newUniqueValues);
     }
   }, [distributedData, selectedDistribution]);
-
-
-  // useEffect(() => {
-  //   console.log("uniquevalues:", uniqueValues);
-  // }, [uniqueValues]);
-
+  
+  // ...
+  
   const handleAdditionalDataChange = (event, index) => {
     const selectedDisplay = event.target.value;
     const updatedElements = [...additionalDisplaySelections];
     updatedElements[index].selectedDisplay = selectedDisplay;
     setAdditionalDisplaySelections(updatedElements);
+    
+    // Update unique values for the specific additional display selection
+    const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution, index);
+    setAdditionalUniqueValues(prevValues => {
+      const updatedValues = [...prevValues];
+      updatedValues[index] = newUniqueValues;
+      return updatedValues;
+    });
   };
-
-
+  
   return (
     <div className='display_container'>
         <label htmlFor='Display'>Display</label>
@@ -132,18 +144,22 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
         </select>
 
         {additionalDisplaySelections.map((element, index) => (
-    <div key={index}>
-      {/* Additional elements */}
-      <select
-        id={`Data${index + 2}`}
-        className='Data'
-        value={element.selectedDistribution}
-        onChange={event => handleAdditionalDataChange(event, index)}
-      >
-        {/* map uniqueValues */}
-      </select>
-    </div>
-  ))}
+  <div key={index}>
+    {/* Additional elements */}
+    <select
+      id={`Data${index + 2}`}
+      className='Data'
+      value={element.selectedDistribution}
+      onChange={event => handleAdditionalDataChange(event, index)}
+    >
+      {additionalUniqueValues[index].map(value => (
+        <option key={value} value={value}>
+          {value}
+        </option>
+      ))}
+    </select>
+  </div>
+))}
         </div>
   )
 }
