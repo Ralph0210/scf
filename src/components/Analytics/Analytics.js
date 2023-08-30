@@ -7,7 +7,7 @@ import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 // import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from '../UnitSelection/UnitSelection';
 // import DataSelection from '../DataSelection/DataSelection';
-import dataL from '../../../public/dataL.json'
+import dataL from '../../dataL.json'
 import DataPipeline from '../DataPipeline/DataPipeline';
 
 
