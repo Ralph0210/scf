@@ -2,7 +2,7 @@ import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution}) => {
+const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections}) => {
 
   const [uniqueValues, setUniqueValues] = useState([])
 
@@ -112,6 +112,13 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
   //   console.log("uniquevalues:", uniqueValues);
   // }, [uniqueValues]);
 
+  const handleAdditionalDataChange = (event, index) => {
+    const selectedDisplay = event.target.value;
+    const updatedElements = [...additionalDisplaySelections];
+    updatedElements[index].selectedDisplay = selectedDisplay;
+    setAdditionalDisplaySelections(updatedElements);
+  };
+
 
   return (
     <div className='display_container'>
@@ -123,6 +130,20 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
       </option>
     ))}
         </select>
+
+        {additionalDisplaySelections.map((element, index) => (
+    <div key={index}>
+      {/* Additional elements */}
+      <select
+        id={`Data${index + 2}`}
+        className='Data'
+        value={element.selectedDistribution}
+        onChange={event => handleAdditionalDataChange(event, index)}
+      >
+        {/* map uniqueValues */}
+      </select>
+    </div>
+  ))}
         </div>
   )
 }

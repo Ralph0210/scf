@@ -3,8 +3,21 @@ import './DataPipeline.css'
 import DataSelection from '../DataSelection/DataSelection'
 import DistributionSelection from '../DistributionSelection/DistributionSelection'
 import DisplaySelection from '../DisplaySelection/DisplaySelection'
+import { useState } from 'react'
 
 const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData}) => {
+
+    const [additionalDataSelections, setAdditionalDataSelections] = useState([]);
+    const [additionalDistributionSelections, setAdditionalDistributionSelections] = useState([]);
+    const [additionalDisplaySelections, setAdditionalDisplaySelections] = useState([]);
+
+    const addAdditionalElement = () => {
+      setAdditionalDataSelections(prevElements => [...prevElements, { selectedData: '' }]);
+      setAdditionalDistributionSelections(prevElements => [...prevElements, { selectedDistribution: '' }]);
+      setAdditionalDisplaySelections(prevElements => [...prevElements, { selectedDisplay: '' }]);
+    };
+
+
   return (
     <div className='source'>
 
@@ -13,6 +26,9 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         setSelectedData={setSelectedData}
         data={data}
         setOutputSelectedData={setOutputSelectedData}
+        additionalDataSelections={additionalDataSelections}
+        setAdditionalDataSelections={setAdditionalDataSelections}
+        addAdditionalElement={addAdditionalElement}
         />
 
         <DistributionSelection
@@ -22,6 +38,8 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         distributedData={distributedData}
         setDistributedData={setDistributedData}
         selectedData={selectedData}
+        additionalDistributionSelections={additionalDistributionSelections}
+        setAdditionalDistributionSelections={setAdditionalDistributionSelections}
         />
 
         <DisplaySelection
@@ -32,6 +50,8 @@ const DataPipeline = ({selectedData, setSelectedData, data, setOutputSelectedDat
         setFilteredData={setFilteredData}
         selectedData={selectedData}
         selectedDistribution={selectedDistribution}
+        additionalDisplaySelections={additionalDisplaySelections}
+        setAdditionalDisplaySelections={setAdditionalDisplaySelections}
         />
       </div>
   )

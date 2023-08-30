@@ -1,63 +1,26 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const DataSelection = ({selectedData, setSelectedData, data, setOutputSelectedData}) => {
-
-    // const dataselect = (data, property) => {
-    //     const selectedData = data.map(yearEntry => ({
-    //       year: yearEntry.year,
-    //       data: yearEntry.data.map(item => ({
-    //         [property]: item[property],
-    //       }))
-    //     }));
-
-    //     // console.log("selectedData:", selectedData); // Log the selected data
-
-    //   // You can return the selectedData array if needed
-    //   return selectedData;
-    //   }
+const DataSelection = ({selectedData, setSelectedData, data, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
 const handleDataChange =(e) => {
     setSelectedData(e.target.value)
 }
 
+const handleAdditionalDataChange = (event, index) => {
+  const selectedData = event.target.value;
+  const updatedElements = [...additionalDataSelections];
+  updatedElements[index].selectedData = selectedData;
+  setAdditionalDataSelections(updatedElements);
+};
+
+
 useEffect(()=>{
     console.log(selectedData)
 },[selectedData])
 
-// useEffect(() => {
-//     const newSelectedData = dataselect(data, selectedData)
-//     setOutputSelectedData(newSelectedData)
-//     console.log("selectedData:", newSelectedData, selectedData)
-// },[setSelectedData, selectedData])
-
-const [additionalElements, setAdditionalElements] = useState([]);
-
-  const addAdditionalElement = () => {
-    setAdditionalElements(prevElements => [...prevElements, { selectedData: '' }]);
-  };
-
-  const handleAdditionalDataChange = (event, index) => {
-    const updatedElements = [...additionalElements];
-    updatedElements[index].selectedData = event.target.value;
-    setAdditionalElements(updatedElements);
-  };
-
 
   return (
-    // <div className='data_container'>
-    //     <label htmlFor='Data'>Data</label>
-    //     <select id='Data' className='Data' value={selectedData} onChange={handleDataChange}>
-    //       <option value={"EDCL"}>Education</option>
-    //       <option value={"HHSEX"}>Sex</option>
-    //       <option value={"INCOME"}>Income</option>
-    //       <option value={"RENT"}>Rent</option>
-    //       <option value={"FIN"}>FIN</option>
-    //     </select>
-
-    //     <p>+</p>
-    //     </div>
-
     <div className='data_container'>
   <label htmlFor='Data'>Data</label>
   <select id='Data' className='Data' value={selectedData} onChange={handleDataChange}>
@@ -68,7 +31,7 @@ const [additionalElements, setAdditionalElements] = useState([]);
     <option value={"FIN"}>FIN</option>
   </select>
 
-  {additionalElements.map((element, index) => (
+  {additionalDataSelections.map((element, index) => (
     <div key={index}>
       {/* Additional elements */}
       <select

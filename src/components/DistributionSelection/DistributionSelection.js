@@ -2,7 +2,7 @@ import React from 'react'
 import './DistributionSelection.css'
 import { useEffect } from 'react';
 
-const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, data, distributedData, setDistributedData, selectedData }) => {
+const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, data, distributedData, setDistributedData, selectedData, additionalDistributionSelections, setAdditionalDistributionSelections }) => {
   
   // const DataDistribution = (data, properties) => {
   //   const selectedData = data.map(yearEntry => ({
@@ -61,7 +61,13 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
     setDistributedData(newDistributionData)
     console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
   }, []);
-
+  
+  const handleAdditionalDataChange = (event, index) => {
+    const selectedDistribution = event.target.value;
+    const updatedElements = [...additionalDistributionSelections];
+    updatedElements[index].selectedDistribution = selectedDistribution;
+    setAdditionalDistributionSelections(updatedElements);
+  };
 
   return (
     <div className='distribution_container'>
@@ -74,6 +80,26 @@ const DistributionSelection = ({ selectedDistribution, setSelectedDistribution, 
           <option value={"MARRIED"}>Married</option>
           <option value={"RACE"}>Race</option>
         </select>
+
+
+        {additionalDistributionSelections.map((element, index) => (
+    <div key={index}>
+      {/* Additional elements */}
+      <select
+        id={`Data${index + 2}`}
+        className='Data'
+        value={element.selectedDistribution}
+        onChange={event => handleAdditionalDataChange(event, index)}
+      >
+        <option value={"None"}>None</option>
+          <option value={"HHSEX"}>Sex</option>
+          <option value={"EDCL"}>Education</option>
+          <option value={"MARRIED"}>Married</option>
+          <option value={"RACE"}>Race</option>
+      </select>
+    </div>
+  ))}
+
         </div>
   )
 }
