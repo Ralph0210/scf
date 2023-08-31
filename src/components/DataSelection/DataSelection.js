@@ -1,18 +1,31 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const DataSelection = ({selectedData, setSelectedData, data, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
+const DataSelection = ({dataSelections, setDataSelections, selectedData, setSelectedData, data, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
-const handleDataChange =(e) => {
-    setSelectedData(e.target.value)
+const handleDataChange =(e, index) => {
+  const selectedData = e.target.value
+    const updatedValue = [...dataSelections]
+    updatedValue[index].selectedData = selectedData
+    setDataSelections(updatedValue)
+    console.log(updatedValue)
 }
 
-const handleAdditionalDataChange = (event, index) => {
-  const selectedData = event.target.value;
-  const updatedElements = [...additionalDataSelections];
-  updatedElements[index].selectedData = selectedData;
-  setAdditionalDataSelections(updatedElements);
-};
+// const handleAdditionalDataChange = (event, index) => {
+//   const selectedData = event.target.value;
+//   const updatedElements = [...additionalDataSelections];
+//   updatedElements[index].selectedData = selectedData;
+//   setAdditionalDataSelections(updatedElements);
+// };
+
+const handleAddition = () => {
+  const updatedElements = [...dataSelections]
+  updatedElements.push({selectedData: "INCOME",
+  selectedDistribution: "EDCL",
+  selectedDisplay: '2'})
+  setDataSelections(updatedElements)
+  console.log(updatedElements)
+}
 
 
 useEffect(()=>{
@@ -21,35 +34,20 @@ useEffect(()=>{
 
 
   return (
-    <div className='data_container'>
-  <label htmlFor='Data'>Data</label>
-  <select id='Data' className='Data' value={selectedData} onChange={handleDataChange}>
+<div className='data_container' >
+<label >Data</label>
+    {dataSelections.map((data, index) => (
+    <div key={index}>
+  <select id={`Data_${index}`} className='Data' value={data.selectedData} onChange={(event) => handleDataChange(event, index)}>
     <option value={"EDCL"}>Education</option>
     <option value={"HHSEX"}>Sex</option>
     <option value={"INCOME"}>Income</option>
     <option value={"RENT"}>Rent</option>
     <option value={"FIN"}>FIN</option>
   </select>
+  </div>))}
 
-  {additionalDataSelections.map((element, index) => (
-    <div key={index}>
-      {/* Additional elements */}
-      <select
-        id={`Data${index + 2}`}
-        className='Data'
-        value={element.selectedData}
-        onChange={event => handleAdditionalDataChange(event, index)}
-      >
-        <option value={"EDCL"}>Education</option>
-    <option value={"HHSEX"}>Sex</option>
-    <option value={"INCOME"}>Income</option>
-    <option value={"RENT"}>Rent</option>
-    <option value={"FIN"}>FIN</option>
-      </select>
-    </div>
-  ))}
-
-  <p onClick={addAdditionalElement}>+</p>
+  <p onClick={handleAddition}>+</p>
 </div>
 
   )

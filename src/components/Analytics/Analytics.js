@@ -12,6 +12,12 @@ import DataPipeline from '../DataPipeline/DataPipeline';
 
 
 const Analytics = () => {
+  const [dataSelections, setDataSelections] = useState([
+    {selectedData: "INCOME",
+      selectedDistribution: "EDCL",
+      selectedDisplay: '2'
+    },
+  ])
   const [selectedData, setSelectedData] = useState('INCOME')
   const [outputSelectedData, setOutputSelectedData] = useState([])
 
@@ -54,6 +60,8 @@ const Analytics = () => {
   return (
     <div className='analytics_container'>
       <DataPipeline
+      dataSelections={dataSelections}
+      setDataSelections={setDataSelections}
       selectedData={selectedData}
       setSelectedData={setSelectedData}
       data={dataL}
