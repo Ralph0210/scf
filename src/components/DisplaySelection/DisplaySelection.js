@@ -142,7 +142,7 @@ const DisplaySelection = ({dataSelections, setDataSelections, selectedDisplay, s
         <label htmlFor='Display'>Display</label>
 
         {dataSelections.map((data, index) => (
-        <div key={index}>
+        <div key={index} className='display_container_components'>
         <select id='Display' className='Display' value={data.selectedDisplay} onChange={handleDataChange}>
           <option>1</option>
     {/* {uniqueValues.map(value => (
@@ -151,7 +151,9 @@ const DisplaySelection = ({dataSelections, setDataSelections, selectedDisplay, s
       </option>
     ))} */}
         </select>
+        <div className='deletion_container'>
         <p onClick={() => handleDeletion(index)}>X</p>
+        </div>
         </div>
         ))}
         </div>

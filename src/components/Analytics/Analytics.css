@@ -63,6 +63,28 @@ select {
      line-height: normal;
 }
 
+.display_container p{
+/* width: 3rem;
+height: 3rem; */
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+color: #FF9F1C;
+}
+
+.deletion_container {
+     /* width: 3.2rem;
+height: 4.5rem; */
+flex-shrink: 0;
+border-radius: 2rem;
+background: #FEE7C4;
+}
+
+.display_container_components{
+     display: flex;
+     gap: 1.7rem;
+}
+
 .distribution_container select{
      background: #70B77E;
 }
