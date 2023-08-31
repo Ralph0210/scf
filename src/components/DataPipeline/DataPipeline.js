@@ -45,28 +45,32 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         />
 
         <DistributionSelection
-        selectedDistribution={selectedDistribution}
-        setSelectedDistribution={setSelectedDistribution}
+        dataSelections={dataSelections}
+        setDataSelections={setDataSelections}
+        // selectedDistribution={selectedDistribution}
+        // setSelectedDistribution={setSelectedDistribution}
         data={data}
-        distributedData={distributedData}
-        setDistributedData={setDistributedData}
-        selectedData={selectedData}
-        additionalDistributionSelections={additionalDistributionSelections}
-        setAdditionalDistributionSelections={setAdditionalDistributionSelections}
+        // distributedData={distributedData}
+        // setDistributedData={setDistributedData}
+        // selectedData={selectedData}
+        // additionalDistributionSelections={additionalDistributionSelections}
+        // setAdditionalDistributionSelections={setAdditionalDistributionSelections}
         />
 
         <DisplaySelection
-        selectedDisplay={selectedDisplay}
-        setSelectedDisplay={setSelectedDisplay}
-        distributedData={distributedData}
-        filteredData={filteredData}
-        setFilteredData={setFilteredData}
-        selectedData={selectedData}
-        selectedDistribution={selectedDistribution}
-        additionalDisplaySelections={additionalDisplaySelections}
-        setAdditionalDisplaySelections={setAdditionalDisplaySelections}
-        additionalUniqueValues={additionalUniqueValues}
-        setAdditionalUniqueValues={setAdditionalUniqueValues}
+        dataSelections={dataSelections}
+        setDataSelections={setDataSelections}
+        // selectedDisplay={selectedDisplay}
+        // setSelectedDisplay={setSelectedDisplay}
+        // distributedData={distributedData}
+        // filteredData={filteredData}
+        // setFilteredData={setFilteredData}
+        // selectedData={selectedData}
+        // selectedDistribution={selectedDistribution}
+        // additionalDisplaySelections={additionalDisplaySelections}
+        // setAdditionalDisplaySelections={setAdditionalDisplaySelections}
+        // additionalUniqueValues={additionalUniqueValues}
+        // setAdditionalUniqueValues={setAdditionalUniqueValues}
         />
       </div>
   )

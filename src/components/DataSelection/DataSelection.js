@@ -24,7 +24,6 @@ const handleAddition = () => {
   selectedDistribution: "EDCL",
   selectedDisplay: '2'})
   setDataSelections(updatedElements)
-  console.log(updatedElements)
 }
 
 
