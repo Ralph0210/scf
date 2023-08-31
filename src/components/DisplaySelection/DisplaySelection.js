@@ -6,44 +6,35 @@ const DisplaySelection = ({selectedDisplay, setSelectedDisplay, distributedData,
 
   const [uniqueValues, setUniqueValues] = useState([])
 
-  const ageDataDisplay = (data, selectedDisplay) => {
-    const filteredData = data.map(yearEntry => ({
-      year: yearEntry.year,
-      data: yearEntry.data.filter(item => {
-        const age = item.age;
-        if (selectedDisplay === "25-45") {
-          return age >= 25 && age <= 45;
-        }
-        else if (selectedDisplay === "19-24") {
-          return age >= 19 && age <= 24;
-        }
-        else if (selectedDisplay === "0-18") {
-          return age <= 18;
-        }
-        else if (selectedDisplay === "45+") {
-          return age > 45;
-        }
-
-        else {
-          return age > 45;
-        }
-        // Add more conditions for other age groups if needed
-        return false; // Return true by default if no conditions match
-      })
-    }));
-    return filteredData;
-  };
-
-
-
-  // const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
+  // const ageDataDisplay = (data, selectedDisplay) => {
   //   const filteredData = data.map(yearEntry => ({
   //     year: yearEntry.year,
-  //     data: yearEntry.data.filter(item => item[selectedDistribution] === selectedDisplay)
+  //     data: yearEntry.data.filter(item => {
+  //       const age = item.age;
+  //       if (selectedDisplay === "25-45") {
+  //         return age >= 25 && age <= 45;
+  //       }
+  //       else if (selectedDisplay === "19-24") {
+  //         return age >= 19 && age <= 24;
+  //       }
+  //       else if (selectedDisplay === "0-18") {
+  //         return age <= 18;
+  //       }
+  //       else if (selectedDisplay === "45+") {
+  //         return age > 45;
+  //       }
+
+  //       else {
+  //         return age > 45;
+  //       }
+  //       // Add more conditions for other age groups if needed
+  //       return false; // Return true by default if no conditions match
+  //     })
   //   }));
-  //   console.log(selectedDistribution, selectedDisplay)
   //   return filteredData;
   // };
+
+
 
   const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
     if (selectedDistribution === "None") {
