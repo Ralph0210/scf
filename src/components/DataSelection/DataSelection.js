@@ -36,13 +36,6 @@ const handleAddition = () => {
   setData(updatedData)
   console.log("data", data)
 }
-
-
-useEffect(()=>{
-    console.log(selectedData)
-},[selectedData])
-
-
   return (
 <div className='data_container' >
 <label >Data</label>

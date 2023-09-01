@@ -74,11 +74,21 @@ const DisplaySelection = ({data, setData, dataSelections, setDataSelections, sel
 
 
 
+  useEffect(() => {
+    const extractUniqueValues = (data, property) => {
+      const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
+      return uniqueValues;
+    };
 
-  // function extractUniqueValues(data, property) {
-  //   const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
-  // return uniqueValues;
-  // }
+    const unique = data.map((array, index) => {
+      const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
+      const newUniqueValues = extractUniqueValues(array, selectedDistribution);
+  return newUniqueValues;
+    });
+
+    // Update uniqueValues using setUniqueValues
+    setUniqueValues(unique);
+  }, [data, dataSelections]);
 
   // function extractUniqueValues(data, property, index) {
   //   if (property === "None") {
