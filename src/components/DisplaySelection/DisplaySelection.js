@@ -135,6 +135,10 @@ const DisplaySelection = ({data, setData, dataSelections, setDataSelections, sel
     const updatedElements = dataSelections.filter((_, i) => i !== index)
     setDataSelections(updatedElements)
     console.log(updatedElements)
+
+    const updatedData = data.filter((_, i) => i !== index)
+    setData(updatedData)
+    console.log("data deletion", updatedData)
   }
   
   return (

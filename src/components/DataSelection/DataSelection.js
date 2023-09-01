@@ -1,14 +1,21 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const DataSelection = ({data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
+const DataSelection = ({DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
 const handleDataChange =(e, index) => {
   const selectedData = e.target.value
     const updatedValue = [...dataSelections]
     updatedValue[index].selectedData = selectedData
     setDataSelections(updatedValue)
-    console.log(updatedValue)
+
+    const selectedDistribution = updatedValue[index].selectedDistribution
+
+    const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution])
+    const updatedData = [...data];
+    updatedData[index] = SelectedDistributionData
+    setData(updatedData)
+    console.log("list of distributed data", updatedData)
 }
 
 // const handleAdditionalDataChange = (event, index) => {

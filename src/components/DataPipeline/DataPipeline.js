@@ -26,6 +26,28 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
     //   console.log(updatedSelections)
     // }
 
+    const DataDistribution = (data, properties) => {
+      const selectedData = data.map(yearEntry => ({
+        year: yearEntry.year,
+        data: yearEntry.data.map(item => {
+          const extractedData = { "WGT": item["WGT"] };
+  
+          for (const property of properties) {
+            if (property !== "None") {
+              extractedData[property] = item[property];
+            }
+          }
+  
+          return extractedData;
+        })
+      }));
+  
+      // console.log("selectedData:", selectedData); // Log the selected data
+  
+      // You can return the selectedData array if needed
+      return selectedData;
+    }
+
 
   return (
     <div className='source'>
@@ -40,6 +62,7 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         dataL={dataL}
         data={data}
         setData={setData}
+        DataDistribution={DataDistribution}
         // setOutputSelectedData={setOutputSelectedData}
         // additionalDataSelections={additionalDataSelections}
         // setAdditionalDataSelections={setAdditionalDataSelections}
@@ -54,6 +77,7 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         dataL={dataL}
         data={data}
         setData={setData}
+        DataDistribution={DataDistribution}
         // distributedData={distributedData}
         // setDistributedData={setDistributedData}
         // selectedData={selectedData}

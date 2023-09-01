@@ -2,7 +2,7 @@ import React from 'react'
 import './DistributionSelection.css'
 import { useEffect } from 'react';
 
-const DistributionSelection = ({data, setData, dataSelections, setDataSelections, selectedDistribution, setSelectedDistribution, dataL, distributedData, setDistributedData, selectedData, additionalDistributionSelections, setAdditionalDistributionSelections }) => {
+const DistributionSelection = ({DataDistribution, data, setData, dataSelections, setDataSelections, selectedDistribution, setSelectedDistribution, dataL, distributedData, setDistributedData, selectedData, additionalDistributionSelections, setAdditionalDistributionSelections }) => {
   
   // const DataDistribution = (data, properties) => {
   //   const selectedData = data.map(yearEntry => ({
@@ -23,27 +23,7 @@ const DistributionSelection = ({data, setData, dataSelections, setDataSelections
   // return selectedData;
   // }
 
-  const DataDistribution = (data, properties) => {
-    const selectedData = data.map(yearEntry => ({
-      year: yearEntry.year,
-      data: yearEntry.data.map(item => {
-        const extractedData = { "WGT": item["WGT"] };
 
-        for (const property of properties) {
-          if (property !== "None") {
-            extractedData[property] = item[property];
-          }
-        }
-
-        return extractedData;
-      })
-    }));
-
-    // console.log("selectedData:", selectedData); // Log the selected data
-
-    // You can return the selectedData array if needed
-    return selectedData;
-  }
 
 
   // const handleDistributionChange = (e) => {
@@ -74,15 +54,13 @@ const DistributionSelection = ({data, setData, dataSelections, setDataSelections
       const updatedValue = [...dataSelections]
       updatedValue[index].selectedDistribution = selectedDistribution
       setDataSelections(updatedValue)
-      
       const selectedData = updatedValue[index].selectedData
-      selectedDistribution = updatedValue[index].selectedDistribution
 
     const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution])
     const updatedData = [...data];
     updatedData[index] = SelectedDistributionData
     setData(updatedData)
-    console.log(updatedData)
+    console.log("list of distributed data", updatedData)
 
   }
 
