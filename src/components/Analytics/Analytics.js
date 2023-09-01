@@ -27,7 +27,19 @@ const Analytics = () => {
   const [selectedDisplay, setSelectedDisplay] = useState("2")
   const [filteredData, setFilteredData] = useState([])
 
-  const [UnitData, setUnitData] = useState([])
+  const [data, setData] = useState([
+    [{year: 2010, INCOME: 56638.91776678539},
+      {year: 2013, INCOME: 55691.86413389803},
+      {year: 2016, INCOME: 60874.0068536714},
+      {year: 2019, INCOME: 63701.10821184536}]
+  ])
+
+  const [UnitData, setUnitData] = useState([
+    [{year: 2010, INCOME: 56638.91776678539},
+      {year: 2013, INCOME: 55691.86413389803},
+      {year: 2016, INCOME: 60874.0068536714},
+      {year: 2019, INCOME: 63701.10821184536}]
+  ])
   const [selectedUnit, setSelectedUnit] = useState('Mean'); // Set initial selected option
 
 
@@ -64,7 +76,9 @@ const Analytics = () => {
       setDataSelections={setDataSelections}
       selectedData={selectedData}
       setSelectedData={setSelectedData}
-      data={dataL}
+      dataL={dataL}
+      data={data}
+      setData={setData}
       setOutputSelectedData={setOutputSelectedData}
       selectedDistribution={selectedDistribution}
       setSelectedDistribution={setSelectedDistribution}

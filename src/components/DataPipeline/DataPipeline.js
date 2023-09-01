@@ -5,7 +5,7 @@ import DistributionSelection from '../DistributionSelection/DistributionSelectio
 import DisplaySelection from '../DisplaySelection/DisplaySelection'
 import { useState } from 'react'
 
-const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelectedData, data, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData}) => {
+const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData, data, setData}) => {
 
     // const [additionalDataSelections, setAdditionalDataSelections] = useState([]);
     const [additionalDistributionSelections, setAdditionalDistributionSelections] = useState([]);
@@ -37,7 +37,9 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         // setSelectedData={newData => handleDataChange(newData, index)}
         dataSelections={dataSelections}
         setDataSelections={setDataSelections}
+        dataL={dataL}
         data={data}
+        setData={setData}
         // setOutputSelectedData={setOutputSelectedData}
         // additionalDataSelections={additionalDataSelections}
         // setAdditionalDataSelections={setAdditionalDataSelections}
@@ -49,7 +51,9 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         setDataSelections={setDataSelections}
         // selectedDistribution={selectedDistribution}
         // setSelectedDistribution={setSelectedDistribution}
+        dataL={dataL}
         data={data}
+        setData={setData}
         // distributedData={distributedData}
         // setDistributedData={setDistributedData}
         // selectedData={selectedData}
@@ -60,6 +64,8 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         <DisplaySelection
         dataSelections={dataSelections}
         setDataSelections={setDataSelections}
+        data={data}
+        setData={setData}
         // selectedDisplay={selectedDisplay}
         // setSelectedDisplay={setSelectedDisplay}
         // distributedData={distributedData}

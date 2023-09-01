@@ -2,7 +2,7 @@ import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
+const DisplaySelection = ({data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
 
   const [uniqueValues, setUniqueValues] = useState([])
 

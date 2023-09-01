@@ -2,7 +2,7 @@ import React from 'react'
 import './DistributionSelection.css'
 import { useEffect } from 'react';
 
-const DistributionSelection = ({ dataSelections, setDataSelections, selectedDistribution, setSelectedDistribution, data, distributedData, setDistributedData, selectedData, additionalDistributionSelections, setAdditionalDistributionSelections }) => {
+const DistributionSelection = ({data, setData, dataSelections, setDataSelections, selectedDistribution, setSelectedDistribution, dataL, distributedData, setDistributedData, selectedData, additionalDistributionSelections, setAdditionalDistributionSelections }) => {
   
   // const DataDistribution = (data, properties) => {
   //   const selectedData = data.map(yearEntry => ({
@@ -23,27 +23,27 @@ const DistributionSelection = ({ dataSelections, setDataSelections, selectedDist
   // return selectedData;
   // }
 
-  // const DataDistribution = (data, properties) => {
-  //   const selectedData = data.map(yearEntry => ({
-  //     year: yearEntry.year,
-  //     data: yearEntry.data.map(item => {
-  //       const extractedData = { "WGT": item["WGT"] };
+  const DataDistribution = (data, properties) => {
+    const selectedData = data.map(yearEntry => ({
+      year: yearEntry.year,
+      data: yearEntry.data.map(item => {
+        const extractedData = { "WGT": item["WGT"] };
 
-  //       for (const property of properties) {
-  //         if (property !== "None") {
-  //           extractedData[property] = item[property];
-  //         }
-  //       }
+        for (const property of properties) {
+          if (property !== "None") {
+            extractedData[property] = item[property];
+          }
+        }
 
-  //       return extractedData;
-  //     })
-  //   }));
+        return extractedData;
+      })
+    }));
 
-  //   // console.log("selectedData:", selectedData); // Log the selected data
+    // console.log("selectedData:", selectedData); // Log the selected data
 
-  //   // You can return the selectedData array if needed
-  //   return selectedData;
-  // }
+    // You can return the selectedData array if needed
+    return selectedData;
+  }
 
 
   // const handleDistributionChange = (e) => {
@@ -51,17 +51,17 @@ const DistributionSelection = ({ dataSelections, setDataSelections, selectedDist
   // }
 
   // useEffect(() => {
-  //   const newDistributionData = DataDistribution(data, [selectedData, selectedDistribution]);
+  //   const newDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution]);
   //   setDistributedData(newDistributionData)
   //   console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
   // }, [setDistributedData, selectedDistribution, selectedData]);
 
   // useEffect(() => {
-  //   const newDistributionData = DataDistribution(data, [selectedData, selectedDistribution]);
+  //   const newDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution]);
   //   setDistributedData(newDistributionData)
   //   console.log("distributedData:", newDistributionData, selectedDistribution, selectedData)
   // }, []);
-  
+
   // const handleAdditionalDataChange = (event, index) => {
   //   const selectedDistribution = event.target.value;
   //   const updatedElements = [...additionalDistributionSelections];
@@ -74,7 +74,16 @@ const DistributionSelection = ({ dataSelections, setDataSelections, selectedDist
       const updatedValue = [...dataSelections]
       updatedValue[index].selectedDistribution = selectedDistribution
       setDataSelections(updatedValue)
-      console.log(updatedValue)
+      
+      const selectedData = updatedValue[index].selectedData
+      selectedDistribution = updatedValue[index].selectedDistribution
+
+    const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution])
+    const updatedData = [...data];
+    updatedData[index] = SelectedDistributionData
+    setData(updatedData)
+    console.log(updatedData)
+
   }
 
 

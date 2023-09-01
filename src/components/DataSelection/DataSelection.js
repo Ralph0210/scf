@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const DataSelection = ({dataSelections, setDataSelections, selectedData, setSelectedData, data, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
+const DataSelection = ({data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
 const handleDataChange =(e, index) => {
   const selectedData = e.target.value
@@ -24,6 +24,10 @@ const handleAddition = () => {
   selectedDistribution: "EDCL",
   selectedDisplay: '2'})
   setDataSelections(updatedElements)
+  const updatedData = [...data]
+  updatedData.push([])
+  setData(updatedData)
+  console.log("data", data)
 }
 
 
