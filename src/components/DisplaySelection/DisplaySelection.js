@@ -2,28 +2,28 @@ import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({setSelectedDistribution, dataL, DataDistribution, data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
+const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistribution, dataL, DataDistribution, data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
 
-  const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
-  // const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
-  //   if (selectedDistribution === "None") {
-  //     return data
-  //   }
-  //   const filteredData = data.map(yearEntry => {
-  //     const filteredYearData = yearEntry.data.filter(item => {
-  //       return item[selectedDistribution] == selectedDisplay;
-  //     });
+  
+  const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
+    if (selectedDistribution === "None") {
+      return data
+    }
+    const filteredData = data.map(yearEntry => {
+      const filteredYearData = yearEntry.data.filter(item => {
+        return item[selectedDistribution] == selectedDisplay;
+      });
 
-  //     return {
-  //       year: yearEntry.year,
-  //       data: filteredYearData
-  //     };
-  //   });
+      return {
+        year: yearEntry.year,
+        data: filteredYearData
+      };
+    });
 
-  //   console.log("filteredData:", filteredData);
+    console.log("filteredData:", filteredData);
 
-  //   return filteredData;
-  // };
+    return filteredData;
+  };
 
 
   // useEffect(() => {
@@ -51,7 +51,7 @@ const DisplaySelection = ({setSelectedDistribution, dataL, DataDistribution, dat
         return uniqueValues;
       };
   
-      console.log("unique process", data);
+      // console.log("unique process", data);
   
       const unique = data.map((array, index) => {
         const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
@@ -61,48 +61,35 @@ const DisplaySelection = ({setSelectedDistribution, dataL, DataDistribution, dat
   
       // Update uniqueValues using setUniqueValues
       setUniqueValues(unique);
-      console.log("uniquedata:", unique);
+      // console.log("uniquedata:", unique);
     };
   
     // Call the data processing function whenever 'data' changes
     processData();
   }, [data]);
-  
-  
-
-
-  // function extractUniqueValues(data, property, index) {
-  //   if (property === "None") {
-  //     return ["None"];
-  //   }
-    
-  //   const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
-    
-  //   // Update the specific array of unique values
-  //   setAdditionalUniqueValues(prevValues => {
-  //     const updatedValues = [...prevValues];
-  //     updatedValues[index] = uniqueValues;
-  //     return updatedValues;
-  //   });
-    
-  //   return uniqueValues;
-  // }
 
   const handleDataChange =(e, index) => {
     const selectedDisplay = e.target.value
       const updatedValue = [...dataSelections]
       updatedValue[index].selectedDisplay = selectedDisplay
       setDataSelections(updatedValue)
+
+    const selectedDistribution = updatedValue[index].selectedDistribution
+    const SelectedDisplayData = DataDisplay(data[index], selectedDistribution, selectedDisplay)
+    const updatedData = [...data]
+    updatedData[index] = SelectedDisplayData
+    setData(updatedData)
+    console.log(updatedData)
   }
 
   const handleDeletion = (index) => {
     const updatedElements = dataSelections.filter((_, i) => i !== index)
     setDataSelections(updatedElements)
-    console.log(updatedElements)
+    // console.log(updatedElements)
 
     const updatedData = data.filter((_, i) => i !== index)
     setData(updatedData)
-    console.log("data deletion", updatedData)
+    // console.log("data deletion", updatedData)
   }
   
   return (

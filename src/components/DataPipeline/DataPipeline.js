@@ -88,6 +88,8 @@ const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSel
         />
 
         <DisplaySelection
+        uniqueValues={uniqueValues}
+        setUniqueValues={setUniqueValues}
         dataSelections={dataSelections}
         setDataSelections={setDataSelections}
         data={data}

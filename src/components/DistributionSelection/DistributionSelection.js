@@ -60,7 +60,7 @@ const DistributionSelection = ({DataDistribution, data, setData, dataSelections,
     const updatedData = [...data];
     updatedData[index] = SelectedDistributionData
     setData(updatedData)
-    console.log("list of distributed data", updatedData)
+    // console.log("list of distributed data", updatedData)
 
   }
 

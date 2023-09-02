@@ -27,7 +27,7 @@ useEffect(() => {
   const updatedData = [...data];
     updatedData[0] = SelectedDistributionData
     setData(updatedData)
-    console.log("list of distributed data initial", updatedData)
+    // console.log("list of distributed data initial", updatedData)
 },[])
 
 // const handleAdditionalDataChange = (event, index) => {

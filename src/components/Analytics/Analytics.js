@@ -64,7 +64,7 @@ const Analytics = () => {
   useEffect(() => {
     const newData = changeYear(UnitData, value, selectedData)
     setYearData(newData)
-    console.log("year:", newData)
+    // console.log("year:", newData)
   }, [value, distributedData, filteredData, selectedUnit, UnitData])
 
   return (

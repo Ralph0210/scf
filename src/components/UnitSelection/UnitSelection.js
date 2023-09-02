@@ -41,13 +41,13 @@ const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filtered
     useEffect(() => {
       const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
       setUnitData(newCalculated)
-      console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
+      // console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
     },[selectedUnit, filteredData])
 
     useEffect(() => {
       const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
       setUnitData(newCalculated)
-      console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
+      // console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
     },[])
 
 
