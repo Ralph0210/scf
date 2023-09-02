@@ -98,7 +98,7 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistributio
   
       {dataSelections.map((data, index) => (
         <div key={index} className='display_container_components'>
-          <select id={`Display_${index}`} className='Display' value={data.selectedDisplay} onChange={(event) => handleDataChange(event, index)}>
+          <select id={`Display_${index}`} className='Display' value={data.selectedDisplay} multiple onChange={(event) => handleDataChange(event, index)}>
             {uniqueValues[index] && uniqueValues[index].length > 0 && (
               uniqueValues[index].map(value => (
                 <option key={value} value={value}>
