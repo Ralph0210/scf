@@ -2,40 +2,9 @@ import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
 
-const DisplaySelection = ({data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
+const DisplaySelection = ({setSelectedDistribution, dataL, DataDistribution, data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
 
-  const [uniqueValues, setUniqueValues] = useState([])
-
-  // const ageDataDisplay = (data, selectedDisplay) => {
-  //   const filteredData = data.map(yearEntry => ({
-  //     year: yearEntry.year,
-  //     data: yearEntry.data.filter(item => {
-  //       const age = item.age;
-  //       if (selectedDisplay === "25-45") {
-  //         return age >= 25 && age <= 45;
-  //       }
-  //       else if (selectedDisplay === "19-24") {
-  //         return age >= 19 && age <= 24;
-  //       }
-  //       else if (selectedDisplay === "0-18") {
-  //         return age <= 18;
-  //       }
-  //       else if (selectedDisplay === "45+") {
-  //         return age > 45;
-  //       }
-
-  //       else {
-  //         return age > 45;
-  //       }
-  //       // Add more conditions for other age groups if needed
-  //       return false; // Return true by default if no conditions match
-  //     })
-  //   }));
-  //   return filteredData;
-  // };
-
-
-
+  const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
   // const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
   //   if (selectedDistribution === "None") {
   //     return data
@@ -57,38 +26,50 @@ const DisplaySelection = ({data, setData, dataSelections, setDataSelections, sel
   // };
 
 
-
-  // const handleDisplayChange = (event) => {
-  //   const selectedOptions = Array.from(event.target.options)
-  //     .filter(option => option.selected)
-  //     .map(option => option.value);
-
-  //   setSelectedDisplay(selectedOptions);
-  // }
-
-  //   useEffect(() => {
-  //   const newfilteredData = DataDisplay(distributedData, selectedDistribution, selectedDisplay);
-  //   setFilteredData(newfilteredData)
-  //   console.log("filteredData:", newfilteredData, selectedDisplay)
-  // }, [distributedData, selectedDisplay]);
-
-
-
+  // useEffect(() => {
+  //   const values = [...dataSelections];
+  //   const selectedData = values[0].selectedData;
+  //   const selectedDistribution = values[0].selectedDistribution;
+  
+  //   const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution]);
+  //   const updatedData = [...data];
+  //   updatedData[0] = SelectedDistributionData;
+  //   setData(updatedData);
+  //   console.log("list of distributed data initial", updatedData);
+  // }, []);
+  
   useEffect(() => {
-    const extractUniqueValues = (data, property) => {
-      const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
-      return uniqueValues;
+    // Define a function to process data
+    const processData = () => {
+      if (data.length === 0 || data.some(list => list.length === 0)) {
+        // Skip processing when 'data' is empty or any of the lists are empty
+        return;
+      }
+  
+      const extractUniqueValues = (data, property) => {
+        const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
+        return uniqueValues;
+      };
+  
+      console.log("unique process", data);
+  
+      const unique = data.map((array, index) => {
+        const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
+        const newUniqueValues = extractUniqueValues(array, selectedDistribution);
+        return newUniqueValues;
+      });
+  
+      // Update uniqueValues using setUniqueValues
+      setUniqueValues(unique);
+      console.log("uniquedata:", unique);
     };
+  
+    // Call the data processing function whenever 'data' changes
+    processData();
+  }, [data]);
+  
+  
 
-    const unique = data.map((array, index) => {
-      const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
-      const newUniqueValues = extractUniqueValues(array, selectedDistribution);
-  return newUniqueValues;
-    });
-
-    // Update uniqueValues using setUniqueValues
-    setUniqueValues(unique);
-  }, [data, dataSelections]);
 
   // function extractUniqueValues(data, property, index) {
   //   if (property === "None") {
@@ -106,39 +87,12 @@ const DisplaySelection = ({data, setData, dataSelections, setDataSelections, sel
     
   //   return uniqueValues;
   // }
-  
-  
-
-  // useEffect(() => {
-  //   if (distributedData.length > 0) {
-  //     const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution, 0); // Use appropriate index
-  //     setUniqueValues(newUniqueValues);
-  //   }
-  // }, [distributedData, selectedDistribution]);
-  
-  // // ...
-  
-  // const handleAdditionalDataChange = (event, index) => {
-  //   const selectedDisplay = event.target.value;
-  //   const updatedElements = [...additionalDisplaySelections];
-  //   updatedElements[index].selectedDisplay = selectedDisplay;
-  //   setAdditionalDisplaySelections(updatedElements);
-    
-  //   // Update unique values for the specific additional display selection
-  //   const newUniqueValues = extractUniqueValues(distributedData, selectedDistribution, index);
-  //   setAdditionalUniqueValues(prevValues => {
-  //     const updatedValues = [...prevValues];
-  //     updatedValues[index] = newUniqueValues;
-  //     return updatedValues;
-  //   });
-  // };
 
   const handleDataChange =(e, index) => {
     const selectedDisplay = e.target.value
       const updatedValue = [...dataSelections]
       updatedValue[index].selectedDisplay = selectedDisplay
       setDataSelections(updatedValue)
-      console.log(updatedValue)
   }
 
   const handleDeletion = (index) => {
@@ -153,25 +107,27 @@ const DisplaySelection = ({data, setData, dataSelections, setDataSelections, sel
   
   return (
     <div className='display_container'>
-        <label htmlFor='Display'>Display</label>
-
-        {dataSelections.map((data, index) => (
+      <label htmlFor='Display'>Display</label>
+  
+      {dataSelections.map((data, index) => (
         <div key={index} className='display_container_components'>
-        <select id='Display' className='Display' value={data.selectedDisplay} onChange={handleDataChange}>
-          <option>1</option>
-    {/* {uniqueValues.map(value => (
-      <option key={value} value={value}>
-        {value}
-      </option>
-    ))} */}
-        </select>
-        <div className='deletion_container'>
-        <p onClick={() => handleDeletion(index)}>X</p>
+          <select id={`Display_${index}`} className='Display' value={data.selectedDisplay} onChange={(event) => handleDataChange(event, index)}>
+            {uniqueValues[index] && uniqueValues[index].length > 0 && (
+              uniqueValues[index].map(value => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))
+            )}
+          </select>
+          <div className='deletion_container'>
+            <p onClick={() => handleDeletion(index)}>X</p>
+          </div>
         </div>
-        </div>
-        ))}
-        </div>
-  )
+      ))}
+    </div>
+  );
+  
 }
 
 export default DisplaySelection

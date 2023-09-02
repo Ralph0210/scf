@@ -5,7 +5,7 @@ import DistributionSelection from '../DistributionSelection/DistributionSelectio
 import DisplaySelection from '../DisplaySelection/DisplaySelection'
 import { useState } from 'react'
 
-const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData, data, setData}) => {
+const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData, data, setData}) => {
 
     // const [additionalDataSelections, setAdditionalDataSelections] = useState([]);
     const [additionalDistributionSelections, setAdditionalDistributionSelections] = useState([]);
@@ -54,6 +54,8 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
 
 
         <DataSelection
+        uniqueValues={uniqueValues}
+        setUniqueValues={setUniqueValues}
         // key={index}
         // selectedData={selection.selectedData}
         // setSelectedData={newData => handleDataChange(newData, index)}
@@ -90,13 +92,16 @@ const DataPipeline = ({dataSelections, setDataSelections, selectedData, setSelec
         setDataSelections={setDataSelections}
         data={data}
         setData={setData}
+        DataDistribution={DataDistribution}
+        dataL={dataL}
         // selectedDisplay={selectedDisplay}
         // setSelectedDisplay={setSelectedDisplay}
         // distributedData={distributedData}
         // filteredData={filteredData}
         // setFilteredData={setFilteredData}
         // selectedData={selectedData}
-        // selectedDistribution={selectedDistribution}
+        selectedDistribution={selectedDistribution}
+        setSelectedDistribution={setSelectedDistribution}
         // additionalDisplaySelections={additionalDisplaySelections}
         // setAdditionalDisplaySelections={setAdditionalDisplaySelections}
         // additionalUniqueValues={additionalUniqueValues}

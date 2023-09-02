@@ -12,6 +12,7 @@ import DataPipeline from '../DataPipeline/DataPipeline';
 
 
 const Analytics = () => {
+  const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
   const [dataSelections, setDataSelections] = useState([
     {selectedData: "INCOME",
       selectedDistribution: "EDCL",
@@ -28,10 +29,7 @@ const Analytics = () => {
   const [filteredData, setFilteredData] = useState([])
 
   const [data, setData] = useState([
-    [{year: 2010, INCOME: 56638.91776678539},
-      {year: 2013, INCOME: 55691.86413389803},
-      {year: 2016, INCOME: 60874.0068536714},
-      {year: 2019, INCOME: 63701.10821184536}]
+    []
   ])
 
   const [UnitData, setUnitData] = useState([
@@ -72,6 +70,8 @@ const Analytics = () => {
   return (
     <div className='analytics_container'>
       <DataPipeline
+      uniqueValues={uniqueValues}
+      setUniqueValues={setUniqueValues}
       dataSelections={dataSelections}
       setDataSelections={setDataSelections}
       selectedData={selectedData}

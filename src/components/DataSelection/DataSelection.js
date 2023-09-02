@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 
-const DataSelection = ({DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
+const DataSelection = ({uniqueValues, setUniqueValues, DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
 const handleDataChange =(e, index) => {
   const selectedData = e.target.value
@@ -18,6 +18,18 @@ const handleDataChange =(e, index) => {
     console.log("list of distributed data", updatedData)
 }
 
+useEffect(() => {
+  const values = [...dataSelections]
+  const selectedData = values[0].selectedData
+  const selectedDistribution = values[0].selectedDistribution
+
+  const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution])
+  const updatedData = [...data];
+    updatedData[0] = SelectedDistributionData
+    setData(updatedData)
+    console.log("list of distributed data initial", updatedData)
+},[])
+
 // const handleAdditionalDataChange = (event, index) => {
 //   const selectedData = event.target.value;
 //   const updatedElements = [...additionalDataSelections];
@@ -31,10 +43,14 @@ const handleAddition = () => {
   selectedDistribution: "EDCL",
   selectedDisplay: '2'})
   setDataSelections(updatedElements)
+
   const updatedData = [...data]
   updatedData.push([])
   setData(updatedData)
-  console.log("data", data)
+
+  const updatedUniqueValues = [...uniqueValues]
+  updatedUniqueValues.push([])
+  setUniqueValues(updatedUniqueValues)
 }
   return (
 <div className='data_container' >
