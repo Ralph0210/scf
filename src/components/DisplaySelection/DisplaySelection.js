@@ -79,7 +79,7 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistributio
     const updatedData = [...data]
     updatedData[index] = SelectedDisplayData
     setData(updatedData)
-    console.log(updatedData)
+    console.log("display filtered data:", updatedData)
   }
 
   const handleDeletion = (index) => {

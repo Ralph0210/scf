@@ -1,8 +1,9 @@
 import React from 'react'
 import './UnitSelection.css'
 import { useEffect } from 'react'
+import DataSelection from '../DataSelection/DataSelection'
 
-const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filteredData, UnitData, setUnitData, selectedDistribution, selectedData, selectedDisplay}) => {
+const UnitSelection = ({dataSelections, data, setData, selectedUnit, setSelectedUnit, distributedData, filteredData, UnitData, setUnitData, selectedDistribution, selectedData, selectedDisplay}) => {
 
 
   const calculateByUnit = (data, selectedUnit, selectedData, selectedDistribution, selectedDisplay) => {
@@ -39,15 +40,23 @@ const UnitSelection = ({selectedUnit, setSelectedUnit, distributedData, filtered
 
 
     useEffect(() => {
-      const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
-      setUnitData(newCalculated)
-      // console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
-    },[selectedUnit, filteredData])
+      const newUnitData = data.map((array, index) => {
+        const {selectedData, selectedDistribution, selectedDisplay} = dataSelections[index]
+        const newCalculated = calculateByUnit(array, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
+        return newCalculated
+      })
+      setUnitData(newUnitData)
+      console.log("unitData:", newUnitData, selectedUnit, selectedData, selectedDisplay)
+    },[selectedUnit])
 
     useEffect(() => {
-      const newCalculated = calculateByUnit(filteredData, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
-      setUnitData(newCalculated)
-      // console.log("unitData:", newCalculated, selectedUnit, selectedData, selectedDisplay)
+      const newUnitData = data.map((array, index) => {
+        const {selectedData, selectedDistribution, selectedDisplay} = dataSelections[index]
+        const newCalculated = calculateByUnit(array, selectedUnit, selectedData, selectedDistribution, selectedDisplay)
+        return newCalculated
+      })
+      setUnitData(newUnitData)
+      console.log("unitData:", newUnitData, selectedUnit, selectedData, selectedDisplay)
     },[])
 
 

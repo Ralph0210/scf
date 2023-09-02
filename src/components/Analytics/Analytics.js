@@ -93,6 +93,9 @@ const Analytics = () => {
       <div className='adjustment'>
 
       <UnitSelection
+      dataSelections={dataSelections}
+      data={data}
+      setData={setData}
       selectedUnit= {selectedUnit}
       setSelectedUnit={setSelectedUnit}
       distributedData={distributedData}
