@@ -12,6 +12,7 @@ import DataPipeline from '../DataPipeline/DataPipeline';
 
 
 const Analytics = () => {
+  const [propertiesToPlot, setPropertiesToPlot] = useState([])
   const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
   const [dataSelections, setDataSelections] = useState([
     {selectedData: "INCOME",
@@ -47,24 +48,23 @@ const Analytics = () => {
   // initialize the data
   const [currentData, setCurrentData] = useState([]);
 
-  const changeYear = (data, value, property) => {
-    const newYearData = []
-
+  const changeYear = (data, value) => {
+    const newYearData = [];
+  
     for (const dataEntry of data) {
-      if (dataEntry.year >= value[0] && dataEntry.year <= value[1]){
-        newYearData.push({
-          year: dataEntry.year,
-          [property]: dataEntry[property]
-        })
+      if (dataEntry.year >= value[0] && dataEntry.year <= value[1]) {
+        newYearData.push({ ...dataEntry });
       }
     }
-    return newYearData
-  }
+  
+    return newYearData;
+  };
 
   useEffect(() => {
-    const newData = changeYear(UnitData, value, selectedData)
-    setYearData(newData)
-    // console.log("year:", newData)
+      const updataedYearData = changeYear(UnitData, value)
+
+    setYearData(updataedYearData)
+    console.log("year:", updataedYearData)
   }, [value, distributedData, filteredData, selectedUnit, UnitData])
 
   return (
@@ -93,6 +93,8 @@ const Analytics = () => {
       <div className='adjustment'>
 
       <UnitSelection
+      propertiesToPlot={propertiesToPlot}
+      setPropertiesToPlot={setPropertiesToPlot}
       dataSelections={dataSelections}
       data={data}
       setData={setData}
@@ -133,13 +135,15 @@ const Analytics = () => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line
-        type="monotone"
-        dataKey={selectedData}
-        stroke="#8884d8"
-        activeDot={{ r: 8 }}
-      />
-      {/* <Line type="monotone" dataKey="age" stroke="#82ca9d" /> */}
+      {propertiesToPlot.map((property, index) => (
+        <Line
+          key={property}
+          type="monotone"
+          dataKey={property}
+          stroke={`#${(Math.floor(Math.random() * 16777215)).toString(16)}`} // Generate a random color
+          activeDot={{ r: 8 }}
+        />
+      ))}
     </LineChart>
     </div>
   )
