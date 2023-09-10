@@ -1,7 +1,32 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { getWeightedMeanIncome } from '../api';
 
 const DataSelection = ({uniqueValues, setUniqueValues, DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
+
+  // Function to retrieve weighted mean income for a specific year
+async function getWeightedMeanIncome(year) {
+  try {
+    const response = await axios.get(`http://localhost:3001/getWeightedMeanIncome?year=${year}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null; // Handle the error gracefully
+  }
+}
+
+// Example usage:
+const year = 2016;
+getWeightedMeanIncome(year)
+  .then((data) => {
+    if (data !== null) {
+      console.log(`Weighted Mean Income for ${year}: ${data}`);
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 
 const handleDataChange =(e, index) => {
   const selectedData = e.target.value

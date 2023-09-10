@@ -9,32 +9,116 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 
-// Define a route to retrieve the first five HHSEX values from the s2019 model
+app.get('/api/survey/:year', async (req, res) => {
+    const { year } = req.params;
+  
+    try {
+      // Use dynamic model selection based on the year
+      let surveyModel;
+      switch (year) {
+        case '2019':
+          surveyModel = s2019;
+          break;
+        case '2016':
+          surveyModel = s2016;
+          break;
+        // Add cases for other years as needed
+        default:
+          surveyModel = null; // Handle cases where the year is not recognized
+      }
+  
+      if (surveyModel) {
+        const surveyData = await surveyModel.findAll({
+          attributes: ['HHSEX'],
+          limit: 5,
+        });
+  
+        res.json(surveyData);
+      } else {
+        res.status(404).json({ error: 'Year not found' });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+  
+
+// Define a function to calculate and retrieve weighted mean "INCOME" for each year
+async function getWeightedMeanIncomeByYear(year) {
+    let data;
+  
+    switch (year) {
+      case 2010:
+        data = await s2010.findAll({
+          attributes: ['INCOME', 'WGT'],
+        });
+        break;
+      case 2013:
+        data = await s2013.findAll({
+          attributes: ['INCOME', 'WGT'],
+        });
+        break;
+      case 2016:
+        data = await s2016.findAll({
+          attributes: ['INCOME', 'WGT'],
+        });
+        break;
+      case 2019:
+        data = await s2019.findAll({
+          attributes: ['INCOME', 'WGT'],
+        });
+        break;
+      default:
+        data = [];
+    }
+  
+    // Calculate the weighted mean
+    let totalWeightedIncome = 0;
+    let totalWeight = 0;
+  
+    for (const row of data) {
+      const { INCOME, WGT } = row;
+      totalWeightedIncome += INCOME * WGT;
+      totalWeight += WGT;
+    }
+  
+    if (totalWeight === 0) {
+      return 0; // Avoid division by zero
+    }
+  
+    return totalWeightedIncome / totalWeight;
+  }
+
+  // Backend route to retrieve the first 5 HHSEX values
 app.get('/getFirstFiveHHSEX', async (req, res) => {
     try {
-      // Query s2019 to get the first 5 HHSEX values
-      const s2019Data = await s2013.findAll({
+      // Query your database table to retrieve the first 5 HHSEX values
+      const hhsexData = await s2019.findAll({
         attributes: ['HHSEX'],
         limit: 5,
       });
   
-      // Format the data as an object with a 'data' property
-      const responseData = {
-        year: 2019,
-        data: s2019Data,
-      };
+      // Extract the HHSEX values from the database result
+      const hhsexValues = hhsexData.map((data) => data.HHSEX);
   
-      // Respond with the formatted data as JSON
-      res.json(responseData);
+      res.json({ hhsexValues });
     } catch (error) {
-      // Handle errors
       console.error('Error:', error);
       res.status(500).json({ error: 'An error occurred' });
     }
   });
+  
+
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
         console.log(`Server is running on http://localhost:${port}`)
     })
 })
+
+// Export the function for use in your frontend
+module.exports = {
+    getWeightedMeanIncomeByYear,
+  };
+  

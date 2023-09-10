@@ -17,7 +17,9 @@ const Analytics = () => {
   const [dataSelections, setDataSelections] = useState([
     {selectedData: "INCOME",
       selectedDistribution: "EDCL",
-      selectedDisplay: '2'
+      selectedDisplay: ['1'],
+      selectedUnit: "Mean",
+      selectedYear: [2010, 2019]
     },
   ])
   const [selectedData, setSelectedData] = useState('INCOME')
