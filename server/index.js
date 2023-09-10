@@ -213,9 +213,9 @@ app.get('/api/survey', async (req, res) => {
           console.log(whereClause);
   
           // Calculate the weighted mean if selectedUnit is "Mean"
-          let weightedMeanIncome = null;
+          let weightedMean = null;
           if (selectedUnit === "Mean") {
-            const totalIncomeWGT = surveyData.reduce((acc, entry) => {
+            const totalVWGT = surveyData.reduce((acc, entry) => {
               return acc + (entry.dataValues[selectedData] * entry.dataValues.WGT);
             }, 0);
   
@@ -223,7 +223,7 @@ app.get('/api/survey', async (req, res) => {
               return acc + entry.dataValues.WGT;
             }, 0);
   
-            weightedMeanIncome = totalIncomeWGT / totalWGT;
+            weightedMean = totalVWGT / totalWGT;
           }
   
           // Build the desired structure for the data
@@ -232,7 +232,7 @@ app.get('/api/survey', async (req, res) => {
             // data: {
             //   [selectedData]: surveyData.map((entry) => entry.dataValues),
             // },
-            WeightedMeanIncome: weightedMeanIncome
+            WeightedMean: weightedMean
           };
   
           results.push(dataObject);

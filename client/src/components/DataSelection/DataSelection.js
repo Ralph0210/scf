@@ -1,40 +1,15 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { getWeightedMeanIncome } from '../api';
+import { retrieve } from '../api';
 
 const DataSelection = ({uniqueValues, setUniqueValues, DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
 
 
 useEffect(() => {
+  retrieve("2013-2019", "FIN", "HHSEX", "1", "Mean")
 
-  // Create an Axios instance with the base URL
-const api = axios.create({
-  baseURL: 'http://localhost:3001', // Set the correct base URL
-});
-
-  // Define the query parameters as an object
-const queryParams = {
-  selectedYear: '2010-2019',
-  selectedData: 'INCOME',
-  selectedDistribution: 'HHSEX',
-  selectedDisplay: '1',
-  selectedUnit: 'Mean',
-};
-
-// Use the `params` option to include the query parameters
-api.get('/api/survey', {
-  params: queryParams
-})
-  .then((response) => {
-    // Handle the response data here
-    console.log(response.data);
-  })
-  .catch((error) => {
-    // Handle any errors here
-    console.error(error);
-  });
 
 }, [dataSelections])
 

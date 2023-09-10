@@ -1,17 +1,37 @@
-// // api.js
+// api.js
 
-// import axios from 'axios';
+import axios from 'axios';
 
-// // Define the base URL for your server
-// const BASE_URL = 'http://localhost:3001';
+// Define the base URL for your server
+const baseURL = 'http://localhost:3001';
 
-// // Function to retrieve weighted mean income for a specific year
-// export async function getWeightedMeanIncome(year) {
-//   try {
-//     const response = await axios.get(`${BASE_URL}/getWeightedMeanIncome?year=${year}`);
-//     return response.data;
-//   } catch (error) {
-//     console.error('Error:', error);
-//     return null; // Handle the error gracefully
-//   }
-// }
+// Create an Axios instance with the base URL
+const api = axios.create({
+  baseURL: baseURL,
+});
+
+// Function to retrieve weighted mean income for a specific year
+export async function retrieve(selectedYear, selectedData, selectedDistribution, selectedDisplay, selectedUnit) {
+  
+    // Define the query parameters as an object
+  const queryParams = {
+    selectedYear: selectedYear,
+    selectedData: selectedData,
+    selectedDistribution: selectedDistribution,
+    selectedDisplay: selectedDisplay,
+    selectedUnit: selectedUnit,
+  };
+  
+  // Use the `params` option to include the query parameters
+  api.get('/api/survey', {
+    params: queryParams
+  })
+    .then((response) => {
+      // Handle the response data here
+      console.log(response.data);
+    })
+    .catch((error) => {
+      // Handle any errors here
+      console.error(error);
+    });
+}
