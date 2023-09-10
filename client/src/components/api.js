@@ -29,3 +29,20 @@ export async function retrieve(selectedYear, selectedData, selectedDistribution,
   }
 }
 
+export async function distinctValues(selectedDistribution) {
+  try {
+    const queryParams = {
+      selectedDistribution: selectedDistribution,
+    }
+
+    const response = await api.get('/distinct-values', {
+      params: queryParams
+    })
+
+    return response.data
+  } catch(error) {
+    console.log('Error inn retrieve function:', error)
+    throw error
+  }
+}
+

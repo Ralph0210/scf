@@ -1,85 +1,46 @@
 import React from 'react'
 import './DisplaySelection.css'
 import { useEffect, useState } from 'react';
+import { distinctValues } from '../api';
 
-const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistribution, dataL, DataDistribution, data, setData, dataSelections, setDataSelections, selectedDisplay, setSelectedDisplay, distributedData, filteredData, setFilteredData, selectedDistribution, additionalDisplaySelections, setAdditionalDisplaySelections, additionalUniqueValues, setAdditionalUniqueValues}) => {
+const DisplaySelection = ({uniqueValues, setUniqueValues, data, setData, dataSelections, setDataSelections }) => {
 
-  
-  const DataDisplay = (data, selectedDistribution, selectedDisplay) => {
-    if (selectedDistribution === "None") {
-      return data
-    }
-    const filteredData = data.map(yearEntry => {
-      const filteredYearData = yearEntry.data.filter(item => {
-        return item[selectedDistribution] == selectedDisplay;
-      });
+  useEffect(() => {
+    // Create a function to fetch data for a single item in dataSelections
+    const fetchDistinctValues = async (dataSelection, index) => {
+      try {
+        const apiParams = {
+          selectedDistribution: dataSelection.selectedDistribution,
+        };
 
-      return {
-        year: yearEntry.year,
-        data: filteredYearData
-      };
+        const retrievedData = await distinctValues(
+          apiParams.selectedDistribution,
+        );
+
+        console.log(`Data for Item ${index}:`, retrievedData);
+        // Update the data state with the retrieved data for the specific item
+        setUniqueValues((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[index] = retrievedData;
+          console.log(updatedData)
+          return updatedData;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Loop through dataSelections and fetch data for each item
+    dataSelections.forEach((dataSelection, index) => {
+      fetchDistinctValues(dataSelection, index);
     });
-
-    console.log("filteredData:", filteredData);
-
-    return filteredData;
-  };
-
-
-  // useEffect(() => {
-  //   const values = [...dataSelections];
-  //   const selectedData = values[0].selectedData;
-  //   const selectedDistribution = values[0].selectedDistribution;
-  
-  //   const SelectedDistributionData = DataDistribution(dataL, [selectedData, selectedDistribution]);
-  //   const updatedData = [...data];
-  //   updatedData[0] = SelectedDistributionData;
-  //   setData(updatedData);
-  //   console.log("list of distributed data initial", updatedData);
-  // }, []);
-  
-  // useEffect(() => {
-  //   // Define a function to process data
-  //   const processData = () => {
-  //     if (data.length === 0 || data.some(list => list.length === 0)) {
-  //       // Skip processing when 'data' is empty or any of the lists are empty
-  //       return;
-  //     }
-  
-  //     const extractUniqueValues = (data, property) => {
-  //       const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
-  //       return uniqueValues;
-  //     };
-  
-  //     // console.log("unique process", data);
-  
-  //     const unique = data.map((array, index) => {
-  //       const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
-  //       const newUniqueValues = extractUniqueValues(array, selectedDistribution);
-  //       return newUniqueValues;
-  //     });
-  
-  //     // Update uniqueValues using setUniqueValues
-  //     setUniqueValues(unique);
-  //     // console.log("uniquedata:", unique);
-  //   };
-  
-  //   // Call the data processing function whenever 'data' changes
-  //   processData();
-  // }, [data]);
+  }, [dataSelections, setData]);
 
   const handleDataChange =(e, index) => {
     const selectedDisplay = e.target.value
       const updatedValue = [...dataSelections]
       updatedValue[index].selectedDisplay = selectedDisplay
       setDataSelections(updatedValue)
-
-    const selectedDistribution = updatedValue[index].selectedDistribution
-    const SelectedDisplayData = DataDisplay(data[index], selectedDistribution, selectedDisplay)
-    const updatedData = [...data]
-    updatedData[index] = SelectedDisplayData
-    setData(updatedData)
-    console.log("display filtered data:", updatedData)
   }
 
   const handleDeletion = (index) => {
@@ -90,6 +51,9 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistributio
     const updatedData = data.filter((_, i) => i !== index)
     setData(updatedData)
     // console.log("data deletion", updatedData)
+
+    const updatedUniqueValues = uniqueValues.filter((_, i) => i !== index)
+    setUniqueValues(updatedUniqueValues)
   }
   
   return (

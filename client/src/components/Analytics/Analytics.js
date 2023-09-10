@@ -14,7 +14,7 @@ import { retrieve } from '../api';
 
 const Analytics = () => {
   const [propertiesToPlot, setPropertiesToPlot] = useState(["WeightedMean"])
-  const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
+  const [uniqueValues, setUniqueValues] = useState([])
   const [dataSelections, setDataSelections] = useState([
     {selectedData: "INCOME",
       selectedDistribution: "EDCL",
