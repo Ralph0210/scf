@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import { getWeightedMeanIncome } from '../api'; // Import the API function
 
 import axios from 'axios';
-const About = () => {
+const About = ({data}) => {
     const [selectedYear, setSelectedYear] = useState('2019');
   const [surveyData, setSurveyData] = useState([]);
 
@@ -43,6 +43,8 @@ const About = () => {
           // Render other fields from your data as needed
         ))}
       </ul>
+
+      
     </div>
   );
 };

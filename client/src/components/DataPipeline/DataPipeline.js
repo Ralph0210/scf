@@ -5,7 +5,7 @@ import DistributionSelection from '../DistributionSelection/DistributionSelectio
 import DisplaySelection from '../DisplaySelection/DisplaySelection'
 import { useState } from 'react'
 
-const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData, data, setData}) => {
+const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSelections, selectedData, setSelectedData, setOutputSelectedData, selectedDistribution, setSelectedDistribution, distributedData, setDistributedData, selectedDisplay, setSelectedDisplay, filteredData, setFilteredData, data, setData}) => {
 
     // const [additionalDataSelections, setAdditionalDataSelections] = useState([]);
     const [additionalDistributionSelections, setAdditionalDistributionSelections] = useState([]);
@@ -61,7 +61,7 @@ const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSel
         // setSelectedData={newData => handleDataChange(newData, index)}
         dataSelections={dataSelections}
         setDataSelections={setDataSelections}
-        dataL={dataL}
+        // dataL={dataL}
         data={data}
         setData={setData}
         DataDistribution={DataDistribution}
@@ -76,7 +76,7 @@ const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSel
         setDataSelections={setDataSelections}
         // selectedDistribution={selectedDistribution}
         // setSelectedDistribution={setSelectedDistribution}
-        dataL={dataL}
+        // dataL={dataL}
         data={data}
         setData={setData}
         DataDistribution={DataDistribution}
@@ -95,7 +95,7 @@ const DataPipeline = ({uniqueValues, setUniqueValues, dataSelections, setDataSel
         data={data}
         setData={setData}
         DataDistribution={DataDistribution}
-        dataL={dataL}
+        // dataL={dataL}
         // selectedDisplay={selectedDisplay}
         // setSelectedDisplay={setSelectedDisplay}
         // distributedData={distributedData}

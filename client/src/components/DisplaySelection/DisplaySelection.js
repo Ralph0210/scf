@@ -38,35 +38,35 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, setSelectedDistributio
   //   console.log("list of distributed data initial", updatedData);
   // }, []);
   
-  useEffect(() => {
-    // Define a function to process data
-    const processData = () => {
-      if (data.length === 0 || data.some(list => list.length === 0)) {
-        // Skip processing when 'data' is empty or any of the lists are empty
-        return;
-      }
+  // useEffect(() => {
+  //   // Define a function to process data
+  //   const processData = () => {
+  //     if (data.length === 0 || data.some(list => list.length === 0)) {
+  //       // Skip processing when 'data' is empty or any of the lists are empty
+  //       return;
+  //     }
   
-      const extractUniqueValues = (data, property) => {
-        const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
-        return uniqueValues;
-      };
+  //     const extractUniqueValues = (data, property) => {
+  //       const uniqueValues = [...new Set(data.flatMap(entry => entry.data.map(item => item[property])))];
+  //       return uniqueValues;
+  //     };
   
-      // console.log("unique process", data);
+  //     // console.log("unique process", data);
   
-      const unique = data.map((array, index) => {
-        const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
-        const newUniqueValues = extractUniqueValues(array, selectedDistribution);
-        return newUniqueValues;
-      });
+  //     const unique = data.map((array, index) => {
+  //       const selectedDistribution = dataSelections[index]?.selectedDistribution || ''; // Handle potential undefined
+  //       const newUniqueValues = extractUniqueValues(array, selectedDistribution);
+  //       return newUniqueValues;
+  //     });
   
-      // Update uniqueValues using setUniqueValues
-      setUniqueValues(unique);
-      // console.log("uniquedata:", unique);
-    };
+  //     // Update uniqueValues using setUniqueValues
+  //     setUniqueValues(unique);
+  //     // console.log("uniquedata:", unique);
+  //   };
   
-    // Call the data processing function whenever 'data' changes
-    processData();
-  }, [data]);
+  //   // Call the data processing function whenever 'data' changes
+  //   processData();
+  // }, [data]);
 
   const handleDataChange =(e, index) => {
     const selectedDisplay = e.target.value

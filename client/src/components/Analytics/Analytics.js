@@ -7,12 +7,12 @@ import YearRangeSelection from '../YearRangeSelection/YearRangeSelection';
 // import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from '../UnitSelection/UnitSelection';
 // import DataSelection from '../DataSelection/DataSelection';
-import dataL from '../../dataL.json'
+// import dataL from '../../dataL.json'
 import DataPipeline from '../DataPipeline/DataPipeline';
 
 
 const Analytics = () => {
-  const [propertiesToPlot, setPropertiesToPlot] = useState([])
+  const [propertiesToPlot, setPropertiesToPlot] = useState(["WeightedMean"])
   const [uniqueValues, setUniqueValues] = useState([[1,2,3,5]])
   const [dataSelections, setDataSelections] = useState([
     {selectedData: "INCOME",
@@ -31,9 +31,7 @@ const Analytics = () => {
   const [selectedDisplay, setSelectedDisplay] = useState("2")
   const [filteredData, setFilteredData] = useState([])
 
-  const [data, setData] = useState([
-    []
-  ])
+  const [data, setData] = useState([])
 
   const [UnitData, setUnitData] = useState([
     [{year: 2010, INCOME: 56638.91776678539},
@@ -78,7 +76,7 @@ const Analytics = () => {
       setDataSelections={setDataSelections}
       selectedData={selectedData}
       setSelectedData={setSelectedData}
-      dataL={dataL}
+      // dataL={dataL}
       data={data}
       setData={setData}
       setOutputSelectedData={setOutputSelectedData}
@@ -120,11 +118,10 @@ const Analytics = () => {
       </div>
 
 
-
       <LineChart
       width={900}
       height={300}
-      data={yearData}
+      data={data}
       margin={{
         top: 5,
         right: 30,
@@ -137,15 +134,13 @@ const Analytics = () => {
       <YAxis />
       <Tooltip />
       <Legend />
-      {propertiesToPlot.map((property, index) => (
         <Line
-          key={property}
+          key={"WeightedMean"}
           type="monotone"
-          dataKey={property}
+          dataKey={"WeightedMean"}
           stroke={`#${(Math.floor(Math.random() * 16777215)).toString(16)}`} // Generate a random color
           activeDot={{ r: 8 }}
         />
-      ))}
     </LineChart>
     </div>
   )
