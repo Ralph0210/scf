@@ -12,6 +12,8 @@ const DisplaySelection = ({
   dataSelections,
   setDataSelections,
 }) => {
+  const [selected, setSelected] = useState([]);
+
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
     const fetchDistinctValues = async (dataSelection, index) => {
@@ -29,7 +31,7 @@ const DisplaySelection = ({
         setUniqueValues((prevData) => {
           const updatedData = [...prevData];
           updatedData[index] = retrievedData;
-          console.log(updatedData);
+          // console.log(updatedData);
           return updatedData;
         });
       } catch (error) {
@@ -41,6 +43,8 @@ const DisplaySelection = ({
     dataSelections.forEach((dataSelection, index) => {
       fetchDistinctValues(dataSelection, index);
     });
+
+    console.log("uniquevalues: ", uniqueValues)
   }, [dataSelections, setData]);
 
   const handleDataChange = (e, index) => {
@@ -69,11 +73,11 @@ const DisplaySelection = ({
 
       {dataSelections.map((data, index) => (
         <div key={index} className="display_container_components">
+          {/* <pre>{JSON.stringify(selected)}</pre> */}
           <MultiSelect
             options={uniqueValues[index]}
-            value={data.selectedDisplay}
-            onChange={(e) => handleDataChange(e, index)}
-            labelledBy="Select"
+            value={selected}
+            onChange={setSelected}
           />
           <div className="deletion_container">
             <p onClick={() => handleDeletion(index)}>X</p>
