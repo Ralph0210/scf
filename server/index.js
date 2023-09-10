@@ -232,7 +232,8 @@ app.get('/api/survey', async (req, res) => {
             // data: {
             //   [selectedData]: surveyData.map((entry) => entry.dataValues),
             // },
-            WeightedMean: weightedMean
+            WeightedMean: weightedMean,
+            v: selectedData
           };
   
           results.push(dataObject);

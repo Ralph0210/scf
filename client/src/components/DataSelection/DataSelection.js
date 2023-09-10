@@ -9,23 +9,19 @@ const DataSelection = ({
   dataSelections,
   setDataSelections,
 }) => {
-  useEffect(() => {
-    // Add an async function for the API call and await the result
-    const fetchData = async () => {
-      try {
-        const retrievedData = await retrieve("2010-2019", "FIN", "HHSEX", "1", "Mean");
-        console.log("retrievedData:", retrievedData)
-        setData(retrievedData);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData(); // Call the async function to retrieve data
-  }, [dataSelections]);
 
-  useEffect(() => {
-    console.log("data", data)
-  },[data])
+  // useEffect(() => {
+    // Add an async function for the API call and await the result
+    
+  
+    // Call the fetchData function with the desired index
+    // fetchData(0); // For the first element in dataSelections
+  
+    // You can call fetchData with a different index when needed
+    // fetchData(1); // For the second element in dataSelections
+  
+  // }, [dataSelections]);
+  
 
   const handleDataChange = (e, index) => {
     const selectedData = e.target.value;

@@ -9,6 +9,7 @@ import UnitSelection from '../UnitSelection/UnitSelection';
 // import DataSelection from '../DataSelection/DataSelection';
 // import dataL from '../../dataL.json'
 import DataPipeline from '../DataPipeline/DataPipeline';
+import { retrieve } from '../api';
 
 
 const Analytics = () => {
@@ -48,6 +49,45 @@ const Analytics = () => {
   // initialize the data
   const [currentData, setCurrentData] = useState([]);
 
+
+  useEffect(() => {
+    // Create a function to fetch data for a single item in dataSelections
+    const fetchDataForItem = async (dataSelection, index) => {
+      try {
+        const apiParams = {
+          selectedYear: dataSelection.selectedYear.join('-'),
+          selectedData: dataSelection.selectedData,
+          selectedDistribution: dataSelection.selectedDistribution,
+          selectedDisplay: dataSelection.selectedDisplay[0],
+          selectedUnit: dataSelection.selectedUnit,
+        };
+
+        const retrievedData = await retrieve(
+          apiParams.selectedYear,
+          apiParams.selectedData,
+          apiParams.selectedDistribution,
+          apiParams.selectedDisplay,
+          apiParams.selectedUnit
+        );
+
+        console.log(`Data for Item ${index}:`, retrievedData);
+        // Update the data state with the retrieved data for the specific item
+        setData((prevData) => {
+          const updatedData = [...prevData];
+          updatedData[index] = retrievedData;
+          return updatedData;
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    // Loop through dataSelections and fetch data for each item
+    dataSelections.forEach((dataSelection, index) => {
+      fetchDataForItem(dataSelection, index);
+    });
+  }, [dataSelections, setData]);
+
   const changeYear = (data, value) => {
     const newYearData = [];
   
@@ -59,6 +99,8 @@ const Analytics = () => {
   
     return newYearData;
   };
+
+
 
   useEffect(() => {
       const updataedYearData = changeYear(UnitData, value)
@@ -76,7 +118,6 @@ const Analytics = () => {
       setDataSelections={setDataSelections}
       selectedData={selectedData}
       setSelectedData={setSelectedData}
-      // dataL={dataL}
       data={data}
       setData={setData}
       setOutputSelectedData={setOutputSelectedData}
