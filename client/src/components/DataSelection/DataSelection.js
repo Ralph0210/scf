@@ -5,28 +5,38 @@ import { getWeightedMeanIncome } from '../api';
 
 const DataSelection = ({uniqueValues, setUniqueValues, DataDistribution, data, setData, dataSelections, setDataSelections, selectedData, setSelectedData, dataL, setOutputSelectedData, additionalDataSelections, setAdditionalDataSelections, addAdditionalElement}) => {
 
-  // Function to retrieve weighted mean income for a specific year
-async function getWeightedMeanIncome(year) {
-  try {
-    const response = await axios.get(`http://localhost:3001/getWeightedMeanIncome?year=${year}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error:', error);
-    return null; // Handle the error gracefully
-  }
-}
 
-// Example usage:
-const year = 2016;
-getWeightedMeanIncome(year)
-  .then((data) => {
-    if (data !== null) {
-      console.log(`Weighted Mean Income for ${year}: ${data}`);
-    }
+
+useEffect(() => {
+
+  // Create an Axios instance with the base URL
+const api = axios.create({
+  baseURL: 'http://localhost:3001', // Set the correct base URL
+});
+
+  // Define the query parameters as an object
+const queryParams = {
+  selectedYear: '2010-2019',
+  selectedData: 'INCOME',
+  selectedDistribution: 'HHSEX',
+  selectedDisplay: '1',
+  selectedUnit: 'Mean',
+};
+
+// Use the `params` option to include the query parameters
+api.get('/api/survey', {
+  params: queryParams
+})
+  .then((response) => {
+    // Handle the response data here
+    console.log(response.data);
   })
   .catch((error) => {
-    console.error('Error:', error);
+    // Handle any errors here
+    console.error(error);
   });
+
+}, [dataSelections])
 
 const handleDataChange =(e, index) => {
   const selectedData = e.target.value
