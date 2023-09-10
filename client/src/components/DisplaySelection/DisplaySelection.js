@@ -48,9 +48,8 @@ const DisplaySelection = ({
   }, [dataSelections, setData]);
 
   const handleDataChange = (e, index) => {
-    const selectedDisplay = e.target.value;
     const updatedValue = [...dataSelections];
-    updatedValue[index].selectedDisplay = selectedDisplay;
+    updatedValue[index].selectedDisplay = e;
     setDataSelections(updatedValue);
   };
 
@@ -67,6 +66,10 @@ const DisplaySelection = ({
     setUniqueValues(updatedUniqueValues);
   };
 
+  useEffect(() => {
+    console.log("selected", selected)
+  },[selected])
+
   return (
     <div className="display_container">
       <label htmlFor="Display">Display</label>
@@ -76,8 +79,8 @@ const DisplaySelection = ({
           {/* <pre>{JSON.stringify(selected)}</pre> */}
           <MultiSelect
             options={uniqueValues[index]}
-            value={selected}
-            onChange={setSelected}
+            value={data.selectedDisplay}
+            onChange={(e) => handleDataChange(e, index)}
           />
           <div className="deletion_container">
             <p onClick={() => handleDeletion(index)}>X</p>
