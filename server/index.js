@@ -126,11 +126,65 @@ const YearTables = {
   };
   
   // ...
-  app.get('/api/survey', async (req, res) => {
-    // Log the query parameters to the console
-    // console.log(req.query);
+//   app.get('/api/survey', async (req, res) => {
+//     // Log the query parameters to the console
+//     // console.log(req.query);
   
-    const { selectedYear, selectedData } = req.query;
+//     const { selectedYear, selectedData, selectedDistribution, selectedDisplay, selectedUnit } = req.query;
+  
+//     try {
+//       // Parse selectedYear as a range (e.g., "2010-2019")
+//       const [startYear, endYear] = selectedYear.split('-');
+  
+//       // Validate that startYear and endYear are valid numbers
+//       if (isNaN(startYear) || isNaN(endYear)) {
+//         return res.status(400).json({ error: 'Invalid year range' });
+//       }
+  
+//       // Create an array to store the results from each year's table
+//       const results = [];
+  
+//       for (let year = parseInt(startYear); year <= parseInt(endYear); year++) {
+//         // Define an array of specific years you want to consider
+//         const specificYears = [2010, 2013, 2016, 2019];
+      
+//           // Continue with your logic for these specific years
+//           if (YearTables[year]) {
+//             const whereClause = {
+//                 [selectedDistribution]: selectedDisplay
+//             };
+//             console.log(whereClause)
+      
+//             const surveyData = await YearTables[year].findAll({
+//               where: whereClause,
+//               attributes: [selectedData, "WGT"],
+//               limit: 5,
+//             });
+//             console.log(whereClause);
+//             // Build the desired structure for the data
+//         const dataObject = {
+//             year: year,
+//             data: {
+//               [selectedData]: surveyData.map((entry) => entry.dataValues),
+//             },
+//           };
+      
+//             results.push(dataObject);
+//           }
+//       }
+      
+  
+//       // Combine the results from each year and send them as a single response
+//       const combinedResults = results.flat();
+//       res.json(combinedResults);
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Server error' });
+//     }
+//   });
+
+app.get('/api/survey', async (req, res) => {
+    const { selectedYear, selectedData, selectedDistribution, selectedDisplay, selectedUnit } = req.query;
   
     try {
       // Parse selectedYear as a range (e.g., "2010-2019")
@@ -145,35 +199,45 @@ const YearTables = {
       const results = [];
   
       for (let year = parseInt(startYear); year <= parseInt(endYear); year++) {
-        // Define an array of specific years you want to consider
-        const specificYears = [2010, 2013, 2016, 2019];
-      
-          // Continue with your logic for these specific years
-          if (YearTables[year]) {
-            const whereClause = {
-            //   selectedData: selectedData,
-              // ... other conditions
-            };
-            console.log(whereClause)
-      
-            const surveyData = await YearTables[year].findAll({
-              where: whereClause,
-              attributes: [selectedData],
-              limit: 5,
-            });
-            console.log(whereClause);
-            // Build the desired structure for the data
-        const dataObject = {
-            year: year,
-            data: {
-              [selectedData]: surveyData.map((entry) => entry.dataValues),
-            },
+        // Continue with your logic for these specific years
+        if (YearTables[year]) {
+          const whereClause = {
+            [selectedDistribution]: selectedDisplay,
           };
-      
-            results.push(dataObject);
+          console.log(whereClause);
+  
+          const surveyData = await YearTables[year].findAll({
+            where: whereClause,
+            attributes: [selectedData, "WGT"],
+          });
+          console.log(whereClause);
+  
+          // Calculate the weighted mean if selectedUnit is "Mean"
+          let weightedMeanIncome = null;
+          if (selectedUnit === "Mean") {
+            const totalIncomeWGT = surveyData.reduce((acc, entry) => {
+              return acc + (entry.dataValues[selectedData] * entry.dataValues.WGT);
+            }, 0);
+  
+            const totalWGT = surveyData.reduce((acc, entry) => {
+              return acc + entry.dataValues.WGT;
+            }, 0);
+  
+            weightedMeanIncome = totalIncomeWGT / totalWGT;
           }
+  
+          // Build the desired structure for the data
+          const dataObject = {
+            year: year,
+            // data: {
+            //   [selectedData]: surveyData.map((entry) => entry.dataValues),
+            // },
+            WeightedMeanIncome: weightedMeanIncome
+          };
+  
+          results.push(dataObject);
+        }
       }
-      
   
       // Combine the results from each year and send them as a single response
       const combinedResults = results.flat();
@@ -183,7 +247,7 @@ const YearTables = {
       res.status(500).json({ error: 'Server error' });
     }
   });
-  // ...
+  
   
   
 
