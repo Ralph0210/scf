@@ -22,7 +22,12 @@ app.get('/api/survey/:year', async (req, res) => {
         case '2016':
           surveyModel = s2016;
           break;
-        // Add cases for other years as needed
+          case '2013':
+            surveyModel = s2013;
+            break;
+          case '2010':
+            surveyModel = s2010;
+            break;
         default:
           surveyModel = null; // Handle cases where the year is not recognized
       }

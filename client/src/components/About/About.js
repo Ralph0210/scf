@@ -11,7 +11,7 @@ const About = () => {
     // Function to fetch data when the selected year changes
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/survey/${selectedYear}`);
+        const response = await axios.get(`http://localhost:3001/api/survey/${selectedYear}`);
         setSurveyData(response.data);
       } catch (error) {
         console.error(error);
