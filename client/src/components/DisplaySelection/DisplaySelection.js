@@ -1,10 +1,17 @@
-import React from 'react'
-import './DisplaySelection.css'
-import { useEffect, useState } from 'react';
-import { distinctValues } from '../api';
+import React from "react";
+import "./DisplaySelection.css";
+import { useEffect, useState } from "react";
+import { distinctValues } from "../api";
+import { MultiSelect } from "react-multi-select-component";
 
-const DisplaySelection = ({uniqueValues, setUniqueValues, data, setData, dataSelections, setDataSelections }) => {
-
+const DisplaySelection = ({
+  uniqueValues,
+  setUniqueValues,
+  data,
+  setData,
+  dataSelections,
+  setDataSelections,
+}) => {
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
     const fetchDistinctValues = async (dataSelection, index) => {
@@ -14,7 +21,7 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, data, setData, dataSel
         };
 
         const retrievedData = await distinctValues(
-          apiParams.selectedDistribution,
+          apiParams.selectedDistribution
         );
 
         console.log(`Data for Item ${index}:`, retrievedData);
@@ -22,7 +29,7 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, data, setData, dataSel
         setUniqueValues((prevData) => {
           const updatedData = [...prevData];
           updatedData[index] = retrievedData;
-          console.log(updatedData)
+          console.log(updatedData);
           return updatedData;
         });
       } catch (error) {
@@ -36,49 +43,45 @@ const DisplaySelection = ({uniqueValues, setUniqueValues, data, setData, dataSel
     });
   }, [dataSelections, setData]);
 
-  const handleDataChange =(e, index) => {
-    const selectedDisplay = e.target.value
-      const updatedValue = [...dataSelections]
-      updatedValue[index].selectedDisplay = selectedDisplay
-      setDataSelections(updatedValue)
-  }
+  const handleDataChange = (e, index) => {
+    const selectedDisplay = e.target.value;
+    const updatedValue = [...dataSelections];
+    updatedValue[index].selectedDisplay = selectedDisplay;
+    setDataSelections(updatedValue);
+  };
 
   const handleDeletion = (index) => {
-    const updatedElements = dataSelections.filter((_, i) => i !== index)
-    setDataSelections(updatedElements)
+    const updatedElements = dataSelections.filter((_, i) => i !== index);
+    setDataSelections(updatedElements);
     // console.log(updatedElements)
 
-    const updatedData = data.filter((_, i) => i !== index)
-    setData(updatedData)
+    const updatedData = data.filter((_, i) => i !== index);
+    setData(updatedData);
     // console.log("data deletion", updatedData)
 
-    const updatedUniqueValues = uniqueValues.filter((_, i) => i !== index)
-    setUniqueValues(updatedUniqueValues)
-  }
-  
+    const updatedUniqueValues = uniqueValues.filter((_, i) => i !== index);
+    setUniqueValues(updatedUniqueValues);
+  };
+
   return (
-    <div className='display_container'>
-      <label htmlFor='Display'>Display</label>
-  
+    <div className="display_container">
+      <label htmlFor="Display">Display</label>
+
       {dataSelections.map((data, index) => (
-        <div key={index} className='display_container_components'>
-          <select id={`Display_${index}`} className='Display' value={data.selectedDisplay} multiple onChange={(event) => handleDataChange(event, index)}>
-            {uniqueValues[index] && uniqueValues[index].length > 0 && (
-              uniqueValues[index].map(value => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))
-            )}
-          </select>
-          <div className='deletion_container'>
+        <div key={index} className="display_container_components">
+          <MultiSelect
+            options={uniqueValues[index]}
+            value={data.selectedDisplay}
+            onChange={(e) => handleDataChange(e, index)}
+            labelledBy="Select"
+          />
+          <div className="deletion_container">
             <p onClick={() => handleDeletion(index)}>X</p>
           </div>
         </div>
       ))}
     </div>
   );
-  
-}
+};
 
-export default DisplaySelection
+export default DisplaySelection;

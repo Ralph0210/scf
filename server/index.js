@@ -89,16 +89,19 @@ app.get('/api/survey', async (req, res) => {
     const { selectedDistribution } = req.query;
     try {
       const distinctValues = await s2019.findAll({
-        attributes: [[db.sequelize.fn('DISTINCT', db.sequelize.col(selectedDistribution)), 'distinct_value']],
+        attributes: [[db.sequelize.fn('DISTINCT', db.sequelize.col(selectedDistribution)), 'value']],
         where: {
           // Add any additional conditions if needed
         },
       });
   
-      // Extract distinct values from the result
-      const valuesArray = distinctValues.map((item) => item.dataValues.distinct_value);
+      // Map the distinct values into the desired format
+    const formattedValues = distinctValues.map((item) => ({
+        label: item.dataValues.value,  // Use the value as the label
+        value: item.dataValues.value,  // Use the value as the value
+      }));
   
-      res.json(valuesArray);
+      res.json(formattedValues);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Internal server error' });
