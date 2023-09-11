@@ -43,8 +43,10 @@ const Analytics = () => {
     {
       selectedData: "INCOME",
       selectedDistribution: "EDCL",
-      selectedDisplay: ["1"],
-      selectedUnit: "Mean",
+      selectedDisplay: [{
+        "label": 1,
+        "value": 1
+    }],
       selectedYear: ["2010", "2019"],
     },
   ]);
@@ -88,7 +90,7 @@ const Analytics = () => {
   
         // Loop through selectedDisplay values and fetch data for each
         const retrievedData = await Promise.all(
-          dataSelection.selectedDisplay.map(async (displayValue) => {
+          dataSelection.selectedDisplay.map(async (displayValue, index) => {
             const data = await retrieve(
               apiParams.selectedYear,
               apiParams.selectedData,
@@ -117,45 +119,6 @@ const Analytics = () => {
       fetchDataForItem(dataSelection, selectedUnit, index);
     });
   }, [dataSelections, setData, setSelectedUnit]);
-  
-
-  // useEffect(() => {
-  //   // Create a function to fetch data for a single item in dataSelections
-  //   const fetchDataForItem = async (dataSelection, index) => {
-  //     try {
-  //       const apiParams = {
-  //         selectedYear: dataSelection.selectedYear.join("-"),
-  //         selectedData: dataSelection.selectedData,
-  //         selectedDistribution: dataSelection.selectedDistribution,
-  //         selectedDisplay: dataSelection.selectedDisplay[0],
-  //         selectedUnit: dataSelection.selectedUnit,
-  //       };
-
-  //       const retrievedData = await retrieve(
-  //         apiParams.selectedYear,
-  //         apiParams.selectedData,
-  //         apiParams.selectedDistribution,
-  //         apiParams.selectedDisplay,
-  //         apiParams.selectedUnit
-  //       );
-
-  //       console.log(`Data for Item ${index}:`, retrievedData);
-  //       // Update the data state with the retrieved data for the specific item
-  //       setData((prevData) => {
-  //         const updatedData = [...prevData];
-  //         updatedData[index] = retrievedData;
-  //         return updatedData;
-  //       });
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   // Loop through dataSelections and fetch data for each item
-  //   dataSelections.forEach((dataSelection, index) => {
-  //     fetchDataForItem(dataSelection, index);
-  //   });
-  // }, [dataSelections, setData]);
 
   const changeYear = (data, value) => {
     const newYearData = [];

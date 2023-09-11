@@ -26,7 +26,7 @@ const DisplaySelection = ({
           apiParams.selectedDistribution
         );
 
-        console.log(`Data for Item ${index}:`, retrievedData);
+        // console.log(`Data for Item ${index}:`, retrievedData);
         // Update the data state with the retrieved data for the specific item
         setUniqueValues((prevData) => {
           const updatedData = [...prevData];
@@ -79,7 +79,7 @@ const DisplaySelection = ({
           {/* <pre>{JSON.stringify(selected)}</pre> */}
           <MultiSelect
             options={uniqueValues[index]}
-            value={data.selectedDisplay}
+            value={[...data.selectedDisplay]}
             onChange={(e) => handleDataChange(e, index)}
           />
           <div className="deletion_container">

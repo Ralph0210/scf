@@ -37,7 +37,6 @@ const DataSelection = ({
       selectedDistribution: "EDCL",
       selectedDisplay: ['1'],
       selectedYear: ["2010", "2019"],
-      selectedUnit: "Mean",
     });
     setDataSelections(updatedElements);
 
