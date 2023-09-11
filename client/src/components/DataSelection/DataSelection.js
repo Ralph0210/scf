@@ -35,8 +35,10 @@ const DataSelection = ({
     updatedElements.push({
       selectedData: "INCOME",
       selectedDistribution: "EDCL",
-      selectedDisplay: ['1'],
-      selectedYear: ["2010", "2019"],
+      selectedDisplay: [{
+        "label": 1,
+        "value": 1
+    }],
     });
     setDataSelections(updatedElements);
 

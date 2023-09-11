@@ -43,8 +43,6 @@ const DisplaySelection = ({
     dataSelections.forEach((dataSelection, index) => {
       fetchDistinctValues(dataSelection, index);
     });
-
-    console.log("uniquevalues: ", uniqueValues)
   }, [dataSelections, setData]);
 
   const handleDataChange = (e, index) => {
@@ -65,10 +63,6 @@ const DisplaySelection = ({
     const updatedUniqueValues = uniqueValues.filter((_, i) => i !== index);
     setUniqueValues(updatedUniqueValues);
   };
-
-  useEffect(() => {
-    console.log("selected", selected)
-  },[selected])
 
   return (
     <div className="display_container">

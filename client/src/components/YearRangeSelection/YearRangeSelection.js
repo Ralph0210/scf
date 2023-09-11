@@ -41,7 +41,7 @@ const YearRangeSelection = (props) => {
       {/* <StyledSlider max={2019} min={2010} step={3} minDistance={3} defaultValue={[2010, 2019]} renderTrack={Track} renderThumb={Thumb} /> */}
       <StyledSlider
     value={value}
-    onAfterChange={(value, index) =>setValue(value,index)
+    onAfterChange={(value, index) => setValue(value,index)
     }
     // className="horizontal-slider"
     // thumbClassName="example-thumb"

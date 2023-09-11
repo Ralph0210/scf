@@ -47,7 +47,6 @@ const Analytics = () => {
         "label": 1,
         "value": 1
     }],
-      selectedYear: ["2010", "2019"],
     },
   ]);
   const [selectedData, setSelectedData] = useState("INCOME");
@@ -79,10 +78,10 @@ const Analytics = () => {
 
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
-    const fetchDataForItem = async (dataSelection, selectedUnit, index) => {
+    const fetchDataForItem = async (dataSelection, selectedUnit, value, index) => {
       try {
         const apiParams = {
-          selectedYear: dataSelection.selectedYear.join("-"),
+          selectedYear: value.join("-"),
           selectedData: dataSelection.selectedData,
           selectedDistribution: dataSelection.selectedDistribution,
           selectedUnit: selectedUnit,
@@ -116,28 +115,9 @@ const Analytics = () => {
   
     // Loop through dataSelections and fetch data for each item
     dataSelections.forEach((dataSelection, index) => {
-      fetchDataForItem(dataSelection, selectedUnit, index);
+      fetchDataForItem(dataSelection, selectedUnit, value, index);
     });
-  }, [dataSelections, setData, setSelectedUnit]);
-
-  const changeYear = (data, value) => {
-    const newYearData = [];
-
-    for (const dataEntry of data) {
-      if (dataEntry.year >= value[0] && dataEntry.year <= value[1]) {
-        newYearData.push({ ...dataEntry });
-      }
-    }
-
-    return newYearData;
-  };
-
-  useEffect(() => {
-    const updataedYearData = changeYear(UnitData, value);
-
-    setYearData(updataedYearData);
-    console.log("year:", updataedYearData);
-  }, [value, distributedData, filteredData, selectedUnit, UnitData]);
+  }, [dataSelections, setData, setSelectedUnit, setValue, value]);
 
   return (
     <div className="analytics_container">
