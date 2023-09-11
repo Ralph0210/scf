@@ -45,7 +45,7 @@ const Analytics = () => {
       selectedDistribution: "EDCL",
       selectedDisplay: ["1"],
       selectedUnit: "Mean",
-      selectedYear: [2010, 2019],
+      selectedYear: ["2010", "2019"],
     },
   ]);
   const [selectedData, setSelectedData] = useState("INCOME");
@@ -77,24 +77,29 @@ const Analytics = () => {
 
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
-    const fetchDataForItem = async (dataSelection, index) => {
+    const fetchDataForItem = async (dataSelection, selectedUnit, index) => {
       try {
         const apiParams = {
           selectedYear: dataSelection.selectedYear.join("-"),
           selectedData: dataSelection.selectedData,
           selectedDistribution: dataSelection.selectedDistribution,
-          selectedDisplay: dataSelection.selectedDisplay[0],
-          selectedUnit: dataSelection.selectedUnit,
+          selectedUnit: selectedUnit,
         };
-
-        const retrievedData = await retrieve(
-          apiParams.selectedYear,
-          apiParams.selectedData,
-          apiParams.selectedDistribution,
-          apiParams.selectedDisplay,
-          apiParams.selectedUnit
+  
+        // Loop through selectedDisplay values and fetch data for each
+        const retrievedData = await Promise.all(
+          dataSelection.selectedDisplay.map(async (displayValue) => {
+            const data = await retrieve(
+              apiParams.selectedYear,
+              apiParams.selectedData,
+              apiParams.selectedDistribution,
+              displayValue.value, // Use the current displayValue from the map
+              apiParams.selectedUnit
+            );
+            return data;
+          })
         );
-
+  
         console.log(`Data for Item ${index}:`, retrievedData);
         // Update the data state with the retrieved data for the specific item
         setData((prevData) => {
@@ -106,12 +111,51 @@ const Analytics = () => {
         console.error(error);
       }
     };
-
+  
     // Loop through dataSelections and fetch data for each item
     dataSelections.forEach((dataSelection, index) => {
-      fetchDataForItem(dataSelection, index);
+      fetchDataForItem(dataSelection, selectedUnit, index);
     });
-  }, [dataSelections, setData]);
+  }, [dataSelections, setData, setSelectedUnit]);
+  
+
+  // useEffect(() => {
+  //   // Create a function to fetch data for a single item in dataSelections
+  //   const fetchDataForItem = async (dataSelection, index) => {
+  //     try {
+  //       const apiParams = {
+  //         selectedYear: dataSelection.selectedYear.join("-"),
+  //         selectedData: dataSelection.selectedData,
+  //         selectedDistribution: dataSelection.selectedDistribution,
+  //         selectedDisplay: dataSelection.selectedDisplay[0],
+  //         selectedUnit: dataSelection.selectedUnit,
+  //       };
+
+  //       const retrievedData = await retrieve(
+  //         apiParams.selectedYear,
+  //         apiParams.selectedData,
+  //         apiParams.selectedDistribution,
+  //         apiParams.selectedDisplay,
+  //         apiParams.selectedUnit
+  //       );
+
+  //       console.log(`Data for Item ${index}:`, retrievedData);
+  //       // Update the data state with the retrieved data for the specific item
+  //       setData((prevData) => {
+  //         const updatedData = [...prevData];
+  //         updatedData[index] = retrievedData;
+  //         return updatedData;
+  //       });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   // Loop through dataSelections and fetch data for each item
+  //   dataSelections.forEach((dataSelection, index) => {
+  //     fetchDataForItem(dataSelection, index);
+  //   });
+  // }, [dataSelections, setData]);
 
   const changeYear = (data, value) => {
     const newYearData = [];

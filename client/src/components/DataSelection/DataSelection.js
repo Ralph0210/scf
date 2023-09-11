@@ -36,8 +36,8 @@ const DataSelection = ({
       selectedData: "INCOME",
       selectedDistribution: "EDCL",
       selectedDisplay: ['1'],
+      selectedYear: ["2010", "2019"],
       selectedUnit: "Mean",
-      selectedYear: ["2010", "2019"], // Corrected year format to strings
     });
     setDataSelections(updatedElements);
 
