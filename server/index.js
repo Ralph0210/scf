@@ -63,13 +63,7 @@ app.get('/api/survey', async (req, res) => {
           // Build the desired structure for the data
           const dataObject = {
             year: year,
-            // data: {
-            //   [selectedData]: surveyData.map((entry) => entry.dataValues),
-            // },
-            WeightedMean: weightedMean,
-            data: selectedData,
-            distribution: selectedDistribution,
-            display: selectedDisplay
+            [`${selectedData}-${selectedDistribution}-${selectedDisplay}`]: weightedMean,
           };
   
           results.push(dataObject);

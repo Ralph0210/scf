@@ -23,30 +23,35 @@ import { retrieve } from "../api";
 const Analytics = () => {
   const [propertiesToPlot, setPropertiesToPlot] = useState(["WeightedMean"]);
   const [uniqueValues, setUniqueValues] = useState([
-    [{
-    "label": 4,
-    "value": 4
-},
-{
-    "label": 2,
-    "value": 2
-},
-{
-    "label": 3,
-    "value": 3
-},
-{
-    "label": 1,
-    "value": 1
-}]]);
+    [
+      {
+        label: 4,
+        value: 4,
+      },
+      {
+        label: 2,
+        value: 2,
+      },
+      {
+        label: 3,
+        value: 3,
+      },
+      {
+        label: 1,
+        value: 1,
+      },
+    ],
+  ]);
   const [dataSelections, setDataSelections] = useState([
     {
       selectedData: "INCOME",
       selectedDistribution: "EDCL",
-      selectedDisplay: [{
-        "label": 1,
-        "value": 1
-    }],
+      selectedDisplay: [
+        {
+          label: 1,
+          value: 1,
+        },
+      ],
     },
   ]);
   const [selectedData, setSelectedData] = useState("INCOME");
@@ -59,6 +64,7 @@ const Analytics = () => {
   const [filteredData, setFilteredData] = useState([]);
 
   const [data, setData] = useState([]);
+  const [dataForGraphing, setDataForGraphing] = useState([])
 
   const [UnitData, setUnitData] = useState([
     [
@@ -78,7 +84,12 @@ const Analytics = () => {
 
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
-    const fetchDataForItem = async (dataSelection, selectedUnit, value, index) => {
+    const fetchDataForItem = async (
+      dataSelection,
+      selectedUnit,
+      value,
+      index
+    ) => {
       try {
         const apiParams = {
           selectedYear: value.join("-"),
@@ -86,7 +97,7 @@ const Analytics = () => {
           selectedDistribution: dataSelection.selectedDistribution,
           selectedUnit: selectedUnit,
         };
-  
+
         // Loop through selectedDisplay values and fetch data for each
         const retrievedData = await Promise.all(
           dataSelection.selectedDisplay.map(async (displayValue, index) => {
@@ -100,8 +111,8 @@ const Analytics = () => {
             return data;
           })
         );
-  
-        console.log(`Data for Item ${index}:`, retrievedData);
+
+        // console.log(`Data for Item ${index}:`, retrievedData);
         // Update the data state with the retrieved data for the specific item
         setData((prevData) => {
           const updatedData = [...prevData];
@@ -112,12 +123,56 @@ const Analytics = () => {
         console.error(error);
       }
     };
-  
+
     // Loop through dataSelections and fetch data for each item
     dataSelections.forEach((dataSelection, index) => {
       fetchDataForItem(dataSelection, selectedUnit, value, index);
     });
   }, [dataSelections, setData, setSelectedUnit, setValue, value]);
+
+  console.log("data", JSON.stringify(data))
+
+  function mergeDataByYear(data) {
+    const mergedData = {};
+  
+    data.forEach(dataArray => {
+      dataArray.forEach(dataArray2 => {
+        dataArray2.forEach(item => {
+        const year = item.year;
+        if (!mergedData[year]) {
+          mergedData[year] = {};
+        }
+        Object.keys(item).forEach(key => {
+          mergedData[year][key] = item[key];})
+        });
+      });
+    });
+
+    const mergedDataArray = Object.values(mergedData);
+    return mergedDataArray;
+  }
+
+  useEffect(() => {
+    const newData = mergeDataByYear(data)
+    setDataForGraphing(newData)
+    console.log("dataforgraphing", newData)
+  }, [data])
+
+  let lines = null;
+
+  if (dataForGraphing.length > 0) {
+    lines = Object.keys(dataForGraphing[0])
+      .filter(key => key !== 'year')
+      .map((key, index) => (
+        <Line
+          key={index}
+          type="monotone"
+          dataKey={key}
+          stroke={`#${Math.floor(Math.random()*16777215).toString(16)}`}
+          activeDot={{ r: 8 }}
+        />
+      ));
+      }
 
   return (
     <div className="analytics_container">
@@ -174,7 +229,7 @@ const Analytics = () => {
       <LineChart
         width={900}
         height={300}
-        data={data}
+        data={dataForGraphing}
         margin={{
           top: 5,
           right: 30,
@@ -187,13 +242,8 @@ const Analytics = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line
-          key={"WeightedMean"}
-          type="monotone"
-          dataKey={"WeightedMean"}
-          stroke={`#${Math.floor(Math.random() * 16777215).toString(16)}`} // Generate a random color
-          activeDot={{ r: 8 }}
-        />
+        {lines}
+        
       </LineChart>
     </div>
   );
