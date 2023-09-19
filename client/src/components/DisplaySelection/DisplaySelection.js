@@ -13,6 +13,19 @@ const DisplaySelection = ({
   setDataSelections,
 }) => {
 
+  const ArrowRenderer = ({ expanded }) => (
+    <svg
+      width="24"
+      height="24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className="dropdown-heading-dropdown-arrow gray"
+    >
+      <path d={expanded ? "M18 15 12 9 6 15" : "M6 9L12 15 18 9"} />
+    </svg>
+  );
+
   const handleDataChange = (e, index) => {
     const updatedValue = [...dataSelections];
     updatedValue[index].selectedDisplay = e;
@@ -48,6 +61,8 @@ const DisplaySelection = ({
             labelledBy="Select"
             overrideStrings={{"allItemsAreSelected": "All"}}
             disableSearch={true}
+            ClearSelectedIcon={null}
+            ArrowRenderer={ArrowRenderer}
           />
           <div className="deletion_container">
             <p onClick={() => handleDeletion(index)}>X</p>
