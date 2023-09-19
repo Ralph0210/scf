@@ -156,7 +156,7 @@ const Analytics = () => {
     const newData = mergeDataByYear(data)
     setDataForGraphing(newData)
     console.log("dataforgraphing", newData)
-  }, [data])
+  }, [data, dataSelections])
 
   let lines = null;
 
@@ -168,7 +168,7 @@ const Analytics = () => {
           key={index}
           type="monotone"
           dataKey={key}
-          stroke={`#${Math.floor(Math.random()*16777215).toString(16)}`}
+          stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
           activeDot={{ r: 8 }}
         />
       ));

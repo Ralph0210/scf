@@ -12,43 +12,54 @@ const DisplaySelection = ({
   dataSelections,
   setDataSelections,
 }) => {
-  const [selected, setSelected] = useState([]);
 
-  useEffect(() => {
-    // Create a function to fetch data for a single item in dataSelections
-    const fetchDistinctValues = async (dataSelection, index) => {
-      try {
-        const apiParams = {
-          selectedDistribution: dataSelection.selectedDistribution,
-        };
+  // useEffect(() => {
+  //   // Create a function to fetch data for a single item in dataSelections
+  //   const fetchDistinctValues = async (dataSelection, index) => {
+  //     try {
+  //       const apiParams = {
+  //         selectedDistribution: dataSelection.selectedDistribution,
+  //       };
 
-        const retrievedData = await distinctValues(
-          apiParams.selectedDistribution
-        );
+  //       const retrievedData = await distinctValues(
+  //         apiParams.selectedDistribution
+  //       );
 
-        // console.log(`Data for Item ${index}:`, retrievedData);
-        // Update the data state with the retrieved data for the specific item
-        setUniqueValues((prevData) => {
-          const updatedData = [...prevData];
-          updatedData[index] = retrievedData;
-          // console.log(updatedData);
-          return updatedData;
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  //       // console.log(`Data for Item ${index}:`, retrievedData);
+  //       // Update the data state with the retrieved data for the specific item
+  //       setUniqueValues((prevData) => {
+  //         const updatedData = [...prevData];
+  //         updatedData[index] = retrievedData;
+  //         // console.log(updatedData);
+  //         return updatedData;
+  //       });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    // Loop through dataSelections and fetch data for each item
-    dataSelections.forEach((dataSelection, index) => {
-      fetchDistinctValues(dataSelection, index);
-    });
-  }, [dataSelections, setData]);
+  //   // Loop through dataSelections and fetch data for each item
+  //   dataSelections.forEach((dataSelection, index) => {
+  //     if (dataSelection.selectedDistribution !== "None"){
+  //     fetchDistinctValues(dataSelection, index);
+  //   }else {
+  //     const updatedData = {...dataSelections}
+  //     updatedData[index].selectedDisplay = [
+  //       {
+  //         label: "None",
+  //         value: "None",
+  //       }
+  //     ]
+  //     setDataSelections(updatedData)
+  //   }
+  //   });
+  // }, [dataSelections, setDataSelections]);
 
   const handleDataChange = (e, index) => {
     const updatedValue = [...dataSelections];
     updatedValue[index].selectedDisplay = e;
     setDataSelections(updatedValue);
+    console.log("display handle", updatedValue)
   };
 
   const handleDeletion = (index) => {
@@ -70,7 +81,6 @@ const DisplaySelection = ({
 
       {dataSelections.map((data, index) => (
         <div key={index} className="display_container_components">
-          {/* <pre>{JSON.stringify(selected)}</pre> */}
           <MultiSelect
             options={uniqueValues[index]}
             value={[...data.selectedDisplay]}
