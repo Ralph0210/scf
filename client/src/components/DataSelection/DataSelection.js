@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'; // Import useEffect and useState from 'react'
-import { retrieve } from '../api';
+import React from 'react';
 
 const DataSelection = ({
   uniqueValues,
@@ -9,19 +8,6 @@ const DataSelection = ({
   dataSelections,
   setDataSelections,
 }) => {
-
-  // useEffect(() => {
-    // Add an async function for the API call and await the result
-    
-  
-    // Call the fetchData function with the desired index
-    // fetchData(0); // For the first element in dataSelections
-  
-    // You can call fetchData with a different index when needed
-    // fetchData(1); // For the second element in dataSelections
-  
-  // }, [dataSelections]);
-  
 
   const handleDataChange = (e, index) => {
     const selectedData = e.target.value;

@@ -1,32 +1,31 @@
-import React from 'react'
-import './DistributionSelection.css'
-import { useEffect } from 'react';
+import React from "react";
+import "./DistributionSelection.css";
 import { distinctValues } from "../api";
 
-const DistributionSelection = ({DataDistribution, data, setData, dataSelections, setDataSelections, uniqueValues,
-  setUniqueValues, }) => {
-
-  const handleDataChange =(e, index) => {
-    const selectedDistribution = e.target.value
-      const updatedValue = [...dataSelections]
-      if (e.target.value === "None") {
-        updatedValue[index].selectedDistribution = selectedDistribution
-        updatedValue[index].selectedDisplay = [
-          {
-            label: "None",
-            value: "None",
-          }
-        ]
-      } else {
-        updatedValue[index].selectedDistribution = selectedDistribution
-        updatedValue[index].selectedDisplay = [{label: 1,
-        value: 1,}]
-        fetchDistinctValues(updatedValue[index], index)
-      }
-      setDataSelections(updatedValue)
-      console.log("none selection", updatedValue)
-  }
-
+const DistributionSelection = ({
+  dataSelections,
+  setDataSelections,
+  setUniqueValues,
+}) => {
+  const handleDataChange = (e, index) => {
+    const selectedDistribution = e.target.value;
+    const updatedValue = [...dataSelections];
+    if (e.target.value === "None") {
+      updatedValue[index].selectedDistribution = selectedDistribution;
+      updatedValue[index].selectedDisplay = [
+        {
+          label: "None",
+          value: "None",
+        },
+      ];
+    } else {
+      updatedValue[index].selectedDistribution = selectedDistribution;
+      updatedValue[index].selectedDisplay = [{ label: 1, value: 1 }];
+      fetchDistinctValues(updatedValue[index], index);
+    }
+    setDataSelections(updatedValue);
+    console.log("none selection", updatedValue);
+  };
 
   const fetchDistinctValues = async (dataSelection, index) => {
     try {
@@ -51,26 +50,28 @@ const DistributionSelection = ({DataDistribution, data, setData, dataSelections,
     }
   };
 
-
   return (
-    <div className='distribution_container'>
-        <label htmlFor='Distribution'>Distributed by</label>
+    <div className="distribution_container">
+      <label htmlFor="Distribution">Distributed by</label>
 
-        {dataSelections.map((data, index) => (
+      {dataSelections.map((data, index) => (
         <div key={index}>
-        <select id='Distribution'
-        className={`Distribution_${index}`} value={data.selectedDistribution} onChange={(event) => handleDataChange(event, index)}>
-          <option value={"None"}>None</option>
-          <option value={"HHSEX"}>Sex</option>
-          <option value={"EDCL"}>Education</option>
-          <option value={"MARRIED"}>Married</option>
-          <option value={"RACE"}>Race</option>
-        </select>
+          <select
+            id="Distribution"
+            className={`Distribution_${index}`}
+            value={data.selectedDistribution}
+            onChange={(event) => handleDataChange(event, index)}
+          >
+            <option value={"None"}>None</option>
+            <option value={"HHSEX"}>Sex</option>
+            <option value={"EDCL"}>Education</option>
+            <option value={"MARRIED"}>Married</option>
+            <option value={"RACE"}>Race</option>
+          </select>
         </div>
-        ))}
+      ))}
+    </div>
+  );
+};
 
-        </div>
-  )
-}
-
-export default DistributionSelection
+export default DistributionSelection;

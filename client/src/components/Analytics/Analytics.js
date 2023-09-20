@@ -12,16 +12,11 @@ import {
 } from "recharts";
 import { useState, useEffect } from "react";
 import YearRangeSelection from "../YearRangeSelection/YearRangeSelection";
-// import DistributionSelection from '../DistributionSelection/DistributionSelection';
-// import DisplaySelection from '../DisplaySelection/DisplaySelection';
 import UnitSelection from "../UnitSelection/UnitSelection";
-// import DataSelection from '../DataSelection/DataSelection';
-// import dataL from '../../dataL.json'
 import DataPipeline from "../DataPipeline/DataPipeline";
 import { retrieve } from "../api";
 
 const Analytics = () => {
-  const [propertiesToPlot, setPropertiesToPlot] = useState(["WeightedMean"]);
   const [uniqueValues, setUniqueValues] = useState([
     [
       {
@@ -54,33 +49,13 @@ const Analytics = () => {
       ],
     },
   ]);
-  const [selectedData, setSelectedData] = useState("INCOME");
-  const [outputSelectedData, setOutputSelectedData] = useState([]);
-
-  const [selectedDistribution, setSelectedDistribution] = useState("EDCL");
-  const [distributedData, setDistributedData] = useState([]);
-
-  const [selectedDisplay, setSelectedDisplay] = useState("2");
-  const [filteredData, setFilteredData] = useState([]);
 
   const [data, setData] = useState([]);
   const [dataForGraphing, setDataForGraphing] = useState([])
-
-  const [UnitData, setUnitData] = useState([
-    [
-      { year: 2010, INCOME: 56638.91776678539 },
-      { year: 2013, INCOME: 55691.86413389803 },
-      { year: 2016, INCOME: 60874.0068536714 },
-      { year: 2019, INCOME: 63701.10821184536 },
-    ],
-  ]);
   const [selectedUnit, setSelectedUnit] = useState("Mean"); // Set initial selected option
 
   const [value, setValue] = useState([2010, 2019]);
-  const [yearData, setYearData] = useState([]);
 
-  // initialize the data
-  const [currentData, setCurrentData] = useState([]);
 
   useEffect(() => {
     // Create a function to fetch data for a single item in dataSelections
@@ -181,37 +156,14 @@ const Analytics = () => {
         setUniqueValues={setUniqueValues}
         dataSelections={dataSelections}
         setDataSelections={setDataSelections}
-        selectedData={selectedData}
-        setSelectedData={setSelectedData}
         data={data}
         setData={setData}
-        setOutputSelectedData={setOutputSelectedData}
-        selectedDistribution={selectedDistribution}
-        setSelectedDistribution={setSelectedDistribution}
-        distributedData={distributedData}
-        setDistributedData={setDistributedData}
-        selectedDisplay={selectedDisplay}
-        setSelectedDisplay={setSelectedDisplay}
-        filteredData={filteredData}
-        setFilteredData={setFilteredData}
       />
 
       <div className="adjustment">
         <UnitSelection
-          propertiesToPlot={propertiesToPlot}
-          setPropertiesToPlot={setPropertiesToPlot}
-          dataSelections={dataSelections}
-          data={data}
-          setData={setData}
           selectedUnit={selectedUnit}
           setSelectedUnit={setSelectedUnit}
-          distributedData={distributedData}
-          filteredData={filteredData}
-          UnitData={UnitData}
-          setUnitData={setUnitData}
-          selectedDistribution={selectedDistribution}
-          selectedData={selectedData}
-          selectedDisplay={selectedDisplay}
         />
 
         <div className="year_range_container">
@@ -243,7 +195,6 @@ const Analytics = () => {
         <Tooltip />
         <Legend />
         {lines}
-        
       </LineChart>
     </div>
   );
