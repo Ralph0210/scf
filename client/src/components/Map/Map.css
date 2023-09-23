@@ -37,11 +37,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(217, 217, 217, 0.20);
     height: 100vh;
     width: 40rem; /* Optionally, to make it take up the entire viewport height */
   }
   
   .map_container {
+    border: #70B77E;
     display: flex;
     justify-content: center;
     align-items: center;
