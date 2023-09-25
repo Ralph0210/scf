@@ -119,6 +119,7 @@ const Map = () => {
       .attr("height", height)
       .attr("viewBox", [-cx, -cy, width, height])
       .attr("style", "width: 100%; height: auto; font: 10px sans-serif;")
+      .style("overflow", "visible")
 
   //     const svgGroup = svg.append("g")
   //     .attr("transform", `translate(${c.cx},${c.cy})`);
