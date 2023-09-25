@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import "./ExploreData.css";
+import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_PAN} from 'react-svg-pan-zoom';
 // import data from './flare-2.json'
 
 const ExploreData = () => {
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
+  const Viewer = useRef(null);
+  const [tool, setTool] = useState(TOOL_PAN)
+  const [value, setValue] = useState(INITIAL_VALUE)
   const svgRef = useRef();
   const svgRef2 = useRef();
   const data = {
@@ -32,7 +36,9 @@ const ExploreData = () => {
     ],
     name: "CEO",
   };
-
+  useEffect(() => {
+    Viewer.current.fitToViewer();
+  }, []);
   // useEffect(() => {
   //   //setting up svg
   //   const w = 400;
@@ -111,7 +117,8 @@ const ExploreData = () => {
       .attr("width", width)
       .attr("height", height)
       .attr("viewBox", [-cx, -cy, width, height])
-      .attr("style", "width: width; height: height; font: 10px sans-serif;")
+      .attr("style", `width: ${width}px; height: ${height}px; font: 10px sans-serif;`)
+
 
   // Append links.
   let links = svg.append("g")
@@ -154,8 +161,26 @@ const ExploreData = () => {
 
   return (
     <div>
-      <svg ref={svgRef}></svg>
-      <svg ref={svgRef2}></svg>
+      {/* <svg ref={svgRef}></svg> */}
+      <ReactSVGPanZoom
+        ref={Viewer}
+        background='rgba(217, 217, 217, 0.20)'
+        defaultTool='pan'
+        width={800} height={800}
+        tool={tool} onChangeTool={setTool}
+        value={value} onChangeValue={setValue}
+        detectAutoPan={false}
+        toolbarProps={{
+            position: "none", // Set position to "none" to hide the toolbar
+          }}
+          miniatureProps={{
+            position: "none", // Set position to "none" to hide the miniature
+          }}
+      >
+      <svg >
+        <g ref={svgRef2}></g>
+      </svg>
+      </ReactSVGPanZoom>
     </div>
   );
 };

@@ -1,32 +1,48 @@
 import {useRef, useState, useEffect} from 'react';
-import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_PAN} from 'react-svg-pan-zoom';
+import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_NONE, fitSelection, zoomOnViewerCenter, fitToViewer} from 'react-svg-pan-zoom';
 
-export default function Pan() {
+export default function App() {
   const Viewer = useRef(null);
-  const [tool, setTool] = useState(TOOL_PAN)
+  const [tool, setTool] = useState(TOOL_NONE)
   const [value, setValue] = useState(INITIAL_VALUE)
 
   useEffect(() => {
     Viewer.current.fitToViewer();
   }, []);
 
+  /* Read all the available methods in the documentation */
+  const _zoomOnViewerCenter1 = () => Viewer.current.zoomOnViewerCenter(1.1)
+  const _fitSelection1 = () => Viewer.current.fitSelection(40, 40, 200, 200)
+  const _fitToViewer1 = () => Viewer.current.fitToViewer()
+
+  /* keep attention! handling the state in the following way doesn't fire onZoom and onPam hooks */
+  const _zoomOnViewerCenter2 = () => setValue(zoomOnViewerCenter(value, 1.1))
+  const _fitSelection2 = () => setValue(fitSelection(value, 40, 40, 200, 200))
+  const _fitToViewer2 = () => setValue(fitToViewer(value))
+
   return (
     <div>
+      <h1>ReactSVGPanZoom</h1>
+      <hr/>
+
+      <button className="btn" onClick={() => _zoomOnViewerCenter1()}>Zoom on center (mode 1)</button>
+      <button className="btn" onClick={() => _fitSelection1()}>Zoom area 200x200 (mode 1)</button>
+      <button className="btn" onClick={() => _fitToViewer1()}>Fit (mode 1)</button>
+      <hr/>
+
+      <button className="btn" onClick={() => _zoomOnViewerCenter2()}>Zoom on center (mode 2)</button>
+      <button className="btn" onClick={() => _fitSelection2()}>Zoom area 200x200 (mode 2)</button>
+      <button className="btn" onClick={() => _fitToViewer2()}>Fit (mode 2)</button>
+      <hr/>
 
       <ReactSVGPanZoom
         ref={Viewer}
-        background='rgba(217, 217, 217, 0.20)'
-        defaultTool='pan'
-        width={1440} height={1024}
+        width={500} height={500}
         tool={tool} onChangeTool={setTool}
         value={value} onChangeValue={setValue}
-        detectAutoPan={false}
-        toolbarProps={{
-            position: "none", // Set position to "none" to hide the toolbar
-          }}
-          miniatureProps={{
-            position: "none", // Set position to "none" to hide the miniature
-          }}
+        onZoom={e => console.log('zoom')}
+        onPan={e => console.log('pan')}
+        onClick={event => console.log('click', event.x, event.y, event.originalEvent)}
       >
         <svg width={617} height={316}>
           <g fillOpacity=".5" strokeWidth="4">

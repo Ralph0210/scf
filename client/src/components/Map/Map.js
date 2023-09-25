@@ -2,8 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3'; // Import D3 library
 import data from './var.json'
 import './Map.css'
+import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_PAN} from 'react-svg-pan-zoom';
 
 const Map = () => {
+  const Viewer = useRef(null);
+  const [tool, setTool] = useState(TOOL_PAN)
+  const [value, setValue] = useState(INITIAL_VALUE)
+
+  useEffect(() => {
+    Viewer.current.fitToViewer();
+  }, []);
 
   const debounce = (func, delay) => {
     let timerId;
@@ -24,7 +32,7 @@ const Map = () => {
   useEffect(() => {
     // Function to update dimensions based on screen size
     const updateDimensions = () => {
-      const containerWidth = chartContainerRef.current.clientWidth;
+      const containerWidth = chartContainerRef.current.offsetWidth;
       const containerHeight = chartContainerRef.current.clientHeight;
 
       // Set dimensions to the maximum of container width and height
@@ -210,9 +218,27 @@ const Map = () => {
   }, [dimensions, chartContainerRef]);
 
   return (
-    <div className='map_parent_container'>
+    <div >
+      <ReactSVGPanZoom
+        ref={Viewer}
+        background='rgba(217, 217, 217, 0.20)'
+        defaultTool='pan'
+        width={1440} height={1024}
+        tool={tool} onChangeTool={setTool}
+        value={value} onChangeValue={setValue}
+        detectAutoPan={false}
+        toolbarProps={{
+            position: "none", // Set position to "none" to hide the toolbar
+          }}
+          miniatureProps={{
+            position: "none", // Set position to "none" to hide the miniature
+          }}
+          className='map_parent_container'
+      >    
       <div className='map_container' ref={chartContainerRef} style={{border: '1px solid'}}>
       </div>
+
+    </ReactSVGPanZoom>
     </div>
   );
 };
