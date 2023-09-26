@@ -170,6 +170,34 @@ const ExploreData = () => {
       .attr("r", 0)
       .attr("class", "enlarge-circle");
 
+    // Append labels.
+    let labels = svg
+      .append("g")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-width", 3)
+      .selectAll()
+      .data(root.descendants())
+      .join("text")
+      .attr(
+        "transform",
+        (d) =>
+          `rotate(${(d.x * 180) / Math.PI - 90})
+          translate(${d.y},0)
+          rotate(${
+            -(d.x * 180) / Math.PI + 90
+          })`
+      )
+      .attr("dy", "0.31em")
+      .attr("x", (d) => (d.x < Math.PI === !d.children ? 5 : -5))
+      .attr("text-anchor", (d) =>
+        d.x < Math.PI === !d.children ? "start" : "end"
+      )
+      .attr("paint-order", "stroke")
+      .attr("stroke", "white")
+      .attr("fill", "currentColor")
+      .text((d) => d.data.name)
+      .style("opacity", 0); // Initially set text opacity to 0
+
     // Append nodes.
     let nodes = svg
       .append("g")
@@ -184,36 +212,10 @@ const ExploreData = () => {
       .attr("r", 10)
       .attr("class", "circle");
 
-    // Append labels.
-    let labels = svg
-      .append("g")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-width", 3)
-      .selectAll()
-      .data(root.descendants())
-      .join("text")
-      .attr(
-        "transform",
-        (d) =>
-          `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0) rotate(${
-            d.x >= Math.PI ? 180 : 0
-          })`
-      )
-      .attr("dy", "0.31em")
-      .attr("x", (d) => (d.x < Math.PI === !d.children ? 6 : -6))
-      .attr("text-anchor", (d) =>
-        d.x < Math.PI === !d.children ? "start" : "end"
-      )
-      .attr("paint-order", "stroke")
-      .attr("stroke", "white")
-      .attr("fill", "currentColor")
-      .text((d) => d.data.name)
-      .style("opacity", 0); // Initially set text opacity to 0
-
     // Define mouseover and mouseout event handlers for nodes
     nodes
       .on("mouseover", function (d, i) {
-        console.log("Mouseover Event - Data:", d, "Index:", i);
+        console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
         // Change the circle size
 
         nodeAnimation
@@ -235,6 +237,7 @@ const ExploreData = () => {
           .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
           .transition()
           .duration(800)
+          .attr("x", (d) => (d.x < Math.PI === !d.children ? 15 : -15))
           .style("opacity", 1);
       })
       .on("mouseout", function (d, i) {
@@ -258,6 +261,7 @@ const ExploreData = () => {
           .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
           .transition()
           .duration(800)
+          .attr("x", (d) => (d.x < Math.PI === !d.children ? 5 : -5))
           .style("opacity", 0);
       });
   }, []);

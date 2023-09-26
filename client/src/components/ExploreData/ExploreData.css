@@ -1,7 +1,9 @@
 .enlarged-circle {
     z-index: -1;
+    cursor: pointer;
 }
 
 .circle {
     z-index: 1;
+    cursor: pointer;
 }
