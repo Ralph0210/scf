@@ -4,12 +4,16 @@ import "./ExploreData.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 import data from "./var.json";
+import DataInfoCard from "../DataInfoCard/DataInfoCard";
 
 const ExploreData = () => {
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
   const [tool, setTool] = useState(TOOL_AUTO);
   const [value, setValue] = useState(INITIAL_VALUE);
+  const [shouldRenderDataInfoCard, setShouldRenderDataInfoCard] =
+    useState(false);
+  const [selectedInfoData, setSelectedInfoData] = useState(null);
   const svgRef = useRef();
   const svgRef2 = useRef();
   // const data = {
@@ -94,6 +98,12 @@ const ExploreData = () => {
   //     .attr("fill", "none")
   //     .attr("stroke", "black");
   // }, [data]);
+
+  const handleNodeClick = (d, i) => {
+    console.log(i.data.description);
+    setShouldRenderDataInfoCard(true);
+    setSelectedInfoData(i.data);
+  };
 
   useEffect(() => {
     // Specify the chart’s dimensions.
@@ -183,12 +193,10 @@ const ExploreData = () => {
         (d) =>
           `rotate(${(d.x * 180) / Math.PI - 90})
           translate(${d.y},0)
-          rotate(${
-            -(d.x * 180) / Math.PI + 90
-          })`
+          rotate(${-(d.x * 180) / Math.PI + 90})`
       )
       .attr("dy", "0.31em")
-      .attr("x", (d) => (d.x < Math.PI === !d.children ? 5 : -5))
+      .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
       .attr("text-anchor", (d) =>
         d.x < Math.PI === !d.children ? "start" : "end"
       )
@@ -214,8 +222,10 @@ const ExploreData = () => {
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
+      .on("click", handleNodeClick)
+
       .on("mouseover", function (d, i) {
-        console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
+        // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
         // Change the circle size
 
         nodeAnimation
@@ -237,7 +247,7 @@ const ExploreData = () => {
           .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
           .transition()
           .duration(800)
-          .attr("x", (d) => (d.x < Math.PI === !d.children ? 15 : -15))
+          .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
           .style("opacity", 1);
       })
       .on("mouseout", function (d, i) {
@@ -261,7 +271,7 @@ const ExploreData = () => {
           .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
           .transition()
           .duration(800)
-          .attr("x", (d) => (d.x < Math.PI === !d.children ? 5 : -5))
+          .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
           .style("opacity", 0);
       });
   }, []);
@@ -291,6 +301,7 @@ const ExploreData = () => {
           <g ref={svgRef2}></g>
         </svg>
       </ReactSVGPanZoom>
+      {shouldRenderDataInfoCard && <DataInfoCard data={selectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}/>}
     </div>
   );
 };
