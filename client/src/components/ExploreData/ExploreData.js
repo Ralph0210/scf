@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import "./ExploreData.css";
-import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_PAN} from 'react-svg-pan-zoom';
+import {INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO} from 'react-svg-pan-zoom';
 // import data from './flare-2.json'
 
 const ExploreData = () => {
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
-  const [tool, setTool] = useState(TOOL_PAN)
+  const [tool, setTool] = useState(TOOL_AUTO)
   const [value, setValue] = useState(INITIAL_VALUE)
   const svgRef = useRef();
   const svgRef2 = useRef();
@@ -36,9 +36,9 @@ const ExploreData = () => {
     ],
     name: "CEO",
   };
-  useEffect(() => {
-    Viewer.current.fitToViewer();
-  }, []);
+  // useEffect(() => {
+  //   Viewer.current.fitToViewer();
+  // }, []);
   // useEffect(() => {
   //   //setting up svg
   //   const w = 400;
@@ -133,40 +133,76 @@ const ExploreData = () => {
           .angle(d => d.x)
           .radius(d => d.y));
 
-  // Append nodes.
-  let nodes = svg.append("g")
-    .selectAll()
-    .data(root.descendants())
-    .join("circle")
-      .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`)
-      .attr("fill", d => d.children ? "#555" : "#999")
-      .attr("r", 2.5);
+// Append nodes.
+let nodes = svg
+  .append("g")
+  .selectAll()
+  .data(root.descendants())
+  .join("circle")
+  .attr("transform", (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`)
+  .attr("fill", (d) => (d.children ? "#555" : "#999"))
+  .attr("r", 10)
+  .attr("class", "circle");
 
-  // Append labels.
-  let labels = svg.append("g")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-width", 3)
-    .selectAll()
-    .data(root.descendants())
-    .join("text")
-      .attr("transform", d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`)
-      .attr("dy", "0.31em")
-      .attr("x", d => d.x < Math.PI === !d.children ? 6 : -6)
-      .attr("text-anchor", d => d.x < Math.PI === !d.children ? "start" : "end")
-      .attr("paint-order", "stroke")
-      .attr("stroke", "white")
-      .attr("fill", "currentColor")
-      .text(d => d.data.name)
+// Append labels.
+let labels = svg
+  .append("g")
+  .attr("stroke-linejoin", "round")
+  .attr("stroke-width", 3)
+  .selectAll()
+  .data(root.descendants())
+  .join("text")
+  .attr("transform", (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0) rotate(${d.x >= Math.PI ? 180 : 0})`)
+  .attr("dy", "0.31em")
+  .attr("x", (d) => (d.x < Math.PI === !d.children ? 6 : -6))
+  .attr("text-anchor", (d) => (d.x < Math.PI === !d.children ? "start" : "end"))
+  .attr("paint-order", "stroke")
+  .attr("stroke", "white")
+  .attr("fill", "currentColor")
+  .text((d) => d.data.name)
+  .style("opacity", 0); // Initially set text opacity to 0
+
+
+  // Define mouseover and mouseout event handlers for nodes
+nodes
+.on("mouseover", function (d, i) {
+  console.log("Mouseover Event - Data:", d, "Index:", i);
+  // Change the circle size
+  d3.select(this)
+    .transition()
+    .duration(400)
+    .attr("r", 20);
+
+  // Change the opacity of the associated text to 1
+  labels
+    .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
+    .transition()
+    .duration(800)
+    .style("opacity", 1);
+})
+.on("mouseout", function (d, i) {
+  // Change the circle size back to its original size
+  d3.select(this)
+    .transition()
+    .duration(800)
+    .attr("r", 10);
+
+  // Change the opacity of the associated text back to 0
+  labels
+    .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
+    .transition()
+    .duration(800)
+    .style("opacity", 0);
+});
   }, []);
 
   return (
     <div>
-      {/* <svg ref={svgRef}></svg> */}
       <ReactSVGPanZoom
         ref={Viewer}
         background='rgba(217, 217, 217, 0.20)'
         defaultTool='pan'
-        width={800} height={800}
+        width={1440} height={1024}
         tool={tool} onChangeTool={setTool}
         value={value} onChangeValue={setValue}
         detectAutoPan={false}
@@ -176,6 +212,7 @@ const ExploreData = () => {
           miniatureProps={{
             position: "none", // Set position to "none" to hide the miniature
           }}
+          className='map_parent_container'
       >
       <svg >
         <g ref={svgRef2}></g>
