@@ -16,6 +16,7 @@ const ExploreData = () => {
   const [selectedInfoData, setSelectedInfoData] = useState(null);
   const svgRef = useRef();
   const svgRef2 = useRef();
+  const clickedNode = useRef()
   // const data = {
   //   children: [
   //     {
@@ -98,21 +99,21 @@ const ExploreData = () => {
   //     .attr("fill", "none")
   //     .attr("stroke", "black");
   // }, [data]);
+  // Specify the chart’s dimensions.
 
-  const handleNodeClick = (d, i) => {
-    console.log(i.data.description);
-    setShouldRenderDataInfoCard(true);
-    setSelectedInfoData(i.data);
-  };
 
   useEffect(() => {
-    // Specify the chart’s dimensions.
+    const handleNodeClick = (d, i) => {
+      console.log(d, i);
+      setShouldRenderDataInfoCard(true);
+      setSelectedInfoData(i.data);
+    };
+
     const width = 800;
     const height = width;
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
     const radius = Math.min(width, height) / 2 - 30;
-
     // Create a radial tree layout. The layout’s first dimension (x)
     // is the angle, while the second (y) is the radius.
     const tree = d3
@@ -125,16 +126,16 @@ const ExploreData = () => {
       d3.hierarchy(data).sort((a, b) => d3.ascending(a.data.name, b.data.name))
     );
 
-    // Creates the SVG container.
-    const svg = d3
-      .select(svgRef2.current)
-      .attr("width", width)
-      .attr("height", height)
-      .attr("viewBox", [-cx, -cy, width, height])
-      .attr(
-        "style",
-        `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
-      );
+      // Creates the SVG container.
+  const svg = d3
+  .select(svgRef2.current)
+  .attr("width", width)
+  .attr("height", height)
+  .attr("viewBox", [-cx, -cy, width, height])
+  .attr(
+    "style",
+    `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
+  );
 
     // Append links.
     let links = svg
@@ -222,13 +223,64 @@ const ExploreData = () => {
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
-      .on("click", handleNodeClick)
+      .on("click", function(d, i) {
+        const past = clickedNode.current
+        clickedNode.current = i
+        handleNodeClick(d, i)
+
+        nodeAnimation
+        .filter((data) => data.data === i.data) // Filter for the matching data point
+        .transition()
+        .duration(500)
+        .attr("r", 15)
+        .style("opacity", 0.5);
+
+      nodeAnimation2
+        .filter((data) => data.data === i.data) // Filter for the matching data point
+        .transition()
+        .duration(600)
+        .attr("r", 20)
+        .style("opacity", 0.3);
+
+      // Change the opacity of the associated text to 1
+      labels
+        .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
+        .transition()
+        .duration(800)
+        .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
+        .style("opacity", 1);
+
+        if(past){
+          nodeAnimation
+          .filter((data) => data.data === past.data) // Filter for the matching data point
+          .transition()
+          .duration(600)
+          .attr("r", 0)
+          .style("opacity", 0.5);
+
+        nodeAnimation2
+          .filter((data) => data.data === past.data) // Filter for the matching data point
+          .transition()
+          .duration(600)
+          .attr("r", 0)
+          .style("opacity", 0.5);
+
+        // Change the opacity of the associated text back to 0
+        labels
+          .filter((textData) => textData.data.name === past.data.name) // Filter for the matching text element
+          .transition()
+          .duration(800)
+          .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
+          .style("opacity", 0);
+        }
+      })
 
       .on("mouseover", function (d, i) {
         // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
         // Change the circle size
 
-        nodeAnimation
+        if(clickedNode.current !== i){
+          nodeAnimation
           .filter((data) => data.data === i.data) // Filter for the matching data point
           .transition()
           .duration(500)
@@ -249,10 +301,12 @@ const ExploreData = () => {
           .duration(800)
           .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
           .style("opacity", 1);
+        }
+
       })
       .on("mouseout", function (d, i) {
-        // Change the circle size back to its original size
-        nodeAnimation
+        if(clickedNode.current !== i){
+          nodeAnimation
           .filter((data) => data.data === i.data) // Filter for the matching data point
           .transition()
           .duration(600)
@@ -273,11 +327,16 @@ const ExploreData = () => {
           .duration(800)
           .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
           .style("opacity", 0);
+        }
+        // Change the circle size back to its original size
       });
+
+      svg.attr('transform', `translate(${200+cx}, ${cy})`);
+
   }, []);
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column'}}>
       <ReactSVGPanZoom
         ref={Viewer}
         background="rgba(217, 217, 217, 0.20)"
