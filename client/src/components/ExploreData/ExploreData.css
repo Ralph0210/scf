@@ -1,0 +1,7 @@
+.enlarged-circle {
+    z-index: -1;
+}
+
+.circle {
+    z-index: 1;
+}
