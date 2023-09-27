@@ -6,9 +6,10 @@ const DataInfoCard = (props) => {
 
   return (
     <div className='dataCard'>
-        Helo
-        {props.data.description}
+        <div className='hid-box'>
+        {data.description}
         <button onClick={() => setShouldRenderDataInfoCard(false)}>X</button>
+        </div>
         </div>
   )
 }

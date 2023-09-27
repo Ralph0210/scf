@@ -1,3 +1,9 @@
 .dataCard {
-    resize: vertical;
+    position: fixed;
+  top: 400px;
+  left: 0;
+  transition: 1s ease-in-out;
+  background-color: white;
+  z-index: 999;
+  padding: 20rem;
 }

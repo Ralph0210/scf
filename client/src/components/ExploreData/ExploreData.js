@@ -5,15 +5,14 @@ import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 import data from "./var.json";
 import DataInfoCard from "../DataInfoCard/DataInfoCard";
+import useWindowSize from "../useWindowSize";
 
-const ExploreData = () => {
+const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
+  const size = useWindowSize()
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
   const [tool, setTool] = useState(TOOL_AUTO);
   const [value, setValue] = useState(INITIAL_VALUE);
-  const [shouldRenderDataInfoCard, setShouldRenderDataInfoCard] =
-    useState(false);
-  const [selectedInfoData, setSelectedInfoData] = useState(null);
   const svgRef = useRef();
   const svgRef2 = useRef();
   const clickedNode = useRef()
@@ -103,14 +102,20 @@ const ExploreData = () => {
 
 
   useEffect(() => {
+
     const handleNodeClick = (d, i) => {
       console.log(d, i);
       setShouldRenderDataInfoCard(true);
       setSelectedInfoData(i.data);
     };
 
-    const width = 800;
-    const height = width;
+    const old = d3.select(svgRef2.current)
+    old
+      .selectAll('*')
+      .remove()
+
+    const width = size.width === undefined? window.innerWidth : size.width;
+    const height =  size.height === undefined? window.innerHeight : size.height;
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
     const radius = Math.min(width, height) / 2 - 30;
@@ -131,11 +136,15 @@ const ExploreData = () => {
   .select(svgRef2.current)
   .attr("width", width)
   .attr("height", height)
+  // .classed("svg-container", true)
+  // .attr("preserveAspectRatio", "xMinYMin meet")
   .attr("viewBox", [-cx, -cy, width, height])
+  // .classed("svg-content-responsive", true)
   .attr(
     "style",
     `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
-  );
+  )
+  .attr("class", "mapsvg");
 
     // Append links.
     let links = svg
@@ -164,9 +173,52 @@ const ExploreData = () => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("fill", (d) => (d.children ? "#555" : "#999"))
+      .attr(
+        "transform",
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+      )
+      .attr("class", d => {
+        if (d.depth === 0) {
+          return "root-circle"
+        }
+        // Check if the node is at depth 1 and has the name "Demographics"
+        if (d.depth === 1 && d.data.name === "Demographics") {
+          return "demo-circle"; // Apply a different fill color to the "Demographics" branch
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Financial Behavior") {
+          return "fin-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+          return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Labor Force") {
+          return "labor-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        return "normal-circle"; // Default fill color for other nodes
+      })
       .attr("r", 0)
-      .attr("class", "enlarge-circle");
 
     let nodeAnimation = svg
       .append("g")
@@ -177,9 +229,52 @@ const ExploreData = () => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("fill", (d) => (d.children ? "#555" : "#999"))
+      .attr(
+        "transform",
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+      )
+      .attr("class", d => {
+        if (d.depth === 0) {
+          return "root-circle"
+        }
+        // Check if the node is at depth 1 and has the name "Demographics"
+        if (d.depth === 1 && d.data.name === "Demographics") {
+          return "demo-circle"; // Apply a different fill color to the "Demographics" branch
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Financial Behavior") {
+          return "fin-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+          return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Labor Force") {
+          return "labor-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        return "normal-circle"; // Default fill color for other nodes
+      })
       .attr("r", 0)
-      .attr("class", "enlarge-circle");
 
     // Append labels.
     let labels = svg
@@ -217,9 +312,48 @@ const ExploreData = () => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("fill", (d) => (d.children ? "#555" : "#999"))
-      .attr("r", 10)
-      .attr("class", "circle");
+      .attr("class", d => {
+        if (d.depth === 0) {
+          return "root-circle"
+        }
+        // Check if the node is at depth 1 and has the name "Demographics"
+        if (d.depth === 1 && d.data.name === "Demographics") {
+          return "demo-circle"; // Apply a different fill color to the "Demographics" branch
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        // Check if the node is at depth 2 under "Demographics"
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Financial Behavior") {
+          return "fin-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+          return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Labor Force") {
+          return "labor-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+          return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        return "normal-circle"; // Default fill color for other nodes
+      })
+      .attr("r", 10);
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
@@ -227,6 +361,15 @@ const ExploreData = () => {
         const past = clickedNode.current
         clickedNode.current = i
         handleNodeClick(d, i)
+
+        const centerX = d.x - cx;
+        const centerY = d.y - cy;
+
+        console.log(d, i, d.x, d.y, i.x, i.y, cx, cy)
+
+        svg.transition()
+          .duration(800)
+          .attr("transform", `translate(${-centerX+cx}, ${-centerY+cy})`);
 
         nodeAnimation
         .filter((data) => data.data === i.data) // Filter for the matching data point
@@ -250,7 +393,7 @@ const ExploreData = () => {
         .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
         .style("opacity", 1);
 
-        if(past){
+        if(past && past !== clickedNode.current){
           nodeAnimation
           .filter((data) => data.data === past.data) // Filter for the matching data point
           .transition()
@@ -331,18 +474,18 @@ const ExploreData = () => {
         // Change the circle size back to its original size
       });
 
-      svg.attr('transform', `translate(${200+cx}, ${cy})`);
-
-  }, []);
+      svg.attr('transform', `translate(${cx}, ${cy})`);
+  }, [size]);
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column'}}>
+    <>
+    <div>
       <ReactSVGPanZoom
         ref={Viewer}
         background="rgba(217, 217, 217, 0.20)"
         defaultTool="pan"
-        width={1440}
-        height={1024}
+        width={800}
+        height={800}
         tool={tool}
         onChangeTool={setTool}
         value={value}
@@ -360,8 +503,8 @@ const ExploreData = () => {
           <g ref={svgRef2}></g>
         </svg>
       </ReactSVGPanZoom>
-      {shouldRenderDataInfoCard && <DataInfoCard data={selectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}/>}
     </div>
+    </>
   );
 };
 
