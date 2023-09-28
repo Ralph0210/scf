@@ -1,94 +1,104 @@
 /* Navbar Container */
 nav {
-    position: fixed;
-    display: flex;
-    margin-top: 6.1rem;
-    margin-left: 7.1rem;
-    gap: 47.6rem;
-    z-index: 200;
-  }
-  
-  /* Navigation List */
-  .nav {
-    list-style: none;
-    display: flex;
-    font-size: 1.6rem;
-    font-family: 'Helvetica Neue';
-    font-weight: 700;
-    border-radius: 2rem;
-    background-color: #EBF4F8;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    overflow: hidden;
-    position: relative;
-  }
-  
-  /* Navigation Link Styles */
-  .navlink {
-    text-decoration: none;
-    color: inherit;
-  }
+  position: sticky;
+  display: flex;
+  top: 6rem;
+  margin-left: 7rem;
+  margin-right: 7rem;
+  z-index: 200;
+  justify-content: flex-end;
+  /* border-radius: 2rem; */
+}
 
-  /* Sliding Background Animation */
-  .nav .animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    bottom: 0;
-    width: 0; /* Start with a width of 0 */
-    z-index: 0; /* Place the background behind the text */
-    background: #0E518E;
-    border-radius: 2rem;
-    transition: all 0.5s ease-in-out; /* Add a smooth transition */
-  }
+.logo_container {
+  margin-right: auto !important;
+}
 
-  .nav .navlink.active li {
-    color: white;
-  }
+nav * {
+  /* border-radius: 2rem; */
+}
 
-  .nav .navlink li:hover {
-    color: white;
-    transition: all 0.5s ease-in-out;
-    z-index: 1;
-  }
+/* Navigation List */
+.nav {
+  list-style: none;
+  display: flex;
+  font-size: 1.6rem;
+  font-family: "Helvetica Neue";
+  font-weight: 700;
+  /* border-radius: 2rem; */
+  background-color: #ebf4f8;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  border: 0;
+}
 
-  /* Individual Navigation Items */
-  .nav li {
-    padding: 1.25rem 3rem;
-    color: #7C9CBF;
-    position: relative;
-    z-index: 1;
-  }
+/* Navigation Link Styles */
+.navlink {
+  text-decoration: none;
+}
 
-  /* Apply widths and positions for each link and its corresponding background */
-  .nav .navlink:nth-child(1):hover ~ .animation,
-  .nav .home.active ~ .animation{
-    left: 0;
-    width: 10.5rem;
-  }
-  
-  /* Add similar styles for other navigation items */
-  .nav .navlink:nth-child(2):hover ~ .animation,
-  .nav .analysis.active ~ .animation{
-    width: 11rem;
-    left: 11rem;
-  }
+/* Sliding Background Animation */
+.nav .animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 105%;
+  bottom: 0;
+  width: 0; /* Start with a width of 0 */
+  z-index: 0; /* Place the background behind the text */
+  background: #0e518e;
+  margin-left: -1px;
+  border-radius: 2rem;
+  transition: all 0.5s ease-in-out; /* Add a smooth transition */
+}
 
-  .nav .navlink:nth-child(3):hover ~ .animation,
-  .nav .exploreData.active ~ .animation{
-    width: 15rem;
-    left: 23rem;
-  }
+.nav .navlink.active li {
+  color: white;
+}
 
-  .nav .navlink:nth-child(4):hover ~ .animation,
-  .nav .about.active ~ .animation{
-    width: 10rem;
-    left: 39rem;
-  }
+.nav .navlink li:hover {
+  color: white;
+  transition: all 0.5s ease-in-out;
+  z-index: 1;
+}
 
-  /* .nav li:nth-child(5):hover ~ .animation {
+/* Individual Navigation Items */
+.nav li {
+  padding: 1.25rem 3rem;
+  color: #7c9cbf;
+  position: relative;
+  z-index: 1;
+}
+
+/* Apply widths and positions for each link and its corresponding background */
+.nav .navlink:nth-child(1):hover ~ .animation,
+.nav .home.active ~ .animation {
+  left: 0;
+  width: 10.5rem;
+}
+
+/* Add similar styles for other navigation items */
+.nav .navlink:nth-child(2):hover ~ .animation,
+.nav .analysis.active ~ .animation {
+  width: 11rem;
+  left: 11rem;
+}
+
+.nav .navlink:nth-child(3):hover ~ .animation,
+.nav .exploreData.active ~ .animation {
+  width: 15rem;
+  left: 23rem;
+}
+
+.nav .navlink:nth-child(4):hover ~ .animation,
+.nav .about.active ~ .animation {
+  width: 10rem;
+  left: 39rem;
+}
+
+/* .nav li:nth-child(5):hover ~ .animation {
     width: 10rem;
     left: 49rem;
   }
@@ -97,27 +107,53 @@ nav {
     width: 10rem;
     left: 8rem;
   } */
-  
-  /* Add widths for other navigation items as needed */
 
+/* Add widths for other navigation items as needed */
 
-  /* Logo Text */
-  .logo_container div {
-    font-size: 1.6rem;
-    padding: 1.25rem 3rem;
+/* Logo Text */
+.logo_container div {
+  font-size: 1.6rem;
+  padding: 1.25rem 3rem;
+  color: white;
+  list-style: none;
+  font-family: "Helvetica Neue";
+  display: flex;
+  font-weight: 700;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+/* Logo Container */
+.logo_container {
+  background: #0e518e;
+  border-radius: 2rem;
+  width: 138px;
+  height: 45px;
+}
+
+.nav_container_mobile {
+  display: none;
+}
+
+.dropdown_link {
+    text-decoration: none;
     color: white;
-    list-style: none;
-    font-family: 'Helvetica Neue';
+}
+
+@media (max-width: 900px) {
+  .nav_container {
+    display: none;
+  }
+  .nav_container_mobile {
     display: flex;
+    z-index: 200;
+    /* border-radius: 2rem; */
+    display: flex;
+    color: white;
+    font-size: 1.6rem;
+    list-style: none;
+    font-family: "Helvetica Neue";
     font-weight: 700;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
   }
-  /* Logo Container */
-  .logo_container {
-    background: #0E518E;
-    border-radius: 2rem;
-    width: 138px;
-    height: 45px;
-  }
+
+}
