@@ -2,7 +2,7 @@
     /* display: flex; */
     margin: 0 auto 11rem auto;
     width: 122.2rem;
-    height: 82.9rem;
+    /* height: 82.9rem; */
     flex-shrink: 0;
 }
 
@@ -23,6 +23,7 @@ h1 {
 
 .content {
     display: flex;
+    align-items: center;
 }
 
 .instruction_map {
@@ -30,6 +31,7 @@ h1 {
 }
 
 .description {
+    z-index: 2;
     display: flex;
     width: 42rem;
     height: 75rem;
@@ -70,3 +72,14 @@ span {
     font-weight: 500;
     line-height: normal;
 }
+
+.progress-bar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background-color: #0E518E;
+    transform-origin: 0%;
+    z-index: 2;
+  }
