@@ -1,110 +1,195 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 const Navbar = () => {
+
+  const navigate = useNavigate();
+
+  // const options = [
+  //   {
+  //     value: "home",
+  //     label: (
+  //       <Link to="/" className="dropdown_link">
+  //         Home
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     value: "analysis",
+  //     label: (
+  //       <Link to="/analyticsPage" className="dropdown_link">
+  //         Analysis
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     value: "exploreData",
+  //     label: (
+  //       <Link to="/exploreData" className="dropdown_link">
+  //         Explore Data
+  //       </Link>
+  //     ),
+  //   },
+  //   {
+  //     value: "about",
+  //     label: (
+  //       <Link to="/about" className="dropdown_link">
+  //         About
+  //       </Link>
+  //     ),
+  //   },
+  // ];
+
     const options = [
-        {
-          value: 'home',
-          label: (
-            <Link
-              to="/"
-              className="dropdown_link"
-            >
-              Home
-            </Link>
-          ),
-        },
-        {
-          value: 'analysis',
-          label: (
-            <Link
-              to="/analyticsPage"
-              className="dropdown_link"
-            >
-              Analysis
-            </Link>
-          ),
-        },
-        {
-          value: 'exploreData',
-          label: (
-            <Link
-              to="/exploreData"
-              className="dropdown_link"
-            >
-              Explore Data
-            </Link>
-          ),
-        },
-        {
-          value: 'about',
-          label: (
-            <Link
-              to="/about"
-              className="dropdown_link"
-            >
-              About
-            </Link>
-          ),
-        },
-      ];
+      {
+        value: "home",
+        label: "Home",
+        to: "/",
+      },
+      {
+        value: "analysis",
+        label: "Analysis",
+        to: "/analyticsPage",
+      },
+      {
+        value: "exploreData",
+        label: "Explore Data",
+        to: "/exploreData",
+      },
+      {
+        value: "about",
+        label: "About",
+        to: "/about",
+      },
+    ];
+
+    const handleSelectChange = (selectedOption) => {
+      if (selectedOption && selectedOption.value) {
+        navigate(selectedOption.to);
+      }
+      setActiveLink(selectedOption.value)
+    };
+
+
+  // const customStyles = {
+  //   control: (base, state) => ({
+  //     ...base,
+  //     borderRadius: "2rem", // Set the border radius
+  //     backgroundColor: "#ebf4f8", // Set the background color
+  //     border: "none", // Remove the border
+  //     boxShadow: state.isFocused ? "none" : base.boxShadow,
+  //   }),
+  //   menu: (provided) => ({
+  //     ...provided,
+  //     overflow: "hidden", // Hide overflow content
+  //     borderRadius: "2rem",
+  //     backgroundColor: "#ebf4f8",
+  //     paddingTop: 0, // Set paddingTop to 0
+  //     paddingBottom: 0, // Set paddingBottom to 0
+  //   }),
+  //   option: (provided, state) => ({
+  //     ...provided,
+  //     color: '#7c9cbf',
+  //     backgroundColor: state.isSelected
+  //       ? "transparent"
+  //       : state.isFocused
+  //       ? "rgba(217, 217, 217, 0.80)" // Change background color on hover
+  //       : "transparent",
+  //   }),
+  //   menuList: (provided) => ({
+  //     ...provided,
+  //     paddingTop: "0", // Remove the top padding
+  //     paddingBottom: "0",
+  //   }),
+  //   dropdownIndicator: (base, state) => ({
+  //     ...base,
+  //     transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "none",
+  //     color: "#7c9cbf", // Set the color to white
+  //     "&:hover": {
+  //       color: "#7c9cbf", // Keep the color white even on hover
+  //     },
+  //   }),
+  //   indicatorSeparator: () => null, // Remove the indicator separator
+  //   valueContainer: (base) => ({
+  //     ...base,
+  //     padding: "1.25rem 3rem", // Set custom padding
+  //   }),
+  //   optionLabel: (provided) => ({
+  //     ...provided,
+  //     cursor: "pointer", // Change color of the Link within each option
+  //   }),
+  // };
 
   const customStyles = {
     control: (base, state) => ({
       ...base,
-      borderRadius: "2rem", // Set the border radius
-      backgroundColor: "#0e518e", // Set the background color
-      border: "none", // Remove the border
-      boxShadow: state.isFocused ? 'none' : base.boxShadow,
+      borderRadius: "2rem",
+      backgroundColor: "#ebf4f8",
+      border: "none",
+      boxShadow: state.isFocused ? "none" : base.boxShadow,
     }),
     menu: (provided) => ({
-        ...provided,
-        overflow: 'hidden', // Hide overflow content
-        borderRadius: '2rem',
-        backgroundColor: '#0e518e',
-        paddingTop: 0, // Set paddingTop to 0
-        paddingBottom: 0, // Set paddingBottom to 0
-      }),
-      option: (provided, state) => ({
-        ...provided,
-        color: state.isSelected 
-        ? 'white'
-        : state.isFocused 
-        ? '#0e518e' 
-        : 'white',
-        backgroundColor: state.isSelected
-        ? 'transparent'
+      ...provided,
+      overflow: "hidden",
+      borderRadius: "2rem",
+      backgroundColor: "#ebf4f8",
+      paddingTop: 0,
+      paddingBottom: 0,
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isSelected 
+      ? "white" : state.isFocused
+      ? 'white'
+      : "#7c9cbf",
+      backgroundColor: state.isSelected
+        ? "#0e518e"
         : state.isFocused
-        ? '#ebf4f8' // Change background color on hover
-        : 'transparent',
-        cursor: 'pointer',
-      }),
-      menuList: (provided) => ({
-        ...provided,
-        paddingTop: '0', // Remove the top padding
-        paddingBottom: '0',
-      }),
+        ? "#0e518e"
+        : "transparent",
+      textAlign: "center", // Center the text
+      cursor: "pointer", // Change cursor to pointer
+    }),
+    input: (base) => ({
+      ...base,
+      color: "#7c9cbf", // Set the text color for the selected value
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#7c9cbf !important", // Add !important to ensure the color is applied
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      paddingTop: "0",
+      paddingBottom: "0",
+    }),
     dropdownIndicator: (base, state) => ({
-        ...base,
-        transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : 'none',
-        color: 'white', // Set the color to white
-    '&:hover': {
-      color: 'white', // Keep the color white even on hover
-    },
-      }),
-    indicatorSeparator: () => null, // Remove the indicator separator
+      ...base,
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "none",
+      color: "#7c9cbf",
+      "&:hover": {
+        color: "#0e518e", // White color on hover
+      },
+    }),
+    indicatorSeparator: () => null,
     valueContainer: (base) => ({
       ...base,
-      padding: "1.25rem 3rem", // Set custom padding
+      padding: "1.25rem 3rem",
+    }),
+    optionLabel: (provided) => ({
+      ...provided,
+      cursor: "pointer",
     }),
   };
+  
 
-  const defaultValue = options.find(option => option.value === 'home');
-
+  
 
   const [activeLink, setActiveLink] = useState("home");
+
+  const defaultValue = options.find((option) => option.value === activeLink);
 
   const handleNavClick = (link) => {
     setActiveLink(link); // Set the active link when clicked
@@ -198,7 +283,19 @@ const Navbar = () => {
         <Nav />
       </div>
       <div className="nav_container_mobile">
-        <Select className="navbar_select" styles={customStyles} defaultValue={defaultValue} options={options} />
+        <Select
+          className="navbar_select"
+          styles={customStyles}
+          value={defaultValue}
+          options={options}
+          isSearchable={false}
+          onChange={handleSelectChange}
+          // onChange={(selectedOption) => {
+          //   if (selectedOption && selectedOption.value) {
+          //     handleNavClick(selectedOption.value);
+          //   }
+          // }}
+        />
       </div>
     </nav>
   );

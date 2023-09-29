@@ -14,8 +14,8 @@ nav {
   margin-right: auto !important;
 }
 
-nav * {
-  /* border-radius: 2rem; */
+.nav{
+  border-radius: 2rem;
 }
 
 /* Navigation List */
@@ -137,7 +137,7 @@ nav * {
 
 .dropdown_link {
     text-decoration: none;
-    color: white;
+    color: #7c9cbf;
 }
 
 @media (max-width: 900px) {
