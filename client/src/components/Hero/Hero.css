@@ -1,89 +1,114 @@
 .cta_container {
-    display: flex;
-    margin: 0 auto 11.8rem auto;
-    /* margin-left: 11.8rem; */
-    padding-top: 19.5rem;
-    width: 122rem;
-    height: 75rem;
-    flex-shrink: 0;
+    position: relative;
+  display: flex;
+  margin: 0 auto 11.8rem auto;
+  /* margin-left: 11.8rem; */
+  padding-top: 19.5rem;
+  width: 122rem;
+  height: 75rem;
+  flex-shrink: 0;
 }
 
 .cta_left_container {
-    width: 80rem;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+  width: 80rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .header {
-    margin-top: 19.1rem;
-    flex-shrink: 0;
+  margin-top: 19.1rem;
+  flex-shrink: 0;
 }
 
 .cta_container h1 {
-    color: #1E2019;
+  color: #1e2019;
 
-/* Heading1 */
-font-family: Helvetica Neue;
-font-size: 4.8rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  /* Heading1 */
+  font-family: Helvetica Neue;
+  font-size: 4.8rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .intro {
-    margin-top: 3rem;
-    width: 48.4rem;
+  margin-top: 3rem;
+  width: 48.4rem;
 }
 
 .cta_container p {
-    width: 484px;
-    color: #1E2019;
+  width: 484px;
+  color: #1e2019;
 
-/* regular text */
-font-family: Helvetica Neue;
-font-size: 20px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+  /* regular text */
+  font-family: Helvetica Neue;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .cta_container button {
-    margin-top: 9rem;
-    display: inline-flex;
-    padding: 12.5px 30px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-width: 0;
-    border-radius: 20px;
-    background: #EBF4F8;
+  margin-top: 9rem;
+  display: inline-flex;
+  padding: 12.5px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-width: 0;
+  border-radius: 20px;
+  background: #ebf4f8;
 
-    color: #7C9CBF;
+  color: #7c9cbf;
 
-    /* navbar text */
-    font-family: Helvetica Neue;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
+  /* navbar text */
+  font-family: Helvetica Neue;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .background {
-    position:absolute;
-    width: 42rem;
-    margin-left: auto;
-height: 75rem;
-flex-shrink: 0;
-border-radius: 2rem;
-background: #0E518E;
+  position: relative;
+  width: 42rem;
+  /* margin-left: auto; */
+  height: 75rem;
+  flex-shrink: 0;
+  border-radius: 2rem;
+  background: #0e518e;
+  z-index: 0;
 }
 
-.cta_container img {
-    z-index: 100;
-    width: 738px;
-height: 750px;
-flex-shrink: 0;
-position: absolute;
-left: 59.2rem
+.right_container{
+    position: relative;
+    height: 75rem;
+}
+
+.hero_img{
+    position: absolute;
+  z-index: 1;
+  width: 738px;
+  height: 750px;
+  flex-shrink: 0;
+  right: 2rem;
+}
+
+@media (max-width:1300px) {
+    .cta_container{
+        width: 100vw;
+        display: flex;
+        padding-top: 10rem;
+    }
+
+    .right_container{
+        display: none;
+    }
+    .cta_left_container{
+        align-items: center;
+        z-index: 1;
+        /* position: absolute; */
+    }
 }
