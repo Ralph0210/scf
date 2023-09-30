@@ -42,3 +42,7 @@
     width: 800;
     height: 800;
 }
+
+text {
+    z-index: 3;
+}

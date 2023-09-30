@@ -14,10 +14,10 @@ const InstructionMap = () => {
   return (
     <div className="container">
       <div className='content'>
-            <motion.div className='instruction_map' variants={fadeIn} initial='hidden' whileInView='visible'><ExploreData2/></motion.div>
-            <motion.div className='description' variants={fadeIn} initial='hidden' whileInView='visible'>
+            <motion.div className='instruction_map' viewport={{ once: true, amount: 0.8 }} variants={fadeIn} initial='hidden' whileInView='visible'><ExploreData2/></motion.div>
+            <motion.div className='description' viewport={{ once: true, amount: 0.8 }} variants={fadeIn} initial='hidden' whileInView='visible'>
                 <h2>Comprehensive <span className='new-line'>Financial Survey.</span></h2>
-                <motion.div className='details' variants={fadeIn} initial='hidden' whileInView='visible'>
+                <motion.div className='details' viewport={{ once: true, amount: 0.8 }} variants={fadeIn} initial='hidden' whileInView='visible'>
                     <p>The SCF, conducted by the Federal Reserve System, is a nationwide survey that provides a comprehensive view of income, wealth, debt, and various financial factors.</p>
                 </motion.div>
             </motion.div>

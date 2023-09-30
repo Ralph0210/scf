@@ -28,6 +28,10 @@ h1 {
 
 .instruction_map {
     width: 80rem;
+    height: 75rem;
+    overflow: hidden;
+    background-color: rgba(217, 217, 217, 0.20);
+    border-radius: 2rem;
 }
 
 .description {
@@ -40,7 +44,7 @@ h1 {
     align-items: center;
     gap: 30rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 2rem;
     background: #0E518E;
     }
 

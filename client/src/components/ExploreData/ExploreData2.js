@@ -7,31 +7,27 @@ import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import useWindowSize from "../useWindowSize";
 import { motion } from "framer-motion";
 
-const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
-  const size = useWindowSize()
+const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
+  const size = useWindowSize();
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
   const [tool, setTool] = useState(TOOL_AUTO);
   const [value, setValue] = useState(INITIAL_VALUE);
   const svgRef = useRef();
-  const clickedNode = useRef()
-
+  const clickedNode = useRef();
 
   useEffect(() => {
-
     const handleNodeClick = (d, i) => {
       console.log(d, i);
       setShouldRenderDataInfoCard(true);
       setSelectedInfoData(i.data);
     };
 
-    const old = d3.select(svgRef.current)
-    old
-      .selectAll('*')
-      .remove()
+    const old = d3.select(svgRef.current);
+    old.selectAll("*").remove();
 
     const width = 750;
-    const height =  width;
+    const height = width;
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
     const radius = Math.min(width, height) / 2 - 30;
@@ -47,20 +43,20 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
       d3.hierarchy(data).sort((a, b) => d3.ascending(a.data.name, b.data.name))
     );
 
-      // Creates the SVG container.
-  const svg = d3
-  .select(svgRef.current)
-  .attr("width", width)
-  .attr("height", height)
-  // .classed("svg-container", true)
-  // .attr("preserveAspectRatio", "xMinYMin meet")
-  .attr("viewBox", [-cx, -cy, width+50, height+50])
-  // .classed("svg-content-responsive", true)
-  .attr(
-    "style",
-    `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
-  )
-  .attr("class", "mapsvg");
+    // Creates the SVG container.
+    const svg = d3
+      .select(svgRef.current)
+      .attr("width", width)
+      .attr("height", height)
+      // .classed("svg-container", true)
+      // .attr("preserveAspectRatio", "xMinYMin meet")
+      .attr("viewBox", [-cx-40, -cy, width+100, height+100])
+      // .classed("svg-content-responsive", true)
+      .attr(
+        "style",
+        `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
+      )
+      .attr("class", "mapsvg");
 
     // Append links.
     let links = svg
@@ -93,9 +89,9 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("class", d => {
+      .attr("class", (d) => {
         if (d.depth === 0) {
-          return "root-circle"
+          return "root-circle";
         }
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
@@ -103,38 +99,54 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Financial Behavior") {
-          return "fin-circle"
+          return "fin-circle";
         }
 
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Financial Behavior"
+        ) {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Labor Force") {
-          return "labor-circle"
+          return "labor-circle";
         }
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Labor Force"
+        ) {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         return "normal-circle"; // Default fill color for other nodes
       })
-      .attr("r", 0)
+      .attr("r", 0);
 
     let nodeAnimation = svg
       .append("g")
@@ -149,9 +161,9 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("class", d => {
+      .attr("class", (d) => {
         if (d.depth === 0) {
-          return "root-circle"
+          return "root-circle";
         }
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
@@ -159,38 +171,54 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Financial Behavior") {
-          return "fin-circle"
+          return "fin-circle";
         }
 
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Financial Behavior"
+        ) {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Labor Force") {
-          return "labor-circle"
+          return "labor-circle";
         }
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Labor Force"
+        ) {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         return "normal-circle"; // Default fill color for other nodes
       })
-      .attr("r", 0)
+      .attr("r", 0);
 
     // Append labels.
     let labels = svg
@@ -228,9 +256,9 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr("class", d => {
+      .attr("class", (d) => {
         if (d.depth === 0) {
-          return "root-circle"
+          return "root-circle";
         }
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
@@ -238,32 +266,48 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Demographics"
+        ) {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Financial Behavior") {
-          return "fin-circle"
+          return "fin-circle";
         }
 
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Behavior") {
+        if (
+          d.depth === 2 &&
+          d.parent &&
+          d.parent.data.name === "Financial Behavior"
+        ) {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Labor Force") {
-          return "labor-circle"
+          return "labor-circle";
         }
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Labor Force") {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Labor Force") {
+        if (
+          d.depth === 3 &&
+          d.parent &&
+          d.parent.parent.data.name === "Labor Force"
+        ) {
           return "labor-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
@@ -273,73 +317,22 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
-      .on("click", function(d, i) {
-        const past = clickedNode.current
-        clickedNode.current = i
-        handleNodeClick(d, i)
+      .on("click", function (d, i) {
+        const past = clickedNode.current;
+        clickedNode.current = i;
+        handleNodeClick(d, i);
 
         const centerX = d.x - cx;
         const centerY = d.y - cy;
 
-        console.log(d, i, d.x, d.y, i.x, i.y, cx, cy)
+        console.log(d, i, d.x, d.y, i.x, i.y, cx, cy);
 
-        svg.transition()
+        svg
+          .transition()
           .duration(800)
-          .attr("transform", `translate(${-centerX+cx}, ${-centerY+cy})`);
+          .attr("transform", `translate(${-centerX + cx}, ${-centerY + cy})`);
 
         nodeAnimation
-        .filter((data) => data.data === i.data) // Filter for the matching data point
-        .transition()
-        .duration(500)
-        .attr("r", 15)
-        .style("opacity", 0.5);
-
-      nodeAnimation2
-        .filter((data) => data.data === i.data) // Filter for the matching data point
-        .transition()
-        .duration(600)
-        .attr("r", 20)
-        .style("opacity", 0.3);
-
-      // Change the opacity of the associated text to 1
-      labels
-        .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
-        .transition()
-        .duration(800)
-        .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
-        .style("opacity", 1);
-
-        if(past && past !== clickedNode.current){
-          nodeAnimation
-          .filter((data) => data.data === past.data) // Filter for the matching data point
-          .transition()
-          .duration(600)
-          .attr("r", 0)
-          .style("opacity", 0.5);
-
-        nodeAnimation2
-          .filter((data) => data.data === past.data) // Filter for the matching data point
-          .transition()
-          .duration(600)
-          .attr("r", 0)
-          .style("opacity", 0.5);
-
-        // Change the opacity of the associated text back to 0
-        labels
-          .filter((textData) => textData.data.name === past.data.name) // Filter for the matching text element
-          .transition()
-          .duration(800)
-          .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
-          .style("opacity", 0);
-        }
-      })
-
-      .on("mouseover", function (d, i) {
-        // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
-        // Change the circle size
-
-        if(clickedNode.current !== i){
-          nodeAnimation
           .filter((data) => data.data === i.data) // Filter for the matching data point
           .transition()
           .duration(500)
@@ -360,46 +353,99 @@ const ExploreData2 = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
           .duration(800)
           .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
           .style("opacity", 1);
-        }
 
+        if (past && past !== clickedNode.current) {
+          nodeAnimation
+            .filter((data) => data.data === past.data) // Filter for the matching data point
+            .transition()
+            .duration(600)
+            .attr("r", 0)
+            .style("opacity", 0.5);
+
+          nodeAnimation2
+            .filter((data) => data.data === past.data) // Filter for the matching data point
+            .transition()
+            .duration(600)
+            .attr("r", 0)
+            .style("opacity", 0.5);
+
+          // Change the opacity of the associated text back to 0
+          labels
+            .filter((textData) => textData.data.name === past.data.name) // Filter for the matching text element
+            .transition()
+            .duration(800)
+            .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
+            .style("opacity", 0);
+        }
+      })
+
+      .on("mouseover", function (d, i) {
+        // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
+        // Change the circle size
+
+        if (clickedNode.current !== i) {
+          nodeAnimation
+            .filter((data) => data.data === i.data) // Filter for the matching data point
+            .transition()
+            .duration(500)
+            .attr("r", 15)
+            .style("opacity", 0.5);
+
+          nodeAnimation2
+            .filter((data) => data.data === i.data) // Filter for the matching data point
+            .transition()
+            .duration(600)
+            .attr("r", 20)
+            .style("opacity", 0.3);
+
+          // Change the opacity of the associated text to 1
+          labels
+            .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
+            .transition()
+            .duration(800)
+            .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
+            .style("opacity", 1);
+        }
       })
       .on("mouseout", function (d, i) {
-        if(clickedNode.current !== i){
+        if (clickedNode.current !== i) {
           nodeAnimation
-          .filter((data) => data.data === i.data) // Filter for the matching data point
-          .transition()
-          .duration(600)
-          .attr("r", 0)
-          .style("opacity", 0.5);
+            .filter((data) => data.data === i.data) // Filter for the matching data point
+            .transition()
+            .duration(600)
+            .attr("r", 0)
+            .style("opacity", 0.5);
 
-        nodeAnimation2
-          .filter((data) => data.data === i.data) // Filter for the matching data point
-          .transition()
-          .duration(600)
-          .attr("r", 0)
-          .style("opacity", 0.5);
+          nodeAnimation2
+            .filter((data) => data.data === i.data) // Filter for the matching data point
+            .transition()
+            .duration(600)
+            .attr("r", 0)
+            .style("opacity", 0.5);
 
-        // Change the opacity of the associated text back to 0
-        labels
-          .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
-          .transition()
-          .duration(800)
-          .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
-          .style("opacity", 0);
+          // Change the opacity of the associated text back to 0
+          labels
+            .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
+            .transition()
+            .duration(800)
+            .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
+            .style("opacity", 0);
         }
         // Change the circle size back to its original size
       });
 
-    //   svg.attr('transform', `translate(${cx}, ${cy})`);
+    //   svg.attr('transform', `translate(${50}, ${25})`);
   }, [size]);
 
   return (
     <>
-      <motion.div drag dragSnapToOrigin={true} dragTransition={{delay: 0,ease: "linear",}}>
-        <svg ref={svgRef}>
-          {/* <g ref={svgRef}></g> */}
-        </svg>
-        </motion.div>
+      <motion.div
+        drag
+        dragSnapToOrigin={true}
+        dragTransition={{ delay: 0, ease: "linear" }}
+      >
+        <svg ref={svgRef}>{/* <g ref={svgRef}></g> */}</svg>
+      </motion.div>
     </>
   );
 };
