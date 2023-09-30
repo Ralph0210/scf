@@ -15,6 +15,9 @@ import YearRangeSelection from "../YearRangeSelection/YearRangeSelection";
 import UnitSelection from "../UnitSelection/UnitSelection";
 import DataPipeline from "../DataPipeline/DataPipeline";
 import { retrieve } from "../api";
+import DataSelection from "../DataSelection/DataSelection";
+import DistributionSelection from "../DistributionSelection/DistributionSelection";
+import DisplaySelection from "../DisplaySelection/DisplaySelection";
 
 const Analytics = () => {
   const [uniqueValues, setUniqueValues] = useState([
@@ -151,7 +154,16 @@ const Analytics = () => {
 
   return (
     <div className="analytics_container">
-      <DataPipeline
+      {/* <DataPipeline
+        uniqueValues={uniqueValues}
+        setUniqueValues={setUniqueValues}
+        dataSelections={dataSelections}
+        setDataSelections={setDataSelections}
+        data={data}
+        setData={setData}
+      /> */}
+      <div className="source">
+      <DataSelection
         uniqueValues={uniqueValues}
         setUniqueValues={setUniqueValues}
         dataSelections={dataSelections}
@@ -159,6 +171,22 @@ const Analytics = () => {
         data={data}
         setData={setData}
       />
+
+      <DistributionSelection
+        dataSelections={dataSelections}
+        setDataSelections={setDataSelections}
+        setUniqueValues={setUniqueValues}
+      />
+
+      <DisplaySelection
+        uniqueValues={uniqueValues}
+        setUniqueValues={setUniqueValues}
+        dataSelections={dataSelections}
+        setDataSelections={setDataSelections}
+        data={data}
+        setData={setData}
+      />
+    </div>
 
       <div className="adjustment">
         <UnitSelection

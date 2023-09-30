@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import "./InstructionMap.css";
 import { motion } from "framer-motion";
 import ExploreData2 from "../ExploreData/ExploreData2";
+import { BiLeftArrowAlt } from 'react-icons/bi'
+import InstructionAnalytics from "../InstructionAnalytics/InstructionAnalytics";
 
 const InstructionMap = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -31,7 +33,8 @@ const InstructionMap = () => {
           animate={{x: isVisible ? '53%' : 0}}
           transition={{ ease: "easeOut", duration: 0.5 }}
         >
-          <ExploreData2 />
+          {isVisible ?  <ExploreData2 /> : <InstructionAnalytics />}
+         
         </motion.div>
         <motion.div
           className="description"
@@ -39,7 +42,7 @@ const InstructionMap = () => {
           variants={fadeIn}
           initial="hidden"
           whileInView="visible"
-          animate={{x: isVisible ? '-188%' : 0}}
+          animate={{x: isVisible ? '-186%' : 0}}
           transition={{ ease: "easeOut", duration: 0.5 }}
         >
           {isVisible ? (
@@ -81,11 +84,13 @@ const InstructionMap = () => {
           variants={fadeIn}
           initial="hidden"
           whileInView="visible"
-          animate={{x: isVisible ? '-11000%' : 0}}
+          animate={{x: isVisible ? "-2080%" : "-1140%", rotate: isVisible ? 180 : 0,}}
           onClick={handleClick}
           transition={{ ease: "easeOut", duration: 0.5 }}
+          whileHover={{scale:1.2}}
+          whileTap={{ scale: 0.6 }}
         >
-          x
+          <BiLeftArrowAlt className="arrow"/>
         </motion.button>
       </div>
 

@@ -1,3 +1,23 @@
 .swap_button {
+  position: relative;
+    display: flex;
     z-index: 3;
+    /* border: 0; */
+    background-color: #ebf4f8;
+    color: #7c9cbf;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    font-size: 30px;
+    z-index: 3;
+    border: #ebf4f8 2px solid;
+    transition: box-shadow 0.5s ease-in-out;
+}
+
+.swap_button:hover {
+  box-shadow: 0 0 0 5px #FAFAFA; /* Adjust the width (5px) to control the circle size */
+  color: white;
+  background-color: #0e518e;
 }
