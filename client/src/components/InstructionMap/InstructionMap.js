@@ -1,12 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./InstructionMap.css";
-import { motion } from "framer-motion";
+import { motion, useScroll, useInView, useMotionValueEvent } from "framer-motion";
 import ExploreData2 from "../ExploreData/ExploreData2";
 import { BiLeftArrowAlt } from 'react-icons/bi'
 import InstructionAnalytics from "../InstructionAnalytics/InstructionAnalytics";
 
 const InstructionMap = () => {
+  const ref = useRef(null)
   const [isVisible, setIsVisible] = useState(true);
+  const hasTriggered = useRef(false)
+  const hasTriggered2 = useRef(true)
+  const [isHover, setIsHover] = useState(false)
 
   // Animation variants
   const fadeIn = {
@@ -21,17 +25,43 @@ const InstructionMap = () => {
     });
   };
 
+  const { scrollYProgress, scrollY } = useScroll({
+    target: ref,
+    offset: ["start end", "1.7 1"]
+  })
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (!hasTriggered.current && latest > 0.8 ) {
+      hasTriggered.current = true; // Set the flag to true to prevent further triggers
+      isVisible? setIsVisible(!isVisible) : setIsVisible(isVisible)
+      hasTriggered2.current = false
+    }
+    if (!hasTriggered2.current && latest < 0.8) {
+      hasTriggered2.current = true; // Set the flag to true to prevent further triggers
+      isVisible? setIsVisible(!isVisible) : setIsVisible(isVisible)
+      setIsVisible(!isVisible)
+      hasTriggered.current=false
+    }
+    console.log(latest)
+  });
+
+  const handleHover= () => {
+    setIsHover(!isHover)
+  }
+
   return (
-    <div className="container">
-      <div className="content">
-        <motion.div
+    <div className="container" ref={ref}>
+      <div className="content"
+            whileHover={handleHover}
+        >
+        <motion.div 
           className="instruction_map"
           viewport={{ once: true, amount: 0.7 }}
           variants={fadeIn}
           initial="hidden"
           whileInView="visible"
           animate={{x: isVisible ? '53%' : 0}}
-          transition={{ ease: "easeOut", duration: 0.5 }}
+          transition={{ ease: "easeOut", duration: 1 }}
         >
           {isVisible ?  <ExploreData2 /> : <InstructionAnalytics />}
          
@@ -43,7 +73,7 @@ const InstructionMap = () => {
           initial="hidden"
           whileInView="visible"
           animate={{x: isVisible ? '-186%' : 0}}
-          transition={{ ease: "easeOut", duration: 0.5 }}
+          transition={{ ease: "easeOut", duration: 1}}
         >
           {isVisible ? (
             <h2>
@@ -62,7 +92,7 @@ const InstructionMap = () => {
             variants={fadeIn}
             initial="hidden"
             whileInView="visible"
-            transition={{ ease: "easeOut", duration: 0.5 }}
+            transition={{ ease: "easeOut", duration: 1 }}
           >
             {isVisible ? (
               <p>
@@ -86,7 +116,7 @@ const InstructionMap = () => {
           whileInView="visible"
           animate={{x: isVisible ? "-2080%" : "-1140%", rotate: isVisible ? 180 : 0,}}
           onClick={handleClick}
-          transition={{ ease: "easeOut", duration: 0.5 }}
+          transition={{ ease: "easeOut", duration: 1 }}
           whileHover={{scale:1.2}}
           whileTap={{ scale: 0.6 }}
         >

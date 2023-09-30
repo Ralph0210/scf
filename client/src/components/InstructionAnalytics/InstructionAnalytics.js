@@ -142,7 +142,7 @@ const InstructionAnalytics = () => {
           key={index}
           type="monotone"
           dataKey={key}
-          stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
+          stroke={`#70B77E`}
           activeDot={{ r: 8 }}
         />
       ));
@@ -150,14 +150,7 @@ const InstructionAnalytics = () => {
 
   return (
     <div className="analytics_container">
-      {/* <DataPipeline
-        uniqueValues={uniqueValues}
-        setUniqueValues={setUniqueValues}
-        dataSelections={dataSelections}
-        setDataSelections={setDataSelections}
-        data={data}
-        setData={setData}
-      /> */}
+
 
 <div className="source">
       <DataSelection
@@ -169,20 +162,6 @@ const InstructionAnalytics = () => {
         setData={setData}
       />
 
-      {/* <DistributionSelection
-        dataSelections={dataSelections}
-        setDataSelections={setDataSelections}
-        setUniqueValues={setUniqueValues}
-      /> */}
-
-      {/* <DisplaySelection
-        uniqueValues={uniqueValues}
-        setUniqueValues={setUniqueValues}
-        dataSelections={dataSelections}
-        setDataSelections={setDataSelections}
-        data={data}
-        setData={setData}
-      /> */}
     </div>
 
       <LineChart
