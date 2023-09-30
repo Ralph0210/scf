@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import './Instruction1.css'
 import { motion, useScroll } from "framer-motion"
 import InstructionMap from '../InstructionMap/InstructionMap'
 import InstructionAnalytics from '../InstructionAnalytics/InstructionAnalytics'
 
-const Instruction1 = () => {
+const Instruction1 = (props, ref)=> {
 
     const fadeIn = {
         hidden: { opacity: 0.3, y: 20 }, // Start with opacity 0 and slight Y translation
@@ -12,8 +12,8 @@ const Instruction1 = () => {
       };
 
   return (
-    <div className='container'>
-        <div className='title'>
+    <div className='container'ref={ref}>
+        <div className='title' >
             <motion.h1  viewport={{ once: true, amount: 0.8 }} initial='hidden' whileInView='visible' variants={fadeIn}>What is the SCF</motion.h1>
         </div>
         <motion.div >
@@ -23,4 +23,4 @@ const Instruction1 = () => {
   )
 }
 
-export default Instruction1
+export default forwardRef(Instruction1)

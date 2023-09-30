@@ -69,6 +69,13 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+  transition: 0.3s ease-in-out;
+}
+
+.cta_container button:hover{
+  background-color: #0e518e;
+  color: white;
+  cursor: pointer;
 }
 
 .background {

@@ -1,7 +1,10 @@
 import React from 'react'
 import './Hero.css'
 
-const Hero = () => {
+const Hero = ({InstructionRef}) => {
+    const handleClick = () => {
+        InstructionRef.current.scrollIntoView({behavior: 'smooth'})
+    }
   return (
     <div className='cta_container'>
         <div className='cta_left_container'>
@@ -12,7 +15,7 @@ const Hero = () => {
             <p>Discover the Power of the Survey of Consumer Finance (SCF) and Make Informed Financial Decisions. Access a Wealth of Data on Income, Wealth, Debt, and more. Gain Deep Understanding, Identify Trends, and Plan for a Strong Financial Future.</p>
         </div>
         <div className='cta_button'>
-            <button>Learn More</button>
+            <button onClick={handleClick}>Learn More</button>
         </div>
         </div>
 
