@@ -56,7 +56,6 @@
   padding: 12.5px 30px;
   justify-content: center;
   align-items: center;
-  gap: 10px;
   border-width: 0;
   border-radius: 20px;
   background: #ebf4f8;
@@ -76,6 +75,7 @@
   background-color: #0e518e;
   color: white;
   cursor: pointer;
+  /* font-size: 18px; */
 }
 
 .background {
