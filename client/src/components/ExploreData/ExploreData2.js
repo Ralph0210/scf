@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-import "./ExploreData.css";
+import "./ExploreData2.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 import data from "./var.json";
 import DataInfoCard from "../DataInfoCard/DataInfoCard";
@@ -85,10 +85,6 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr(
-        "transform",
-        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
-      )
       .attr("class", (d) => {
         if (d.depth === 0) {
           return "root-circle";
@@ -157,13 +153,9 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
         "transform",
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
-      .attr(
-        "transform",
-        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
-      )
       .attr("class", (d) => {
         if (d.depth === 0) {
-          return "root-circle";
+          return "root-circle pulse";
         }
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
@@ -218,7 +210,14 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
 
         return "normal-circle"; // Default fill color for other nodes
       })
-      .attr("r", 0);
+      .attr("r", (d) => {
+        if (d.depth === 1 && d.data.name === "Demographics") {
+          return 15;
+        }
+        // Set the default radius for other nodes
+        return 0;
+      })
+      .style("opacity", 0.5)
 
     // Append labels.
     let labels = svg
@@ -317,68 +316,6 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
-      .on("click", function (d, i) {
-        const past = clickedNode.current;
-        clickedNode.current = i;
-        handleNodeClick(d, i);
-
-        const centerX = d.x - cx;
-        const centerY = d.y - cy;
-
-        console.log(d, i, d.x, d.y, i.x, i.y, cx, cy);
-
-        svg
-          .transition()
-          .duration(800)
-          .attr("transform", `translate(${-centerX + cx}, ${-centerY + cy})`);
-
-        nodeAnimation
-          .filter((data) => data.data === i.data) // Filter for the matching data point
-          .transition()
-          .duration(500)
-          .attr("r", 15)
-          .style("opacity", 0.5);
-
-        nodeAnimation2
-          .filter((data) => data.data === i.data) // Filter for the matching data point
-          .transition()
-          .duration(600)
-          .attr("r", 20)
-          .style("opacity", 0.3);
-
-        // Change the opacity of the associated text to 1
-        labels
-          .filter((textData) => textData.data.name === i.data.name) // Filter for the matching text element
-          .transition()
-          .duration(800)
-          .attr("x", (d) => (d.x < Math.PI === !d.children ? 20 : -20))
-          .style("opacity", 1);
-
-        if (past && past !== clickedNode.current) {
-          nodeAnimation
-            .filter((data) => data.data === past.data) // Filter for the matching data point
-            .transition()
-            .duration(600)
-            .attr("r", 0)
-            .style("opacity", 0.5);
-
-          nodeAnimation2
-            .filter((data) => data.data === past.data) // Filter for the matching data point
-            .transition()
-            .duration(600)
-            .attr("r", 0)
-            .style("opacity", 0.5);
-
-          // Change the opacity of the associated text back to 0
-          labels
-            .filter((textData) => textData.data.name === past.data.name) // Filter for the matching text element
-            .transition()
-            .duration(800)
-            .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
-            .style("opacity", 0);
-        }
-      })
-
       .on("mouseover", function (d, i) {
         // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
         // Change the circle size

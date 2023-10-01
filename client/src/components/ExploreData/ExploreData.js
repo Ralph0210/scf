@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-import "./ExploreData.css";
+// import "./ExploreData.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 import data from "./var.json";
 import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import useWindowSize from "../useWindowSize";
+import styles from "./ExploreData.module.css";
 
 const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
   const size = useWindowSize()
