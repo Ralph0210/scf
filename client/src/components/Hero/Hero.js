@@ -23,7 +23,8 @@ const Hero = ({ InstructionRef }) => {
         <div className="cta_button">
           <motion.button
             whileHover={{scale:1.2}}
-            whileTap={{ scale: 0.6 }}
+            whileTap={{ scale: 0.8 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
             onClick={handleClick}
           >
             Learn More

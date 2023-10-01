@@ -17,7 +17,7 @@
 }
 
 .swap_button:hover {
-  box-shadow: 0 0 0 5px #FAFAFA; /* Adjust the width (5px) to control the circle size */
+  box-shadow: 0 0 0 5px #FAFAFA;
   color: white;
   background-color: #0e518e;
 }

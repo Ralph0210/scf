@@ -68,7 +68,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  transition: 0.3s ease-in-out;
+  /* transition: 0.3s ease-in-out; */
 }
 
 .cta_container button:hover{
