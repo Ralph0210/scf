@@ -2,11 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import "./InstructionMap.css";
 import { motion, useScroll, useInView, useMotionValueEvent } from "framer-motion";
 import ExploreData2 from "../ExploreData/ExploreData2";
-import { BiLeftArrowAlt } from 'react-icons/bi'
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi'
 import InstructionAnalytics from "../InstructionAnalytics/InstructionAnalytics";
 
 const InstructionMap = () => {
   const ref = useRef(null)
+  const isInView = ref
   const [isVisible, setIsVisible] = useState(true);
   const hasTriggered = useRef(false)
   const hasTriggered2 = useRef(true)
@@ -16,17 +17,22 @@ const InstructionMap = () => {
   const fadeIn = {
     hidden: { opacity: 0, y: 20 }, // Start with opacity 0 and slight Y translation
     visible: { opacity: 1, y: 0, transition: { duration: 1 } }, // Fade in and move up smoothly
+    button: (isVisible) => ({ 
+      opacity: 1, 
+      x: isVisible ? 0 : 80, // Use a function to determine x value based on isVisible
+      y: 0, 
+      transition: { duration: 1 }
+    }),
   };
 
   const handleClick = () => {
     setIsVisible((prevVisible) => {
-      console.log("isVisible is now:", !prevVisible);
       return !prevVisible; // Toggle the state
     });
   };
 
   const { scrollYProgress, scrollY } = useScroll({
-    target: ref,
+    // target: ref,
     offset: ["start end", "1.7 1"]
   })
 
@@ -42,7 +48,6 @@ const InstructionMap = () => {
       setIsVisible(!isVisible)
       hasTriggered.current=false
     }
-    console.log(latest)
   });
 
   const handleHover= () => {
@@ -50,11 +55,11 @@ const InstructionMap = () => {
   }
 
   return (
-    <div className="container" ref={ref}>
+    <div className="container">
       <div className="content"
             whileHover={handleHover}
         >
-        <motion.div 
+        <motion.div
           className="instruction_map"
           viewport={{ once: true, amount: 0.7 }}
           variants={fadeIn}
@@ -64,7 +69,7 @@ const InstructionMap = () => {
           transition={{ ease: "easeOut", duration: 1 }}
         >
           {isVisible ?  <ExploreData2 /> : <InstructionAnalytics />}
-         
+
         </motion.div>
         <motion.div
           className="description"
@@ -108,23 +113,55 @@ const InstructionMap = () => {
             )}
           </motion.div>
         </motion.div>
-        <motion.button
+        {/* {isVisible ? <motion.button
           className="swap_button"
           viewport={{ once: true, amount: 0.3 }}
           variants={fadeIn}
-          initial="hidden"
+          initial='hidden'
           whileInView="visible"
-          animate={{x: isVisible ? "-2080%" : "-1140%", rotate: isVisible ? 180 : 0,}}
           onClick={handleClick}
           transition={{ ease: "easeOut", duration: 1 }}
           whileHover={{scale:1.2}}
-          whileTap={{ scale: 0.6 }}
+          whileTap={{ scale: 0.8 }}
         >
-          <BiLeftArrowAlt className="arrow"/>
+          <BiRightArrowAlt className="arrow"/>
         </motion.button>
+        :
+        <motion.button
+        className="swap_button2"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeIn}
+        initial='hidden'
+        whileInView="visible"
+        onClick={handleClick}
+        transition={{ ease: "easeOut", duration: 1 }}
+        whileHover={{scale:1.2}}
+        whileTap={{ scale: 0.8 }}
+      >
+        <BiLeftArrowAlt className="arrow"/>
+      </motion.button>} */}
+      <motion.div style={{ zIndex: 4}} animate={{
+            x: isVisible ? -800 : -440, // Toggle the x value based on isVisible
+            transition: { duration: 1 },
+          }}>
+      <motion.button
+          className="swap_button"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeIn}
+          initial='hidden'
+          whileInView="visible"
+          onClick={handleClick}
+          transition={{ ease: "easeOut", duration: 1 }}
+          whileHover={{scale:1.2}}
+          whileTap={{ scale: 0.8 }}
+        >
+          <motion.div animate={{rotate: isVisible? 0 : 180}} transition={{ ease: "easeOut", duration: 1 }} className="arrow">
+          <BiRightArrowAlt />
+          </motion.div>
+        </motion.button>
+        </motion.div>
       </div>
 
-      {/* Add more text elements and animations as needed */}
     </div>
   );
 };
