@@ -13,7 +13,9 @@
   line-height: normal;
 }
 
-.financial_health {
+.financial_health,
+.financial_disparities,
+.financial_planning {
   display: flex;
   flex-direction: row;
   flex: 1;
@@ -21,6 +23,10 @@
 
 .interest_right_container {
   flex: 1;
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+    gap: 10px;
 }
 
 .interest_left_container {
@@ -32,7 +38,9 @@
 }
 
 
-.interest_left_container ul {
+.financial_health ul,
+.financial_disparities ul,
+.financial_planning ul {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -41,7 +49,9 @@
   flex-wrap: wrap;
 }
 
-.interest_left_container li {
+.financial_health li,
+.financial_disparities li,
+.financial_planning li {
   color: #7c9cbf;
   background: var(--disabled, #ebf4f8);
   border-radius: 2rem;
@@ -57,7 +67,8 @@
   /* transition: 0.3s ease-in-out; */
 }
 
-.interest_left_container li:hover{
+.interest_container li:hover{
+    cursor: pointer;
     background: #D81E5B;
     color: white;
 }

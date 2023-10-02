@@ -1,34 +1,74 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Interest.css";
-import { motion, stagger, useInView, animate } from "framer-motion";
+// import '../Parallax/Parallax.css'
+import { motion, stagger, useInView, animate, useScroll,
+  useSpring,
+  useTransform,
+  MotionValue } from "framer-motion";
 import data from "./interest.json";
 
 const Interest = () => {
-  const assetRef = useRef(null);
-  const assetIsInView = useInView(assetRef);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const f1Ref = useRef(null);
+  const f1IsInView = useInView(f1Ref);
+  const [f1animated, setf1animated] = useState(false)
+
+  const f2Ref = useRef(null);
+  const f2IsInView = useInView(f2Ref);
+  const [f2animated, setf2animated] = useState(false)
+
+  const f3Ref = useRef(null);
+  const f3IsInView = useInView(f3Ref);
+  const [f3animated, setf3animated] = useState(false)
 
   const staggerItems = stagger(0.1, { from: "first" });
 
   useEffect(() => {
+    if(!f1animated){
     animate(
-      ".interest_left_container li",
-      assetIsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 },
+      ".financial_health li",
+      f1IsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 },
       {
         duration: 0.5,
-        delay: assetIsInView ? staggerItems : 0,
+        delay: f1IsInView ? staggerItems : 0,
       }
-    );
-  }, [assetIsInView]);
+    )}
+  }, [f1IsInView]);
+
+  useEffect(() => {
+    if(!f2animated){
+    animate(
+      ".financial_disparities li",
+      f2IsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 },
+      {
+        duration: 0.5,
+        delay: f2IsInView ? staggerItems : 0,
+      }
+    );}
+  }, [f2IsInView]);
+
+  useEffect(() => {
+    if(!f3animated){
+    animate(
+      ".financial_planning li",
+      f3IsInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 },
+      {
+        duration: 0.5,
+        delay: f3IsInView ? staggerItems : 0,
+      }
+    );}
+  }, [f3IsInView]);
 
   return (
     <div className="interest_container">
       <h2>Financial Health & Well-being</h2>
       <div className="financial_health">
       <div className="interest_left_container">
-        <motion.ul ref={assetRef}>
+        <motion.ul ref={f1Ref}>
           {data["financial_health_and_well-being"].map((interest) => (
             <motion.li
-              key={interest.name} // Add a unique key prop
+            onViewportLeave={() => setf1animated(true)}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -43,12 +83,34 @@ const Interest = () => {
       </div>
       </div>
 
-      <div className="financial_health">
+      <h2>Financial Disparities & Diversity</h2>
+      <div className="financial_disparities">
       <div className="interest_left_container">
-        <motion.ul ref={assetRef}>
-          {data["financial_health_and_well-being"].map((interest) => (
+        <img src="/asset.png" />
+      </div>
+      <div className="interest_right_container">
+      <motion.ul ref={f2Ref}>
+          {data["financial_disparities_and_diversity"].map((interest) => (
             <motion.li
-              key={interest.name} // Add a unique key prop
+            onViewportLeave={() => setf2animated(true)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              {interest.name}
+            </motion.li>
+          ))}
+        </motion.ul>
+      </div>
+      </div>
+
+      <h2>Financial Planning & Investment</h2>
+      <div className="financial_planning">
+      <div className="interest_left_container">
+      <motion.ul ref={f3Ref}>
+          {data["financial_planning_and_investment"].map((interest) => (
+            <motion.li
+            onViewportLeave={() => setf3animated(true)}
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -59,9 +121,10 @@ const Interest = () => {
         </motion.ul>
       </div>
       <div className="interest_right_container">
-        <img src="/asset.png" />
+      <img src="/asset.png" />
       </div>
       </div>
+
     </div>
   );
 };
