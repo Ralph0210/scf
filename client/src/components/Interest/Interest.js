@@ -86,7 +86,7 @@ const Interest = () => {
       <h2>Financial Disparities & Diversity</h2>
       <div className="financial_disparities">
       <div className="interest_left_container">
-        <img src="/asset.png" />
+        <img src="/diversity.png" />
       </div>
       <div className="interest_right_container">
       <motion.ul ref={f2Ref}>
@@ -121,7 +121,7 @@ const Interest = () => {
         </motion.ul>
       </div>
       <div className="interest_right_container">
-      <img src="/asset.png" />
+      <img src="/credit.png" />
       </div>
       </div>
 

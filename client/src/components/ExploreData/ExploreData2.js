@@ -26,7 +26,7 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
     const old = d3.select(svgRef.current);
     old.selectAll("*").remove();
 
-    const width = 750;
+    const width = 950;
     const height = width;
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
@@ -50,11 +50,11 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
       .attr("height", height)
       // .classed("svg-container", true)
       // .attr("preserveAspectRatio", "xMinYMin meet")
-      .attr("viewBox", [-cx-40, -cy, width+100, height+100])
+      .attr("viewBox", [-cx-150, -cy+50, width+300, height+100])
       // .classed("svg-content-responsive", true)
       .attr(
         "style",
-        `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
+        `width: ${width}px; height: ${height}px; font: 16px Helvetica Neue;`
       )
       .attr("class", "mapsvg");
 
@@ -234,7 +234,7 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
           translate(${d.y},0)
           rotate(${-(d.x * 180) / Math.PI + 90})`
       )
-      .attr("dy", "0.31em")
+      .attr("dy", "0.4em")
       .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
       .attr("text-anchor", (d) =>
         d.x < Math.PI === !d.children ? "start" : "end"
@@ -317,10 +317,14 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
     // Define mouseover and mouseout event handlers for nodes
     nodes
       .on("mouseover", function (d, i) {
-        // console.log("Mouseover Event - Data:", d, "Index:", i, "description:", i.data.description);
-        // Change the circle size
 
         if (clickedNode.current !== i) {
+          nodes
+          .filter((data) => data.data === i.data)
+          .transition()
+          .duration(500)
+          // .style('fill', '#0E518E')
+
           nodeAnimation
             .filter((data) => data.data === i.data) // Filter for the matching data point
             .transition()
@@ -346,6 +350,12 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
       })
       .on("mouseout", function (d, i) {
         if (clickedNode.current !== i) {
+          nodes
+          .filter((data) => data.data === i.data)
+          .transition()
+          .duration(500)
+          // .style('fill', '#779CBE')
+
           nodeAnimation
             .filter((data) => data.data === i.data) // Filter for the matching data point
             .transition()
@@ -371,15 +381,17 @@ const ExploreData2 = ({ setSelectedInfoData, setShouldRenderDataInfoCard }) => {
         // Change the circle size back to its original size
       });
 
-    //   svg.attr('transform', `translate(${50}, ${25})`);
+      svg.attr('transform', `translate(${-60}, ${-25})`);
   }, [size]);
 
   return (
     <>
       <motion.div
         drag
-        dragSnapToOrigin={true}
+        // dragSnapToOrigin={true}
+        dragConstraints={{ left: -100, right: 50, top: -50, bottom: 50}}
         dragTransition={{ delay: 0, ease: "linear" }}
+        dragMomentum={false}
       >
         <svg ref={svgRef}>{/* <g ref={svgRef}></g> */}</svg>
       </motion.div>

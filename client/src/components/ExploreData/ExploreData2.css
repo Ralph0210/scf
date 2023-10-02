@@ -1,4 +1,6 @@
-
+.mapsvg{
+    cursor: grab;
+}
 .circle {
     z-index: 1;
     cursor: pointer;
@@ -19,19 +21,43 @@
 }
 
 .demo-circle {
+    fill: #E57FA1;
+}
+
+.demo-circle:hover {
+    transition: 0.5s ease-in-out;
     fill: #D81E5B;
+    cursor: pointer;
 }
 
 .root-circle {
-    fill: rgba(14, 81, 142);
+    fill: #0E518E;
+}
+
+.root-circle:hover{
+    transition: 0.5s ease-in-out;
+    fill: #0E518E;
+    cursor: pointer;
 }
 
 .fin-circle {
+    fill: #BFDFC5;
+}
+
+.fin-circle:hover {
+    transition: 0.5s ease-in-out;
     fill: #70B77E;
+    cursor: pointer;
 }
 
 .labor-circle {
+    fill: #FFCC86;
+}
+
+.labor-circle:hover {
+    transition: 0.5s ease-in-out;
     fill: #FF9F1C;
+    cursor: pointer;
 }
 
 .normal-circle {
