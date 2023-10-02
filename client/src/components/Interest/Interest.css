@@ -1,16 +1,10 @@
 .interest_container {
-  width: 122rem;
+  width: 100%;
   display: flex;
-  gap: 8.6rem;
+  flex-direction: column;
 }
 
-.interest_left_container {
-    display: flex;
-    flex-direction: column;
-    width: 58.7rem;
-}
-
-.interest_left_container h2 {
+.interest_container h2 {
   color: #1e2019;
   font-family: Helvetica Neue;
   font-size: 36px;
@@ -19,10 +13,31 @@
   line-height: normal;
 }
 
+.financial_health {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.interest_right_container {
+  flex: 1;
+}
+
+.interest_left_container {
+  flex: 1;
+  display: flex;
+  /* justify-content: flex-start; */
+  align-items: center;
+    gap: 10px;
+}
+
+
 .interest_left_container ul {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
   flex-wrap: wrap;
 }
 
@@ -35,7 +50,7 @@
 
   /* description */
   font-family: Helvetica Neue;
-  font-size: 20px;
+  font-size: 2rem;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -47,7 +62,4 @@
     color: white;
 }
 
-.interest_right_container {
-  width: 597px;
-  height: 597px;
-}
+

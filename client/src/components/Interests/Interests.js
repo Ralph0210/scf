@@ -2,6 +2,7 @@ import React from 'react'
 import './Interests.css'
 import Interest from '../Interest/Interest'
 
+
 const Interests = () => {
   return (
     <div className='interests_container'>
