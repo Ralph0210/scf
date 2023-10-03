@@ -1,8 +1,9 @@
 .container {
-    /* display: flex; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
     margin: 0 auto 11rem auto;
-    width: 122.2rem;
-    /* height: 82.9rem; */
+    width: 122rem;
     flex-shrink: 0;
 }
 
@@ -39,7 +40,6 @@ h1 {
     display: flex;
     width: 42rem;
     height: 75rem;
-    /* padding: 9rem 4.5rem; */
     flex-direction: column;
     align-items: center;
     gap: 30rem;
@@ -77,13 +77,13 @@ span {
     line-height: normal;
 }
 
-.progress-bar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 10px;
-    background-color: #0E518E;
-    transform-origin: 0%;
-    z-index: 2;
+@media (max-width: 1300px) {
+  .container{
+    width: 100vw;
+    align-items: center;
   }
+  .title {
+    text-align: center; /* Center the text */
+    margin-bottom: 3rem;
+  }
+}

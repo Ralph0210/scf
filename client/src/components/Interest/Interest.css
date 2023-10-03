@@ -74,3 +74,9 @@
 }
 
 
+@media (max-width: 1300px) {
+  .interest_container{
+    align-items: center;
+    width: 80rem;
+  }
+}

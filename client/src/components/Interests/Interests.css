@@ -1,7 +1,6 @@
 .interests_container {
     margin: 0 auto 0 auto;
     width: 122rem;
-    flex-shrink: 0;
 }
 
 .title_description {
@@ -25,3 +24,11 @@ line-height: normal;
 margin-bottom: 7.2rem;
 }
 
+@media (max-width: 1300px) {
+    .interests_container{
+        width: 100vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+  }
