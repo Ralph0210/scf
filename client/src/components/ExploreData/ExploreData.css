@@ -38,6 +38,13 @@
     fill: #000;
 }
 
+.red-circle {
+    /* fill: aqua; */
+    stroke: red;       /* Border color */
+    stroke-width: 2px;
+    
+}
+
 .map_parent_container {
     width: 800;
     height: 800;

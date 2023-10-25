@@ -6,14 +6,16 @@ import ExploreData from '../ExploreData/ExploreData';
 import Footer from '../Footer/Footer';
 import DataInfoCard from '../DataInfoCard/DataInfoCard';
 
-const Map = () => {
+const Map = ({distinctVariables}) => {
   const [shouldRenderDataInfoCard, setShouldRenderDataInfoCard] =
     useState(false);
     const [selectedInfoData, setSelectedInfoData] = useState(null);
-
+ const [d1, setD1] = useState("hehehe")
+  
+//  setSelectedInfoData={setSelectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}
   return (
     <div >
-      <ExploreData setSelectedInfoData={setSelectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}/>
+      <ExploreData distinctVariables={distinctVariables} setSelectedInfoData={setSelectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}/>
       {shouldRenderDataInfoCard && <DataInfoCard data={selectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}/>}
     </div>
   );

@@ -9,3 +9,7 @@
     overflow: auto; /* Display scrollbars if content overflows */
     /* Additional styling */
   }
+
+.map_app{
+  display: none;
+}

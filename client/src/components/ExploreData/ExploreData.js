@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
-// import "./ExploreData.css";
+import "./ExploreData.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 import data from "./var.json";
@@ -8,7 +8,8 @@ import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import useWindowSize from "../useWindowSize";
 import styles from "./ExploreData.module.css";
 
-const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
+const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinctVariables}) => {
+  console.log(distinctVariables, "d")
   const size = useWindowSize()
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
@@ -277,6 +278,33 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
       })
       .attr("r", 0)
 
+      let highLightNode = svg
+      .append("g")
+      .selectAll()
+      .data(root.descendants())
+      .join("circle")
+      .attr(
+        "transform",
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+      )
+      .attr(
+        "transform",
+        (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
+      )
+      .attr("class", d => {
+        if (d.depth === 0) {
+          return "root-circle"
+        }
+        const isNodeInDistinctVariables = distinctVariables.has(d.data.name);
+        console.log(isNodeInDistinctVariables, "isNode")
+    
+        if (isNodeInDistinctVariables) {
+          return "red-circle"; // Apply a red fill color to nodes in distinctVariables
+        }
+      })
+      .attr("r", 15)
+      .attr("fill", "none")
+
     // Append labels.
     let labels = svg
       .append("g")
@@ -317,11 +345,6 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         if (d.depth === 0) {
           return "root-circle"
         }
-    //     // Define a function to check if a variable is of interest
-    // const isVariableOfInterest = (variableName) => {
-    //   // Replace this with your actual logic to check if the variable is of interest
-    //   return interests.includes(variableName);
-    // };
 
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
@@ -330,7 +353,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
 
         // Check if the node is at depth 2 under "Demographics"
         if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
-            return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+            return "demo-circle";
         }
 
         // Check if the node is at depth 2 under "Demographics"
