@@ -7,13 +7,16 @@ import Footer from './components/Footer/Footer';
 import Pan from './components/Pan';
 import { Link, Route, Routes } from 'react-router-dom';
 import Analytics_page from './components/Analytics_page/Analytics_page';
+import { useState } from 'react';
 
 function App() {
+  const [interests, setInterests] = useState(new Set())
+  console.log(interests)
   return (
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Home setInterests={setInterests}/>} />
         <Route path='/analyticsPage' element={<Analytics_page />} />
         <Route path='/about' element={<Pan />} />
         <Route path='/exploreData' element={<ExploreData />} />

@@ -7,7 +7,36 @@ import { motion, stagger, useInView, animate, useScroll,
   MotionValue } from "framer-motion";
 import data from "./interest.json";
 
-const Interest = () => {
+const Interest = ( {setInterests, setTopics} ) => {
+  // You can still use a local state to manage the selected variables for rendering
+  const [localSelectedInterest, setLocalSelectedInterest] = useState(new Set());
+
+  // Function to handle list item clicks
+  const handleButtonClick = (interest) => {
+    const selectedVariables = interest.variables;
+
+    // Check if all variables are already selected
+    const isSelected = selectedVariables.every(variable => localSelectedInterest.has(variable));
+
+    if (isSelected) {
+      // If all variables are already selected, remove them
+      const updatedSelectedInterest = new Set(localSelectedInterest);
+      selectedVariables.forEach(variable => updatedSelectedInterest.delete(variable));
+      setLocalSelectedInterest(updatedSelectedInterest);
+      setTopics(prevTopics => prevTopics - 1);
+    } else {
+      // If not all variables are selected, add them (excluding repeating ones)
+      const updatedSelectedInterest = new Set(localSelectedInterest);
+      selectedVariables.forEach(variable => updatedSelectedInterest.add(variable));
+      setLocalSelectedInterest(updatedSelectedInterest);
+      setTopics(prevTopics => prevTopics + 1);
+    }
+
+    // Pass the updated selected variables to the parent component
+    setInterests(Array.from(localSelectedInterest));
+  };
+
+  const [buttonMode, setButtonMode] = useState("add");
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const f1Ref = useRef(null);
@@ -60,6 +89,18 @@ const Interest = () => {
     );}
   }, [f3IsInView]);
 
+  // const handleButtonClick = (interest) => {
+  //   if (buttonMode === "add") {
+  //     // Add the new variables to the interests array
+  //     setInterests(prevInterests => [...prevInterests, ...interest.variables]);
+  //     setButtonMode("remove");
+  //   } else if (buttonMode === "remove") {
+  //     // Remove the added variables from the interests array
+  //     setInterests(prevInterests => prevInterests.filter(variable => !interest.variables.includes(variable)));
+  //     setButtonMode("add");
+  //   }
+  // }
+
   return (
     <div className="interest_container">
       <h2>Financial Health & Well-being</h2>
@@ -72,6 +113,18 @@ const Interest = () => {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={() => handleButtonClick(interest)}
+              style={{
+                backgroundColor:
+                  interest.variables.every(variable => localSelectedInterest.has(variable))
+                    ? '#D81E5B'
+                    : '#ebf4f8',
+                    color:
+                    interest.variables.every(variable => localSelectedInterest.has(variable))
+                    ? '#fff'
+                    : '#7c9cbf',
+              }}
+
             >
               {interest.name}
             </motion.li>
@@ -96,6 +149,18 @@ const Interest = () => {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={() => handleButtonClick(interest)}
+              style={{
+                backgroundColor:
+                  interest.variables.every(variable => localSelectedInterest.has(variable))
+                    ? '#D81E5B'
+                    : '#ebf4f8',
+                    color:
+                    interest.variables.every(variable => localSelectedInterest.has(variable))
+                    ? '#fff'
+                    : '#7c9cbf',
+              }}
+
             >
               {interest.name}
             </motion.li>
@@ -114,6 +179,17 @@ const Interest = () => {
               whileHover={{ scale: 1.2 }}
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
+              onClick={() => handleButtonClick(interest)}
+          style={{
+            backgroundColor:
+              interest.variables.every(variable => localSelectedInterest.has(variable))
+                ? '#D81E5B'
+                : '#ebf4f8',
+                color:
+                interest.variables.every(variable => localSelectedInterest.has(variable))
+                ? '#fff'
+                : '#7c9cbf',
+          }}
             >
               {interest.name}
             </motion.li>

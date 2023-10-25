@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import './Home.css'
 import Hero from '../Hero/Hero'
 import Instruction1 from '../Instruction1/Instruction1'
@@ -7,14 +7,15 @@ import DiscoverButton from '../DiscoverButton/DiscoverButton'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 
-const Home = () => {
+const Home = ({setInterests}) => {
   const InstructionRef = useRef(null)
+  const [topics, setTopics]= useState(0)
   return (
     <>
       <Hero InstructionRef={InstructionRef}/>
       <Instruction1 ref={InstructionRef}/>
-      <Interests />
-      <DiscoverButton />
+      <Interests setInterests={setInterests} setTopics={setTopics} />
+      <DiscoverButton topics={topics}/>
       <Footer />
     </>
   )
