@@ -5,7 +5,7 @@ import { motion, stagger, useInView, animate, useScroll,
   useSpring,
   useTransform,
   MotionValue } from "framer-motion";
-import data from "./interest.json";
+import data from '../../interest.json';
 
 const Interest = ({topics, setTopics, isDataLoaded}  ) => {
 

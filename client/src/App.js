@@ -27,6 +27,24 @@ function App() {
     const [topics, setTopics] = useState(new Set());
 
     const [isDataLoaded, setDataLoaded] = useState(false);
+    const [distinctVariables, setDistinctVariables] = useState(new Set());
+
+    console.log(distinctVariables, 'v')
+
+
+// Function to calculate distinct variables from all topics
+const calculateDistinctVariables = () => {
+  const allVariables = new Set();
+
+  for (const topic of topics) {
+    // Add variables to the set, which will ensure they are distinct
+    for (const variable of topic.variables) {
+      allVariables.add(variable);
+    }
+  }
+
+  setDistinctVariables(Array.from(allVariables));
+};
 
     useEffect(() => {
       const storedTopics = localStorage.getItem('topics');
@@ -41,6 +59,7 @@ function App() {
   useEffect(() => {
     // Save 'topics' to local storage whenever it changes
     localStorage.setItem('topics', JSON.stringify(Array.from(topics)));
+    calculateDistinctVariables();
   }, [topics]);
 
   console.log(topics, "global");

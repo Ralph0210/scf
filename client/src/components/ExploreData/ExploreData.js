@@ -329,13 +329,9 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        // if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
-        //   if (isVariableOfInterest(d.data.name)) {
-        //     return "black"; // Apply "black" fill color if the variable is of interest
-        //   } else {
-        //     return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
-        //   }
-        // }
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+            return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
 
         // Check if the node is at depth 2 under "Demographics"
         if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
