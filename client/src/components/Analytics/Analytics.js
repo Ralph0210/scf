@@ -57,7 +57,7 @@ const Analytics = () => {
   const [dataForGraphing, setDataForGraphing] = useState([])
   const [selectedUnit, setSelectedUnit] = useState("Mean"); // Set initial selected option
 
-  const [value, setValue] = useState([2010, 2019]);
+  const [value, setValue] = useState([1989, 2019]);
 
 
   useEffect(() => {

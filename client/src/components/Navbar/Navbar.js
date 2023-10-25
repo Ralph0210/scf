@@ -7,41 +7,6 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  // const options = [
-  //   {
-  //     value: "home",
-  //     label: (
-  //       <Link to="/" className="dropdown_link">
-  //         Home
-  //       </Link>
-  //     ),
-  //   },
-  //   {
-  //     value: "analysis",
-  //     label: (
-  //       <Link to="/analyticsPage" className="dropdown_link">
-  //         Analysis
-  //       </Link>
-  //     ),
-  //   },
-  //   {
-  //     value: "exploreData",
-  //     label: (
-  //       <Link to="/exploreData" className="dropdown_link">
-  //         Explore Data
-  //       </Link>
-  //     ),
-  //   },
-  //   {
-  //     value: "about",
-  //     label: (
-  //       <Link to="/about" className="dropdown_link">
-  //         About
-  //       </Link>
-  //     ),
-  //   },
-  // ];
-
     const options = [
       {
         value: "home",

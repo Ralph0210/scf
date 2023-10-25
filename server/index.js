@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const db = require("./models");
-const { s2019, s2016, s2013, s2010 } = require("./models"); // Import your Sequelize models
+const { scfp2019, scfp2016, s2013, s2010, scfp2007, scfp2004, scfp2001, scfp1998, scfp1995, scfp1992, scfp1989 } = require("./models"); // Import your Sequelize models
 
 const app = express();
 const port = 3001;
@@ -11,10 +11,17 @@ app.use(cors());
 
 // Define the tables for each year
 const YearTables = {
+  1989: scfp1989,
+  1992: scfp1992,
+  1995: scfp1995,
+  1998: scfp1998,
+  2001: scfp2001,
+  2004: scfp2004,
+  2007: scfp2007,
   2010: s2010,
   2013: s2013,
-  2016: s2016,
-  2019: s2019,
+  2016: scfp2016,
+  2019: scfp2019,
 };
 
 app.get("/api/survey", async (req, res) => {
@@ -90,7 +97,7 @@ app.get("/api/survey", async (req, res) => {
 app.get("/distinct-values", async (req, res) => {
   const { selectedDistribution } = req.query;
   try {
-    const distinctValues = await s2019.findAll({
+    const distinctValues = await scfp2019.findAll({
       attributes: [
         [
           db.sequelize.fn("DISTINCT", db.sequelize.col(selectedDistribution)),

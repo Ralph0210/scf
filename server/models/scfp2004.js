@@ -1,5 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
-    const s2010 = sequelize.define('s2010', {
+    const scfp2004 = sequelize.define(
+      "scfp2004",
+      {
         Y1: {
           type: DataTypes.INTEGER,
         },
@@ -558,10 +560,13 @@ module.exports = (sequelize, DataTypes) => {
         FIN: {
           type: DataTypes.INTEGER,
         },
-    },{
-        tableName: 's2010',
-            timestamps: false, // Set timestamps to false to disable createdAt and updatedAt columns
-          });
-
-      return s2010
-}
+      },
+      {
+        tableName: "scfp2004",
+        timestamps: false, // Set timestamps to false to disable createdAt and updatedAt columns
+      }
+    );
+  
+    return scfp2004;
+  };
+  
