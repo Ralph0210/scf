@@ -317,15 +317,25 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard}) => {
         if (d.depth === 0) {
           return "root-circle"
         }
+    //     // Define a function to check if a variable is of interest
+    // const isVariableOfInterest = (variableName) => {
+    //   // Replace this with your actual logic to check if the variable is of interest
+    //   return interests.includes(variableName);
+    // };
+
         // Check if the node is at depth 1 and has the name "Demographics"
         if (d.depth === 1 && d.data.name === "Demographics") {
           return "demo-circle"; // Apply a different fill color to the "Demographics" branch
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
-          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
-        }
+        // if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
+        //   if (isVariableOfInterest(d.data.name)) {
+        //     return "black"; // Apply "black" fill color if the variable is of interest
+        //   } else {
+        //     return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        //   }
+        // }
 
         // Check if the node is at depth 2 under "Demographics"
         if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {

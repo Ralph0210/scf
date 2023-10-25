@@ -3,7 +3,7 @@ import './Interests.css'
 import Interest from '../Interest/Interest'
 
 
-const Interests = ({setInterests, setTopics}) => {
+const Interests = ({topics, setTopics, isDataLoaded}) => {
   return (
     <div className='interests_container'>
         <div className='title_description'>
@@ -11,7 +11,7 @@ const Interests = ({setInterests, setTopics}) => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit 
 amet sem dignissim, rhoncus dolor eu, maximus justo. </p>
         </div>
-        <Interest setInterests={setInterests} setTopics={setTopics}/>
+        <Interest topics={topics}  setTopics={setTopics} isDataLoaded={isDataLoaded}/>
     </div>
   )
 }

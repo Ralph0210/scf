@@ -7,34 +7,35 @@ import { motion, stagger, useInView, animate, useScroll,
   MotionValue } from "framer-motion";
 import data from "./interest.json";
 
-const Interest = ( {setInterests, setTopics} ) => {
-  // You can still use a local state to manage the selected variables for rendering
-  const [localSelectedInterest, setLocalSelectedInterest] = useState(new Set());
+const Interest = ({topics, setTopics, isDataLoaded}  ) => {
 
-  // Function to handle list item clicks
-  const handleButtonClick = (interest) => {
-    const selectedVariables = interest.variables;
+const handleButtonClick = (interest) => {
+  // Clone the current set to avoid mutating the state directly
+  const updatedSelectedInterest = new Set(Array.from(topics));
 
-    // Check if all variables are already selected
-    const isSelected = selectedVariables.every(variable => localSelectedInterest.has(variable));
+  // Convert interest and the items in the set to JSON for comparison
+  const interestJSON = JSON.stringify(interest);
 
-    if (isSelected) {
-      // If all variables are already selected, remove them
-      const updatedSelectedInterest = new Set(localSelectedInterest);
-      selectedVariables.forEach(variable => updatedSelectedInterest.delete(variable));
-      setLocalSelectedInterest(updatedSelectedInterest);
-      setTopics(prevTopics => prevTopics - 1);
-    } else {
-      // If not all variables are selected, add them (excluding repeating ones)
-      const updatedSelectedInterest = new Set(localSelectedInterest);
-      selectedVariables.forEach(variable => updatedSelectedInterest.add(variable));
-      setLocalSelectedInterest(updatedSelectedInterest);
-      setTopics(prevTopics => prevTopics + 1);
-    }
+  // Check if the interest is already in the set
+  const isInterestSelected = Array.from(updatedSelectedInterest).some(item => JSON.stringify(item) === interestJSON);
 
-    // Pass the updated selected variables to the parent component
-    setInterests(Array.from(localSelectedInterest));
-  };
+  if (isInterestSelected) {
+    // If it's already selected, remove it
+    updatedSelectedInterest.forEach(item => {
+      if (JSON.stringify(item) === interestJSON) {
+        updatedSelectedInterest.delete(item);
+      }
+    });
+  } else {
+    // If it's not selected, add it
+    updatedSelectedInterest.add(interest);
+  }
+
+  // Update the state with the modified set
+  setTopics(updatedSelectedInterest);
+};
+
+
 
   const [buttonMode, setButtonMode] = useState("add");
   const { scrollYProgress } = useScroll();
@@ -89,47 +90,28 @@ const Interest = ( {setInterests, setTopics} ) => {
     );}
   }, [f3IsInView]);
 
-  // const handleButtonClick = (interest) => {
-  //   if (buttonMode === "add") {
-  //     // Add the new variables to the interests array
-  //     setInterests(prevInterests => [...prevInterests, ...interest.variables]);
-  //     setButtonMode("remove");
-  //   } else if (buttonMode === "remove") {
-  //     // Remove the added variables from the interests array
-  //     setInterests(prevInterests => prevInterests.filter(variable => !interest.variables.includes(variable)));
-  //     setButtonMode("add");
-  //   }
-  // }
-
   return (
     <div className="interest_container">
       <h2>Financial Health & Well-being</h2>
       <div className="financial_health">
       <div className="interest_left_container">
-        <motion.ul ref={f1Ref}>
-          {data["financial_health_and_well-being"].map((interest) => (
-            <motion.li
-            onViewportLeave={() => setf1animated(true)}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.8 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              onClick={() => handleButtonClick(interest)}
-              style={{
-                backgroundColor:
-                  interest.variables.every(variable => localSelectedInterest.has(variable))
-                    ? '#D81E5B'
-                    : '#ebf4f8',
-                    color:
-                    interest.variables.every(variable => localSelectedInterest.has(variable))
-                    ? '#fff'
-                    : '#7c9cbf',
-              }}
-
-            >
-              {interest.name}
-            </motion.li>
-          ))}
-        </motion.ul>
+            <motion.ul ref={f1Ref}>
+              {data["financial_health_and_well-being"].map((interest) => (
+                <motion.li
+                  onViewportLeave={() => setf1animated(true)}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  onClick={() => handleButtonClick(interest)}
+                  style={{
+                    backgroundColor: topics.has(interest) ? '#D81E5B' : '#ebf4f8',
+                    color: topics.has(interest) ? '#fff' : '#7c9cbf',
+                  }}
+                >
+                  {interest.name}
+                </motion.li>
+              ))}
+            </motion.ul>
       </div>
       <div className="interest_right_container">
         <img src="/asset.png" />
@@ -142,6 +124,9 @@ const Interest = ( {setInterests, setTopics} ) => {
         <img src="/diversity.png" />
       </div>
       <div className="interest_right_container">
+      {topics === null ? ( // Render a loading indicator while topics is null
+            <p>Loading...</p>
+          ) : (
       <motion.ul ref={f2Ref}>
           {data["financial_disparities_and_diversity"].map((interest) => (
             <motion.li
@@ -151,14 +136,8 @@ const Interest = ( {setInterests, setTopics} ) => {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               onClick={() => handleButtonClick(interest)}
               style={{
-                backgroundColor:
-                  interest.variables.every(variable => localSelectedInterest.has(variable))
-                    ? '#D81E5B'
-                    : '#ebf4f8',
-                    color:
-                    interest.variables.every(variable => localSelectedInterest.has(variable))
-                    ? '#fff'
-                    : '#7c9cbf',
+                backgroundColor: topics.has(interest) ? '#D81E5B' : '#ebf4f8',
+                color: topics.has(interest) ? '#fff' : '#7c9cbf',
               }}
 
             >
@@ -166,12 +145,16 @@ const Interest = ( {setInterests, setTopics} ) => {
             </motion.li>
           ))}
         </motion.ul>
+        )}
       </div>
       </div>
 
       <h2>Financial Planning & Investment</h2>
       <div className="financial_planning">
       <div className="interest_left_container">
+      {topics === null ? ( // Render a loading indicator while topics is null
+            <p>Loading...</p>
+          ) : (
       <motion.ul ref={f3Ref}>
           {data["financial_planning_and_investment"].map((interest) => (
             <motion.li
@@ -180,21 +163,16 @@ const Interest = ( {setInterests, setTopics} ) => {
               whileTap={{ scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
               onClick={() => handleButtonClick(interest)}
-          style={{
-            backgroundColor:
-              interest.variables.every(variable => localSelectedInterest.has(variable))
-                ? '#D81E5B'
-                : '#ebf4f8',
-                color:
-                interest.variables.every(variable => localSelectedInterest.has(variable))
-                ? '#fff'
-                : '#7c9cbf',
-          }}
+              style={{
+                backgroundColor: topics.has(interest) ? '#D81E5B' : '#ebf4f8',
+                color: topics.has(interest) ? '#fff' : '#7c9cbf',
+              }}
             >
               {interest.name}
             </motion.li>
           ))}
         </motion.ul>
+        )}
       </div>
       <div className="interest_right_container">
       <img src="/credit.png" />

@@ -7,14 +7,13 @@ import DiscoverButton from '../DiscoverButton/DiscoverButton'
 import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer'
 
-const Home = ({setInterests}) => {
+const Home = ({topics, setTopics, isDataLoaded}) => {
   const InstructionRef = useRef(null)
-  const [topics, setTopics]= useState(0)
   return (
     <>
       <Hero InstructionRef={InstructionRef}/>
       <Instruction1 ref={InstructionRef}/>
-      <Interests setInterests={setInterests} setTopics={setTopics} />
+      <Interests topics={topics}  setTopics={setTopics} isDataLoaded={isDataLoaded}/>
       <DiscoverButton topics={topics}/>
       <Footer />
     </>
