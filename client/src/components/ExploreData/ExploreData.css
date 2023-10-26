@@ -58,6 +58,7 @@ text {
   font-weight: 400;
   line-height: normal;
   color: #1e2019;
+  z-index: 999;
 }
 
 .pan_container{

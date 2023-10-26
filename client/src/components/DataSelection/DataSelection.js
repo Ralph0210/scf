@@ -1,5 +1,5 @@
 import React from 'react';
-import options from '../../var.json'
+import options from '../../newVar.json'
 
 const DataSelection = ({
   uniqueValues,
@@ -51,15 +51,15 @@ const DataSelection = ({
             className='Data'
             value={data.selectedData} // Fixed property name
             onChange={(event) => handleDataChange(event, index)}
-          >
+          ><option value="NETWORTH">Net Worth</option>
             {/* Map through categories and subcategories from 'var.json' and create options */}
             {options.children.map((category) => (
               <optgroup key={category.name} label={category.name}>
                 {category.children.map((subcategory) => (
                   <option
-                    key={subcategory.name}
-                    value={subcategory.name}
-                    disabled={nonSelectableCategories.includes(subcategory.name)}
+                    key={subcategory.value}
+                    value={subcategory.value}
+                    disabled={nonSelectableCategories.includes(subcategory.value)}
                   >
                     {subcategory.name}
                   </option>
