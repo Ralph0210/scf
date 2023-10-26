@@ -10,7 +10,6 @@ const Map = ({distinctVariables}) => {
   const [shouldRenderDataInfoCard, setShouldRenderDataInfoCard] =
     useState(false);
     const [selectedInfoData, setSelectedInfoData] = useState(null);
- const [d1, setD1] = useState("hehehe")
   
 //  setSelectedInfoData={setSelectedInfoData} setShouldRenderDataInfoCard={setShouldRenderDataInfoCard}
   return (

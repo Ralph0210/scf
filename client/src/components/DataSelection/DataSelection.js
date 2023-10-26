@@ -1,4 +1,5 @@
 import React from 'react';
+import options from '../../var.json'
 
 const DataSelection = ({
   uniqueValues,
@@ -37,6 +38,9 @@ const DataSelection = ({
     setUniqueValues(updatedUniqueValues);
   };
 
+  const nonSelectableCategories = ["SCF", "Demographics", "Labor Force", "Financial Behavior"];
+
+
   return (
     <div className='data_container'>
       <label>Data</label>
@@ -48,11 +52,25 @@ const DataSelection = ({
             value={data.selectedData} // Fixed property name
             onChange={(event) => handleDataChange(event, index)}
           >
-            <option value={"EDCL"}>Education</option>
+            {/* Map through categories and subcategories from 'var.json' and create options */}
+            {options.children.map((category) => (
+              <optgroup key={category.name} label={category.name}>
+                {category.children.map((subcategory) => (
+                  <option
+                    key={subcategory.name}
+                    value={subcategory.name}
+                    disabled={nonSelectableCategories.includes(subcategory.name)}
+                  >
+                    {subcategory.name}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+            {/* <option value={"EDCL"}>Education</option>
             <option value={"HHSEX"}>Sex</option>
             <option value={"INCOME"}>Income</option>
             <option value={"RENT"}>Rent</option>
-            <option value={"FIN"}>FIN</option>
+            <option value={"FIN"}>FIN</option> */}
           </select>
         </div>
       ))}
