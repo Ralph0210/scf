@@ -4,7 +4,8 @@ import "./ExploreData.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 // import data from "./var.json";
-import data from './var3.json'
+// import data from './var3.json'
+import data from '../../newVar.json'
 // import data from './var2.json'
 import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import useWindowSize from "../useWindowSize";
