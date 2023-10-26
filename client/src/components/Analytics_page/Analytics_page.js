@@ -15,9 +15,10 @@ const Analytics_page = ({distinctVariables}) => {
             </div>
         <div className='analytics_page_analytics_container'>
             <Analytics />
+            <Footer />
             </div>
     </div>
-    <Footer />
+    
     </>
   )
 }

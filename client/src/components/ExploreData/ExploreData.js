@@ -4,12 +4,12 @@ import "./ExploreData.css";
 import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 import data from "./var.json";
+// import data from './var2.json'
 import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import useWindowSize from "../useWindowSize";
 import styles from "./ExploreData.module.css";
 
 const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinctVariables}) => {
-  console.log(distinctVariables, "d")
   const size = useWindowSize()
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
@@ -116,8 +116,9 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
       .selectAll('*')
       .remove()
 
-    const width = size.width === undefined? window.innerWidth : size.width;
+    // const width = size.width === undefined? window.innerWidth : size.width;
     const height =  size.height === undefined? window.innerHeight : size.height;
+    const width = height
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
     const radius = Math.min(width, height) / 2 - 30;
@@ -399,7 +400,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
 
         svg.transition()
           .duration(800)
-          .attr("transform", `translate(${-centerX+cx}, ${-centerY+cy})`);
+          .attr("transform", `translate(${cx-(width/2)}, ${cy})`);
 
         nodeAnimation
         .filter((data) => data.data === i.data) // Filter for the matching data point
@@ -504,18 +505,18 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         // Change the circle size back to its original size
       });
 
-      svg.attr('transform', `translate(${cx}, ${cy})`);
+      svg.attr('transform', `translate(${cx-(width/2)}, ${cy})`);
   }, [size]);
 
   return (
     <>
-    <div>
+    <div className="pan_container">
       <ReactSVGPanZoom
         ref={Viewer}
         background="rgba(217, 217, 217, 0.20)"
         defaultTool="pan"
-        width={800}
-        height={800}
+        width={'100%'}
+        height={"100%"}
         tool={tool}
         onChangeTool={setTool}
         value={value}
