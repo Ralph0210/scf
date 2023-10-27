@@ -300,7 +300,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
           return "root-circle"
         }
         const isNodeInDistinctVariables = distinctVariables.has(d.data.name);
-        console.log(isNodeInDistinctVariables, "isNode")
+        // console.log(isNodeInDistinctVariables, "isNode")
     
         if (isNodeInDistinctVariables) {
           return "red-circle"; // Apply a red fill color to nodes in distinctVariables

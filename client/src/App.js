@@ -48,7 +48,7 @@ const calculateDistinctVariables = () => {
     calculateDistinctVariables();
   }, [topics]);
 
-  console.log(topics, "global");
+  // console.log(topics, "global");
   
   return (
     <div className="App">

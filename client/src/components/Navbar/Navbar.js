@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Navbar.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Select from "react-select";
 
 const Navbar = () => {
-
+  const location = useLocation();
   const navigate = useNavigate();
 
     const options = [
@@ -36,56 +36,6 @@ const Navbar = () => {
       }
       setActiveLink(selectedOption.value)
     };
-
-
-  // const customStyles = {
-  //   control: (base, state) => ({
-  //     ...base,
-  //     borderRadius: "2rem", // Set the border radius
-  //     backgroundColor: "#ebf4f8", // Set the background color
-  //     border: "none", // Remove the border
-  //     boxShadow: state.isFocused ? "none" : base.boxShadow,
-  //   }),
-  //   menu: (provided) => ({
-  //     ...provided,
-  //     overflow: "hidden", // Hide overflow content
-  //     borderRadius: "2rem",
-  //     backgroundColor: "#ebf4f8",
-  //     paddingTop: 0, // Set paddingTop to 0
-  //     paddingBottom: 0, // Set paddingBottom to 0
-  //   }),
-  //   option: (provided, state) => ({
-  //     ...provided,
-  //     color: '#7c9cbf',
-  //     backgroundColor: state.isSelected
-  //       ? "transparent"
-  //       : state.isFocused
-  //       ? "rgba(217, 217, 217, 0.80)" // Change background color on hover
-  //       : "transparent",
-  //   }),
-  //   menuList: (provided) => ({
-  //     ...provided,
-  //     paddingTop: "0", // Remove the top padding
-  //     paddingBottom: "0",
-  //   }),
-  //   dropdownIndicator: (base, state) => ({
-  //     ...base,
-  //     transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : "none",
-  //     color: "#7c9cbf", // Set the color to white
-  //     "&:hover": {
-  //       color: "#7c9cbf", // Keep the color white even on hover
-  //     },
-  //   }),
-  //   indicatorSeparator: () => null, // Remove the indicator separator
-  //   valueContainer: (base) => ({
-  //     ...base,
-  //     padding: "1.25rem 3rem", // Set custom padding
-  //   }),
-  //   optionLabel: (provided) => ({
-  //     ...provided,
-  //     cursor: "pointer", // Change color of the Link within each option
-  //   }),
-  // };
 
   const customStyles = {
     control: (base, state) => ({
@@ -195,6 +145,15 @@ const Navbar = () => {
     };
   }, [activeLink]);
 
+  useEffect(() => {
+    // Determine the active link based on the current URL
+    const currentPath = location.pathname;
+    const activeOption = options.find((option) => option.to === currentPath);
+    if (activeOption) {
+      setActiveLink(activeOption.value);
+    }
+  }, [location.pathname]);
+
   const Nav = () => (
     <ul className="nav">
       <Link
@@ -255,11 +214,6 @@ const Navbar = () => {
           options={options}
           isSearchable={false}
           onChange={handleSelectChange}
-          // onChange={(selectedOption) => {
-          //   if (selectedOption && selectedOption.value) {
-          //     handleNavClick(selectedOption.value);
-          //   }
-          // }}
         />
       </div>
     </nav>

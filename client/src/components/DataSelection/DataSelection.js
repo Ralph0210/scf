@@ -10,13 +10,15 @@ const DataSelection = ({
   setDataSelections,
 }) => {
 
+  // console.log(dataSelections)
+
   const handleDataChange = (e, index) => {
     const selectedData = e.target.value;
     const selectedDataName = e.target.options[e.target.selectedIndex].getAttribute('name'); // Get the name attribute
     const updatedValue = [...dataSelections];
     updatedValue[index].selectedData = selectedData;
     updatedValue[index].selectedDataName = selectedDataName; // Add the selectedDataName to your data structure
-    console.log(selectedData, selectedDataName);
+    // console.log(selectedData, selectedDataName);
     setDataSelections(updatedValue);
   };
   
@@ -25,11 +27,15 @@ const DataSelection = ({
     const updatedElements = [...dataSelections];
     updatedElements.push({
       selectedData: "INCOME",
-      selectedDistribution: "EDCL",
-      selectedDisplay: [{
-        "label": 1,
-        "value": 1
-    }],
+      selectedDataName: "Household Income",
+      selectedDistributionName: "Age",
+      selectedDistribution: "AGECL",
+      selectedDisplay: [
+        {
+          label: "35 <",
+          value: 1,
+        },
+      ],
     });
     setDataSelections(updatedElements);
 

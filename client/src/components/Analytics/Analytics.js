@@ -20,6 +20,7 @@ import DistributionSelection from "../DistributionSelection/DistributionSelectio
 import DisplaySelection from "../DisplaySelection/DisplaySelection";
 
 const Analytics = () => {
+  const [lines, setLines] = useState([])
   const [uniqueValues, setUniqueValues] = useState([
     [
       {
@@ -35,7 +36,7 @@ const Analytics = () => {
         value: 3,
       },
       {
-        label: 1,
+        label: "35 <",
         value: 1,
       },
     ],
@@ -60,6 +61,7 @@ const Analytics = () => {
   const [selectedUnit, setSelectedUnit] = useState("Mean"); // Set initial selected option
 
   const [value, setValue] = useState([1989, 2019]);
+  console.log(data, 'data')
 
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const Analytics = () => {
     });
   }, [dataSelections, setData, setSelectedUnit, setValue, value]);
 
-  console.log("data", JSON.stringify(data))
+  // console.log("data", JSON.stringify(data))
 
   function mergeDataByYear(data) {
     const mergedData = {};
@@ -138,22 +140,30 @@ const Analytics = () => {
     console.log("dataforgraphing", newData)
   }, [data, dataSelections])
 
-  let lines = null;
-
-  if (dataForGraphing.length > 0) {
-    lines = Object.keys(dataForGraphing[0])
-      .filter(key => key !== 'year')
-      .map((key, index) => (
-        <Line
-          key={index}
-          type="monotone"
-          dataKey={key}
-          stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
-          activeDot={{ r: 8 }}
-          name={`${dataSelections[index].selectedDataName} - ${dataSelections[index].selectedDistributionName} - ${dataSelections[index].selectedDisplay[0].label}`}
-        />
-      ));
-      }
+  useEffect(() => {
+    let line = null;
+    if (dataForGraphing.length > 0) {
+      line = Object.keys(dataForGraphing[0])
+        .filter(key => key !== 'year')
+        .map((key, index) => {
+          const displayItem = dataSelections[0].selectedDisplay[index];
+          if (displayItem) {
+            return (
+              <Line
+                key={index}
+                type="monotone"
+                dataKey={key}
+                stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
+                activeDot={{ r: 8 }}
+                name={`${dataSelections[0].selectedDataName} - ${dataSelections[0].selectedDistributionName} - ${displayItem.label}`}
+              />
+            );
+          }
+          return null; // Handle missing displayItem
+        });
+        setLines(line)
+    }
+  }, [dataForGraphing, dataSelections]);
 
   return (
     <div className="analytics_container">
