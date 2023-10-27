@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import * as d3 from "d3";
 import "./ExploreData.css";
-import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO } from "react-svg-pan-zoom";
+import { INITIAL_VALUE, ReactSVGPanZoom, TOOL_AUTO, TOOL_NONE } from "react-svg-pan-zoom";
 // import data from './flare-2.json'
 // import data from "./var.json";
 // import data from './var3.json'
@@ -12,9 +12,11 @@ import DataInfoCard from "../DataInfoCard/DataInfoCard";
 import styles from "./ExploreData.module.css";
 import {useWindowSize} from '@react-hook/window-size'
 
+
+
 const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinctVariables}) => {
   
-  const size = useWindowSize()
+    const [width, height] = useWindowSize({initialWidth: 400, initialHeight: 400})
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
   const [tool, setTool] = useState(TOOL_AUTO);
@@ -23,89 +25,6 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
   const svgRef2 = useRef();
   const clickedNode = useRef()
   const [selectedNode, setSelectedNode] = useState(null);
-  // const data = {
-  //   children: [
-  //     {
-  //       name: "boss1",
-  //       children: [
-  //         { name: "mister_a", colname: "level3" },
-  //         { name: "mister_b", colname: "level3" },
-  //         { name: "mister_c", colname: "level3" },
-  //         { name: "mister_d", colname: "level3" },
-  //       ],
-  //       colname: "level2",
-  //     },
-  //     {
-  //       name: "boss2",
-  //       children: [
-  //         { name: "mister_e", colname: "level3" },
-  //         { name: "mister_f", colname: "level3" },
-  //         { name: "mister_g", colname: "level3" },
-  //         { name: "mister_h", colname: "level3" },
-  //       ],
-  //       colname: "level2",
-  //     },
-  //   ],
-  //   name: "CEO",
-  // };
-  // useEffect(() => {
-  //   Viewer.current.fitToViewer();
-  // }, []);
-  // useEffect(() => {
-  //   //setting up svg
-  //   const w = 400;
-  //   const h = 100;
-  //   const svg = d3
-  //     .select(svgRef.current)
-  //     .attr("width", w)
-  //     .attr("height", h)
-  //     .style("background", "#d3d3d3")
-  //     .style("margin", "50")
-  //     .style("overflow", "visible");
-
-  //   //setting the scaling
-  //   const xScale = d3
-  //     .scaleLinear()
-  //     .domain([0, data.length - 1])
-  //     // the range of the number of inputs,
-  //     // This domain is typically used to map input values representing positions along the x-axis,
-  //     // where each data point is associated with a unique index from 0 to data.length - 1.
-  //     // It allows you to position data points along the x-axis within the specified range.
-  //     .range([0, w]); //the range of the output range of the scale
-  //   const yScale = d3
-  //     .scaleLinear()
-  //     .domain([0, h]) //the range of the possible input values
-  //     .range([h, 0]);
-  //   const generateScaledLine = d3
-  //     .line()
-  //     .x((d, i) => xScale(i))
-  //     .y(yScale)
-  //     .curve(d3.curveCardinal);
-
-  //   //setting the axes
-  //   const xAxis = d3
-  //     .axisBottom(xScale)
-  //     .ticks(data.length)
-  //     .tickFormat((i) => i + 1);
-  //   const yAxis = d3.axisLeft(yScale).ticks(5);
-  //   svg
-  //     .append("g")
-  //     .call(xAxis)
-  //     .attr("transform", `translate(0, ${h})`)
-  //     .select(".domain")
-  //     .attr("class", "x-axis-path");
-  //   svg.append("g").call(yAxis);
-
-  //   //setting up the data for the svg
-  //   svg
-  //     .selectAll(".line")
-  //     .data([data])
-  //     .join("path")
-  //     .attr("d", (d) => generateScaledLine(d))
-  //     .attr("fill", "none")
-  //     .attr("stroke", "black");
-  // }, [data]);
-  // Specify the chart’s dimensions.
 
   useEffect(() => {
 
@@ -121,8 +40,8 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
       .remove()
 
     // const width = size.width === undefined? window.innerWidth : size.width;
-    const height =  size.height === undefined? window.innerHeight : size.height;
-    const width = height
+    // const height =  height === undefined? window.innerHeight : height;
+    // const width = height
     const cx = width * 0.5; // adjust as needed to fit
     const cy = height * 0.59; // adjust as needed to fit
     const radius = Math.min(width, height) / 2 - 30;
@@ -142,14 +61,14 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
   const svg = d3
   .select(svgRef2.current)
   .attr("width", width)
-  .attr("height", height)
+  .attr("height", width)
   // .classed("svg-container", true)
   // .attr("preserveAspectRatio", "xMinYMin meet")
-  .attr("viewBox", [-cx, -cy, width, height])
+  .attr("viewBox", [-cx, -cy, width, width])
   // .classed("svg-content-responsive", true)
   .attr(
     "style",
-    `width: ${width}px; height: ${height}px; font: 10px sans-serif;`
+    `width: ${width}px; height: ${width}px; font: 10px sans-serif;`
   )
   .attr("class", "mapsvg");
 
@@ -576,7 +495,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
       });
       
       svg.attr('transform', `translate(${cx-(width/2)}, ${cy})`);
-  }, [size, selectedNode]);
+  }, [width, height, selectedNode]);
 
 
   return (
@@ -586,8 +505,8 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         ref={Viewer}
         background="rgba(217, 217, 217, 0.20)"
         defaultTool="pan"
-        width={size.width}
-        height={size.height}
+        width={width}
+        height={width}
         tool={tool}
         onChangeTool={setTool}
         value={value}
@@ -599,7 +518,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         miniatureProps={{
           position: "none", // Set position to "none" to hide the miniature
         }}
-        className="map_parent_container"
+        // className="map_parent_container"
       >
         <svg>
           <g ref={svgRef2}></g>
@@ -611,3 +530,39 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
 };
 
 export default ExploreData;
+
+
+
+// import {useWindowSize} from '@react-hook/window-size'
+
+// const Resizable = (args) => {
+//     const Viewer = useRef(null);
+//     const [tool, onChangeTool] = useState(TOOL_NONE);
+//     const [value, onChangeValue] = useState(INITIAL_VALUE);
+//     const [width, height] = useWindowSize({ initialWidth: 400, initialHeight: 400 });
+  
+//     return (
+//       <div style={{ width: '80%', height: '100%' }}>
+//         <ReactSVGPanZoom
+//           width={width}
+//           height={height}
+//           ref={Viewer}
+//           value={value}
+//           onChangeValue={onChangeValue}
+//           tool={tool}
+//           onChangeTool={onChangeTool}
+//         >
+//           <svg width={500} height={500}>
+//             <g>
+//               <rect x="400" y="40" width="100" height="200" fill="#4286f4" stroke="#f4f142" />
+//               <circle cx="108" cy="108.5" r="100" fill="#0ff" stroke="#0ff" />
+//               <circle cx="180" cy="209.5" r="100" fill="#ff0" stroke="#ff0" />
+//               <circle cx="220" cy="109.5" r="100" fill="#f0f" stroke="#f0f" />
+//             </g>
+//           </svg>
+//         </ReactSVGPanZoom>
+//       </div>
+//     );
+//   };
+  
+//   export default Resizable;

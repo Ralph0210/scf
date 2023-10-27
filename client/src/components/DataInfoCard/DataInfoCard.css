@@ -1,6 +1,7 @@
 .dataCard {
-    position: absolute;
-  /* top: 100vh; */
+  overflow: hidden;
+    position: fixed;
+  bottom: 0;
   left: 0;
   transition: 1s ease-in-out;
   background-color: white;
@@ -19,6 +20,7 @@
   line-height: normal;
   color: #1e2019;
   align-items: center;
+  width: 27%;
 }
 
 .hid-box{

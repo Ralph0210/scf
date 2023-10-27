@@ -11,12 +11,16 @@ p {
 
 .analytics_page_analytics_container{
     width: 73%;
-    height: 100%;
+    /* height: 100%; */
     z-index: 90;
     background-color: #FDFFFC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items:end;
 }
 
 .analytics_page_map_container{
     width: 27%;
-    height: 100%;
+    /* height: 100%; */
 }

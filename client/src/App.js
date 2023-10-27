@@ -9,6 +9,9 @@ import { Link, Route, Routes } from "react-router-dom";
 import Analytics_page from "./components/Analytics_page/Analytics_page";
 import { useState, useEffect } from "react";
 import Map from "./components/Map/Map";
+import E3 from "./components/ExploreData/E3";
+
+
 
 function App() {
   const [topics, setTopics] = useState(new Set());
@@ -71,7 +74,7 @@ function App() {
         <Route path="/about" element={<Pan />} />
         <Route
           path="/exploreData"
-          element={<ExploreData distinctVariables={distinctVariables} />}
+          element={<E3 distinctVariables={distinctVariables} />}
         />
       </Routes>
     </div>
