@@ -43,7 +43,7 @@ const DisplaySelection = ({
             options={uniqueValues[index]}
             value={[...data.selectedDisplay]}
             onChange={(e) => handleDataChange(e, index)}
-            shouldToggleOnHover={true}
+            // shouldToggleOnHover={true}
             labelledBy="Select"
             overrideStrings={{"allItemsAreSelected": "All"}}
             disableSearch={true}

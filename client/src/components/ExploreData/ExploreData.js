@@ -12,6 +12,7 @@ import useWindowSize from "../useWindowSize";
 import styles from "./ExploreData.module.css";
 
 const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinctVariables}) => {
+  
   const size = useWindowSize()
   // const [data] = useState([25, 50, 35, 15, 94, 50]);
   const Viewer = useRef(null);
@@ -20,6 +21,7 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
   const svgRef = useRef();
   const svgRef2 = useRef();
   const clickedNode = useRef()
+  const [selectedNode, setSelectedNode] = useState(null);
   // const data = {
   //   children: [
   //     {
@@ -103,7 +105,6 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
   //     .attr("stroke", "black");
   // }, [data]);
   // Specify the chart’s dimensions.
-
 
   useEffect(() => {
 
@@ -197,9 +198,9 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics and Household Information") {
-          return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
-        }
+        // if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics and Household Information") {
+        //   return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        // }
 
         if (d.depth === 1 && d.data.name === "Financial Assets") {
           return "fin-circle"
@@ -308,33 +309,6 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
       .attr("r", 15)
       .attr("fill", "none")
 
-    // Append labels.
-    let labels = svg
-      .append("g")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-width", 3)
-      .selectAll()
-      .data(root.descendants())
-      .join("text")
-      .attr(
-        "transform",
-        (d) =>
-          `rotate(${(d.x * 180) / Math.PI - 90})
-          translate(${d.y},0)
-          rotate(${-(d.x * 180) / Math.PI + 90})`
-      )
-      .attr("dy", "0.31em")
-      .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
-      .attr("text-anchor", (d) =>
-        d.x < Math.PI === !d.children ? "start" : "end"
-      )
-      .attr("paint-order", "stroke")
-      .attr("stroke", "white")
-      .attr("fill", "currentColor")
-      .attr('z-index', '999')
-      .text((d) => d.data.name)
-      .style("opacity", 0); // Initially set text opacity to 0
-
     // Append nodes.
     let nodes = svg
       .append("g")
@@ -388,6 +362,52 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         return "normal-circle"; // Default fill color for other nodes
       })
       .attr("r", 10);
+
+
+      // Append labels.
+    let labels = svg
+    .append("g")
+    .attr("stroke-linejoin", "round")
+    .attr("stroke-width", 3)
+    .selectAll()
+    .data(root.descendants())
+    .join("text")
+    .attr(
+      "transform",
+      (d) =>
+        `rotate(${(d.x * 180) / Math.PI - 90})
+        translate(${d.y},0)
+        rotate(${-(d.x * 180) / Math.PI + 90})`
+    )
+    .attr("dy", "0.31em")
+    .attr("x", (d) => (d.x < Math.PI === !d.children ? 10 : -10))
+    .attr("text-anchor", (d) =>
+      d.x < Math.PI === !d.children ? "start" : "end"
+    )
+    .attr("paint-order", "stroke")
+    .attr("stroke", "white")
+    .attr("fill", "currentColor")
+
+    .text((d) => d.data.name)
+    .style("opacity", 0); // Initially set text opacity to 0
+
+    nodes.on("click", function (d, i) {
+      
+      if (d.depth === 1) {
+        // If the clicked node has depth 1, update the selected node
+        setSelectedNode(selectedNode === i ? null : i);
+        console.log(selectedNode)
+      } else {
+        // If the clicked node has depth other than 1, reset the selected node
+        setSelectedNode(null);
+      }
+      if(selectedNode){
+        const myLabelSelection = d3.selectAll(".node").filter(d => d.data.name === selectedNode.data.name);
+    const descendants = myLabelSelection.datum().descendants();
+    descendants.attr('opacity', 0)
+      }
+      
+    })
 
     // Define mouseover and mouseout event handlers for nodes
     nodes
@@ -506,10 +526,12 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
           .style("opacity", 0);
         }
         // Change the circle size back to its original size
+       
       });
-
+      
       svg.attr('transform', `translate(${cx-(width/2)}, ${cy})`);
-  }, [size]);
+  }, [size, selectedNode]);
+
 
   return (
     <>
@@ -518,8 +540,8 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         ref={Viewer}
         background="rgba(217, 217, 217, 0.20)"
         defaultTool="pan"
-        width={'100%'}
-        height={"100%"}
+        width={size.width}
+        height={size.height}
         tool={tool}
         onChangeTool={setTool}
         value={value}

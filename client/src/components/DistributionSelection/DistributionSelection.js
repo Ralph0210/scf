@@ -1,6 +1,7 @@
 import React from "react";
 import "./DistributionSelection.css";
 import { distinctValues } from "../api";
+import options from '../../newVar.json'
 
 const DistributionSelection = ({
   dataSelections,
@@ -63,10 +64,23 @@ const DistributionSelection = ({
             onChange={(event) => handleDataChange(event, index)}
           >
             <option value={"None"}>None</option>
+            {options.children.map((category) => (
+  <optgroup key={category.name} label={category.name}>
+    {category.children
+      .filter((subcategory) => subcategory.isCategorical)
+      .map((subcategory) => (
+        <option key={subcategory.value} value={subcategory.value}>
+          {subcategory.name}
+        </option>
+      ))}
+  </optgroup>
+))}
+
+            {/* <option value={"None"}>None</option>
             <option value={"HHSEX"}>Sex</option>
             <option value={"EDCL"}>Education</option>
             <option value={"MARRIED"}>Married</option>
-            <option value={"RACE"}>Race</option>
+            <option value={"RACE"}>Race</option> */}
           </select>
         </div>
       ))}

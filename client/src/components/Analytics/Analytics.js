@@ -23,15 +23,15 @@ const Analytics = () => {
   const [uniqueValues, setUniqueValues] = useState([
     [
       {
-        label: 4,
+        label: 'hehe',
         value: 4,
       },
       {
-        label: 2,
+        label: 'hehe',
         value: 2,
       },
       {
-        label: 3,
+        label: 'hehe',
         value: 3,
       },
       {
