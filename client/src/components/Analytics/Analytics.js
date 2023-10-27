@@ -19,35 +19,36 @@ import DataSelection from "../DataSelection/DataSelection";
 import DistributionSelection from "../DistributionSelection/DistributionSelection";
 import DisplaySelection from "../DisplaySelection/DisplaySelection";
 
+const getRandomColor = () => {
+  // Generate a random hue between 0 and 360
+  const hue = Math.floor(Math.random() * 360);
+  // Create an HSL color
+  return `hsl(${hue}, 70%, 50%)`;
+};
+
 const Analytics = () => {
   const [lines, setLines] = useState([])
+  const [lineColors, setLineColors] = useState([]);
   const [uniqueValues, setUniqueValues] = useState([
     [
-      {
-        label: 'hehe',
-        value: 4,
-      },
-      {
-        label: 'hehe',
-        value: 2,
-      },
-      {
-        label: 'hehe',
-        value: 3,
-      },
       {
         label: "35 <",
         value: 1,
       },
+      { label: "35-44", value: 2 },
+      { label: "45-54", value: 3 },
+      { label: "55-64", value: 4 },
+      { label: "65-74", value: 5 },
+      { label: "75+", value: 6 }
     ],
   ]);
   const [dataSelections, setDataSelections] = useState([
     {
       selectedData: "INCOME",
       selectedDataName: "Household Income",
-      selectedDistributionName: "None",
-      selectedDistribution: "None",
-      selectedDisplay: [
+      selectedDistributionName: "Age",
+      selectedDistribution: "AGECL",
+      selectedDisplay: [ {label: "35 <", value: 1},
       ],
     },
   ]);
@@ -160,7 +161,6 @@ const Analytics = () => {
                 dataKey={key}
                 stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
                 activeDot={{ r: 8 }}
-                // name={`${dataSelections[0].selectedDataName} - ${dataSelections[0].selectedDistributionName} - ${displayItem.label}`}
               />
             );
         });

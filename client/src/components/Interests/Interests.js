@@ -8,8 +8,7 @@ const Interests = ({topics, setTopics, isDataLoaded}) => {
     <div className='interests_container'>
         <div className='title_description'>
             <h1>What interests you?</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit 
-amet sem dignissim, rhoncus dolor eu, maximus justo. </p>
+            <p>Selected Topics that you are interested. Variables in the SCF that's related to your interests will be highlighted.</p>
         </div>
         <Interest topics={topics}  setTopics={setTopics} isDataLoaded={isDataLoaded}/>
     </div>

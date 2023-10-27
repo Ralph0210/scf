@@ -225,6 +225,9 @@ app.get("/distinct-values", async (req, res) => {
       return { label, value };
     });
 
+    formattedValues.sort((a, b) => a.value - b.value);
+
+
     res.json(formattedValues);
   } catch (error) {
     console.error(error);

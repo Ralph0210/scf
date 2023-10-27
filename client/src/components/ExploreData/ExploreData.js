@@ -188,17 +188,17 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
           return "root-circle"
         }
         // Check if the node is at depth 1 and has the name "Demographics"
-        if (d.depth === 1 && d.data.name === "Demographics and Household Information") {
+        if (d.depth === 1 && d.data.name === "Demographics") {
           return "demo-circle"; // Apply a different fill color to the "Demographics" branch
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics and Household Information") {
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        // if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics and Household Information") {
+        // if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
         //   return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         // }
 
@@ -208,6 +208,21 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Assets") {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+        if (d.depth === 1 && d.data.name === "Income and Earnings") {
+          return "In-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Income and Earnings") {
+          return "In-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Nonfinancial Assets") {
+          return "non-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Nonfinancial Assets") {
+          return "non-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Debt") {
@@ -244,17 +259,17 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
           return "root-circle"
         }
         // Check if the node is at depth 1 and has the name "Demographics"
-        if (d.depth === 1 && d.data.name === "Demographics and Household Information") {
+        if (d.depth === 1 && d.data.name === "Demographics") {
           return "demo-circle"; // Apply a different fill color to the "Demographics" branch
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics and Household Information") {
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics and Household Information") {
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
@@ -264,6 +279,20 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Assets") {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+        if (d.depth === 1 && d.data.name === "Income and Earnings") {
+          return "In-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Income and Earnings") {
+          return "In-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+        if (d.depth === 1 && d.data.name === "Nonfinancial Assets") {
+          return "non-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Nonfinancial Assets") {
+          return "non-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Debt") {
@@ -325,17 +354,17 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         }
 
         // Check if the node is at depth 1 and has the name "Demographics"
-        if (d.depth === 1 && d.data.name === "Demographics and Household Information") {
+        if (d.depth === 1 && d.data.name === "Demographics") {
           return "demo-circle"; // Apply a different fill color to the "Demographics" branch
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics and Household Information") {
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Demographics") {
             return "demo-circle";
         }
 
         // Check if the node is at depth 2 under "Demographics"
-        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics and Household Information") {
+        if (d.depth === 3 && d.parent && d.parent.parent.data.name === "Demographics") {
           return "demo-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
@@ -345,6 +374,22 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
 
         if (d.depth === 2 && d.parent && d.parent.data.name === "Financial Assets") {
           return "fin-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Income and Earnings") {
+          return "In-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Income and Earnings") {
+          return "In-circle"; // Apply "blue" fill color to children nodes of "Demographics"
+        }
+
+        if (d.depth === 1 && d.data.name === "Nonfinancial Assets") {
+          return "non-circle"
+        }
+
+        if (d.depth === 2 && d.parent && d.parent.data.name === "Nonfinancial Assets") {
+          return "non-circle"; // Apply "blue" fill color to children nodes of "Demographics"
         }
 
         if (d.depth === 1 && d.data.name === "Debt") {

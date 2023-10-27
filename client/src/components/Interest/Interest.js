@@ -142,6 +142,65 @@ const Interest = ({ topics, setTopics, isDataLoaded }) => {
           <img src="/asset.png" />
         </div>
       </div>
+      <h2>Financial Disparities & Diversity</h2>
+      <div className="financial_disparities">
+        <div className="interest_left_container">
+          <img src="/diversity.png" />
+        </div>
+        <div className="interest_right_container">
+          {topics === null ? ( // Render a loading indicator while topics is null
+            <p>Loading...</p>
+          ) : (
+            <motion.ul ref={f2Ref}>
+              {data["financial_disparities_and_diversity"].map((interest) => (
+                <motion.li
+                  onViewportLeave={() => setf2animated(true)}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  onClick={() => handleButtonClick(interest)}
+                  style={{
+                    backgroundColor: Array.from(topics).some(i => i.name === interest.name) ? "#D81E5B" : "#ebf4f8",
+                    color: Array.from(topics).some(i => i.name === interest.name) ? "#fff" : "#7c9cbf",
+                  }}
+                >
+                  {interest.name}
+                </motion.li>
+              ))}
+            </motion.ul>
+          )}
+        </div>
+      </div>
+
+      <h2>Financial Planning & Investment</h2>
+      <div className="financial_planning">
+        <div className="interest_left_container">
+          {topics === null ? ( // Render a loading indicator while topics is null
+            <p>Loading...</p>
+          ) : (
+            <motion.ul ref={f3Ref}>
+              {data["financial_planning_and_investment"].map((interest) => (
+                <motion.li
+                  onViewportLeave={() => setf3animated(true)}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                  onClick={() => handleButtonClick(interest)}
+                  style={{
+                    backgroundColor: Array.from(topics).some(i => i.name === interest.name) ? "#D81E5B" : "#ebf4f8",
+                    color: Array.from(topics).some(i => i.name === interest.name) ? "#fff" : "#7c9cbf",
+                  }}
+                >
+                  {interest.name}
+                </motion.li>
+              ))}
+            </motion.ul>
+          )}
+        </div>
+        <div className="interest_right_container">
+          <img src="/credit.png" />
+        </div>
+      </div>
       </>
       : <>
       <h2>Financial Health & Well-being</h2>
@@ -169,10 +228,7 @@ const Interest = ({ topics, setTopics, isDataLoaded }) => {
         <img src="/asset.png" />
       </div>
     </div>
-    </>}
-      
-
-      <h2>Financial Disparities & Diversity</h2>
+    <h2>Financial Disparities & Diversity</h2>
       <div className="financial_disparities">
         <div className="interest_left_container">
           <img src="/diversity.png" />
@@ -235,6 +291,7 @@ const Interest = ({ topics, setTopics, isDataLoaded }) => {
           <img src="/credit.png" />
         </div>
       </div>
+    </>}
     </div>
   );
 };

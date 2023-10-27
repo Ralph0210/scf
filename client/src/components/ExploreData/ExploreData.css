@@ -38,6 +38,14 @@
     fill: #000;
 }
 
+.In-circle{
+    fill: #9FA4C4;
+}
+
+.non-circle{
+    fill: #06908F;
+}
+
 .red-circle {
     /* fill: aqua; */
     stroke: red;       /* Border color */
