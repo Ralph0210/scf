@@ -167,14 +167,6 @@ const Analytics = () => {
 
   return (
     <div className="analytics_container">
-      {/* <DataPipeline
-        uniqueValues={uniqueValues}
-        setUniqueValues={setUniqueValues}
-        dataSelections={dataSelections}
-        setDataSelections={setDataSelections}
-        data={data}
-        setData={setData}
-      /> */}
       <div className="source">
       <DataSelection
         uniqueValues={uniqueValues}
