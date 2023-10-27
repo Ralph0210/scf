@@ -23,7 +23,7 @@ const UnitSelection = ({
           Mean
         </label>
 
-        <label>
+        {/* <label>
           <input
             type="radio"
             value="Median"
@@ -31,7 +31,7 @@ const UnitSelection = ({
             onChange={handleUnitChange}
           />
           Median
-        </label>
+        </label> */}
       </div>
     </div>
   );

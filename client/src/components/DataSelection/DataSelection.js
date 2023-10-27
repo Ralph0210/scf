@@ -12,10 +12,14 @@ const DataSelection = ({
 
   const handleDataChange = (e, index) => {
     const selectedData = e.target.value;
+    const selectedDataName = e.target.options[e.target.selectedIndex].getAttribute('name'); // Get the name attribute
     const updatedValue = [...dataSelections];
     updatedValue[index].selectedData = selectedData;
+    updatedValue[index].selectedDataName = selectedDataName; // Add the selectedDataName to your data structure
+    console.log(selectedData, selectedDataName);
     setDataSelections(updatedValue);
   };
+  
 
   const handleAddition = () => {
     const updatedElements = [...dataSelections];
@@ -59,6 +63,7 @@ const DataSelection = ({
                   <option
                     key={subcategory.value}
                     value={subcategory.value}
+                    name={subcategory.name}
                     disabled={nonSelectableCategories.includes(subcategory.value)}
                   >
                     {subcategory.name}
@@ -66,11 +71,6 @@ const DataSelection = ({
                 ))}
               </optgroup>
             ))}
-            {/* <option value={"EDCL"}>Education</option>
-            <option value={"HHSEX"}>Sex</option>
-            <option value={"INCOME"}>Income</option>
-            <option value={"RENT"}>Rent</option>
-            <option value={"FIN"}>FIN</option> */}
           </select>
         </div>
       ))}

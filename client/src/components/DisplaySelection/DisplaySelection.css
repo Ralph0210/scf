@@ -50,12 +50,12 @@
     position: absolute;
     z-index: 1;
     top: 100%;
-    width: 100%;
+    width: 20rem;
     padding-top: 8px;
   }
   
   .rmsc .dropdown-content .panel-content {
-    overflow: hidden;
+    /* overflow: hidden; */
     border-radius: var(--rmsc-radius);
     background: var(--rmsc-bg);
     /* box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 11px rgba(0, 0, 0, 0.1); */

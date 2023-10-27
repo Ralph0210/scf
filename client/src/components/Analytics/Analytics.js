@@ -43,10 +43,12 @@ const Analytics = () => {
   const [dataSelections, setDataSelections] = useState([
     {
       selectedData: "INCOME",
-      selectedDistribution: "EDCL",
+      selectedDataName: "Household Income",
+      selectedDistributionName: "Age",
+      selectedDistribution: "AGECL",
       selectedDisplay: [
         {
-          label: 1,
+          label: "35 <",
           value: 1,
         },
       ],
@@ -148,6 +150,7 @@ const Analytics = () => {
           dataKey={key}
           stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
           activeDot={{ r: 8 }}
+          name={`${dataSelections[index].selectedDataName} - ${dataSelections[index].selectedDistributionName} - ${dataSelections[index].selectedDisplay[0].label}`}
         />
       ));
       }

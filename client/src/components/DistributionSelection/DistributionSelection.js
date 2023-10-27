@@ -1,7 +1,7 @@
 import React from "react";
 import "./DistributionSelection.css";
 import { distinctValues } from "../api";
-import options from '../../newVar.json'
+import options from "../../newVar.json";
 
 const DistributionSelection = ({
   dataSelections,
@@ -10,6 +10,7 @@ const DistributionSelection = ({
 }) => {
   const handleDataChange = (e, index) => {
     const selectedDistribution = e.target.value;
+    const selectedDistributionName = e.target.options[e.target.selectedIndex].getAttribute('name'); 
     const updatedValue = [...dataSelections];
     if (e.target.value === "None") {
       updatedValue[index].selectedDistribution = selectedDistribution;
@@ -21,7 +22,9 @@ const DistributionSelection = ({
       ];
     } else {
       updatedValue[index].selectedDistribution = selectedDistribution;
-      updatedValue[index].selectedDisplay = [{ label: 1, value: 1 }];
+      updatedValue[index].selectedDistributionName = selectedDistributionName;
+      // updatedValue[index].selectedDisplay = [{ label: "0", value: 1 }];
+      console.log(selectedDistribution, selectedDistributionName)
       fetchDistinctValues(updatedValue[index], index);
     }
     setDataSelections(updatedValue);
@@ -65,22 +68,16 @@ const DistributionSelection = ({
           >
             <option value={"None"}>None</option>
             {options.children.map((category) => (
-  <optgroup key={category.name} label={category.name}>
-    {category.children
-      .filter((subcategory) => subcategory.isCategorical)
-      .map((subcategory) => (
-        <option key={subcategory.value} value={subcategory.value}>
-          {subcategory.name}
-        </option>
-      ))}
-  </optgroup>
-))}
-
-            {/* <option value={"None"}>None</option>
-            <option value={"HHSEX"}>Sex</option>
-            <option value={"EDCL"}>Education</option>
-            <option value={"MARRIED"}>Married</option>
-            <option value={"RACE"}>Race</option> */}
+              <optgroup key={category.name} label={category.name}>
+                {category.children
+                  .filter((subcategory) => subcategory.isCategorical)
+                  .map((subcategory) => (
+                    <option key={subcategory.value} value={subcategory.value} name={subcategory.name}>
+                      {subcategory.name}
+                    </option>
+                  ))}
+              </optgroup>
+            ))}
           </select>
         </div>
       ))}
