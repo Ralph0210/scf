@@ -23,7 +23,7 @@ const DistributionSelection = ({
     } else {
       updatedValue[index].selectedDistribution = selectedDistribution;
       updatedValue[index].selectedDistributionName = selectedDistributionName;
-      // updatedValue[index].selectedDisplay = [{ label: "0", value: 1 }];
+      updatedValue[index].selectedDisplay = [];
       console.log(selectedDistribution, selectedDistributionName)
       fetchDistinctValues(updatedValue[index], index);
     }

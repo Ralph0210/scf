@@ -31,6 +31,9 @@ app.get("/api/survey", async (req, res) => {
     selectedDistribution,
     selectedDisplay,
     selectedUnit,
+    selectedDataName,
+    selectedDistributionName,
+    selectedDisplayName
   } = req.query;
 
   try {
@@ -77,7 +80,7 @@ app.get("/api/survey", async (req, res) => {
         // Build the desired structure for the data
         const dataObject = {
           year: year,
-          [`${selectedData}-${selectedDistribution}-${selectedDisplay}`]:
+          [`${selectedDataName}-${selectedDistributionName}-${selectedDisplayName}`]:
             weightedMean,
         };
 

@@ -296,10 +296,10 @@ const ExploreData = ({setSelectedInfoData, setShouldRenderDataInfoCard, distinct
         (d) => `rotate(${(d.x * 180) / Math.PI - 90}) translate(${d.y},0)`
       )
       .attr("class", d => {
-        if (d.depth === 0) {
-          return "root-circle"
-        }
-        const isNodeInDistinctVariables = distinctVariables.has(d.data.name);
+        // if (d.depth === 0) {
+        //   return "root-circle"
+        // }
+        const isNodeInDistinctVariables = distinctVariables.has(d.data.value);
         // console.log(isNodeInDistinctVariables, "isNode")
     
         if (isNodeInDistinctVariables) {

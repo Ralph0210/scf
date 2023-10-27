@@ -45,13 +45,9 @@ const Analytics = () => {
     {
       selectedData: "INCOME",
       selectedDataName: "Household Income",
-      selectedDistributionName: "Age",
-      selectedDistribution: "AGECL",
+      selectedDistributionName: "None",
+      selectedDistribution: "None",
       selectedDisplay: [
-        {
-          label: "35 <",
-          value: 1,
-        },
       ],
     },
   ]);
@@ -61,7 +57,7 @@ const Analytics = () => {
   const [selectedUnit, setSelectedUnit] = useState("Mean"); // Set initial selected option
 
   const [value, setValue] = useState([1989, 2019]);
-  console.log(data, 'data')
+  // console.log(data, 'data')
 
 
   useEffect(() => {
@@ -78,23 +74,33 @@ const Analytics = () => {
           selectedData: dataSelection.selectedData,
           selectedDistribution: dataSelection.selectedDistribution,
           selectedUnit: selectedUnit,
+          selectedDataName: dataSelection.selectedDataName,
+          selectedDistributionName: dataSelection.selectedDistributionName,
         };
 
         // Loop through selectedDisplay values and fetch data for each
         const retrievedData = await Promise.all(
           dataSelection.selectedDisplay.map(async (displayValue, index) => {
+            const matchingDisplay = dataSelection.selectedDisplay.find(
+              (display) => display.value === displayValue.value
+            );
             const data = await retrieve(
               apiParams.selectedYear,
               apiParams.selectedData,
               apiParams.selectedDistribution,
               displayValue.value, // Use the current displayValue from the map
-              apiParams.selectedUnit
+              apiParams.selectedUnit,
+             apiParams.selectedDataName,
+             apiParams.selectedDistributionName,
+              matchingDisplay.label // Use the current displayValue from the map
             );
+            // Find the selectedDisplay object that matches the current displayValue.value
+
             return data;
           })
         );
 
-        // console.log(`Data for Item ${index}:`, retrievedData);
+        console.log(`Data for Item ${index}:`, retrievedData);
         // Update the data state with the retrieved data for the specific item
         setData((prevData) => {
           const updatedData = [...prevData];
@@ -139,15 +145,14 @@ const Analytics = () => {
     setDataForGraphing(newData)
     console.log("dataforgraphing", newData)
   }, [data, dataSelections])
+  // console.log(dataSelections, "dataselections")
 
   useEffect(() => {
     let line = null;
-    if (dataForGraphing.length > 0) {
+    if (dataForGraphing.length > 0 && dataSelections[0]) {
       line = Object.keys(dataForGraphing[0])
         .filter(key => key !== 'year')
         .map((key, index) => {
-          const displayItem = dataSelections[0].selectedDisplay[index];
-          if (displayItem) {
             return (
               <Line
                 key={index}
@@ -155,15 +160,14 @@ const Analytics = () => {
                 dataKey={key}
                 stroke={`hsl(${Math.random() * 360}, 70%, 50%)`}
                 activeDot={{ r: 8 }}
-                name={`${dataSelections[0].selectedDataName} - ${dataSelections[0].selectedDistributionName} - ${displayItem.label}`}
+                // name={`${dataSelections[0].selectedDataName} - ${dataSelections[0].selectedDistributionName} - ${displayItem.label}`}
               />
             );
-          }
-          return null; // Handle missing displayItem
         });
         setLines(line)
     }
   }, [dataForGraphing, dataSelections]);
+
 
   return (
     <div className="analytics_container">

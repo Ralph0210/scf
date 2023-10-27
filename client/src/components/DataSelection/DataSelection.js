@@ -28,14 +28,9 @@ const DataSelection = ({
     updatedElements.push({
       selectedData: "INCOME",
       selectedDataName: "Household Income",
-      selectedDistributionName: "Age",
-      selectedDistribution: "AGECL",
-      selectedDisplay: [
-        {
-          label: "35 <",
-          value: 1,
-        },
-      ],
+      selectedDistributionName: "None",
+      selectedDistribution: "None",
+      selectedDisplay: [],
     });
     setDataSelections(updatedElements);
 
@@ -65,7 +60,9 @@ const DataSelection = ({
             {/* Map through categories and subcategories from 'var.json' and create options */}
             {options.children.map((category) => (
               <optgroup key={category.name} label={category.name}>
-                {category.children.map((subcategory) => (
+                {category.children
+                .filter((subcategory) => !subcategory.isCategorical)
+                .map((subcategory) => (
                   <option
                     key={subcategory.value}
                     value={subcategory.value}

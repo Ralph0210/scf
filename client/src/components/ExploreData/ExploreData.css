@@ -6,8 +6,8 @@
 
 .node-circle {
     fill: #000;
-    stroke: steelblue;
-    stroke-width: 1.5px;
+    /* stroke: steelblue; */
+    /* stroke-width: 1.5px; */
 }
 .node {
     font: 10px sans-serif;

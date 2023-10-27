@@ -6,7 +6,7 @@ const api = axios.create({
   baseURL: baseURL,
 });
 
-export async function retrieve(selectedYear, selectedData, selectedDistribution, selectedDisplay, selectedUnit) {
+export async function retrieve(selectedYear, selectedData, selectedDistribution, selectedDisplay, selectedUnit, selectedDataName, selectedDistributionName, selectedDisplayName) {
   try {
     const queryParams = {
       selectedYear: selectedYear,
@@ -14,6 +14,9 @@ export async function retrieve(selectedYear, selectedData, selectedDistribution,
       selectedDistribution: selectedDistribution,
       selectedDisplay: selectedDisplay,
       selectedUnit: selectedUnit,
+      selectedDataName: selectedDataName,
+      selectedDistributionName: selectedDistributionName,
+      selectedDisplayName: selectedDisplayName
     };
 
     // Use the `params` option to include the query parameters and await the response

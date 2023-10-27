@@ -6,6 +6,7 @@
      font-style: normal;
      font-weight: 400;
      line-height: normal;
+     width: 25rem;
 }
 
 .multi-select .select-item {
@@ -47,6 +48,7 @@
   }
   
   .rmsc .dropdown-content {
+    /* width: 15rem; */
     position: absolute;
     z-index: 1;
     top: 100%;

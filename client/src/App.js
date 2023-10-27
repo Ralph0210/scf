@@ -27,7 +27,7 @@ function App() {
         allVariables.add(variable);
       }
     }
-
+    console.log(allVariables)
     setDistinctVariables(allVariables);
   };
 
