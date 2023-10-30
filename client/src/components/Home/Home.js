@@ -10,23 +10,26 @@ import Footer from '../Footer/Footer'
 const Home = ({topics, setTopics, isDataLoaded}) => {
   const InstructionRef = useRef(null)
   const [toggleAlert, setToggleAlert] = useState(false)
+  const [isDismissed, setIsDismissed] = useState(false)
 console.log(toggleAlert,'toggle')
 const Alert = () => (
   <div className='alert'>
   <img src='/desktopIcon.png'/>
   <p>Your screen will be too small for the discovery page</p>
   <p>Please access this website from a desktop device.</p>
+  <span onClick={() => setIsDismissed(true)}>dismiss</span>
   </div>
 );
   return (
     <>
-    <div className='alert_screen_size' onClick={() => setToggleAlert(!toggleAlert)}>
+    {!isDismissed && (<div className='alert_screen_size' onClick={() => setToggleAlert(!toggleAlert)}>
       <div className='notification_container'>
       {!toggleAlert && (<img src='/notification1.png' />)}
       
       {toggleAlert && (<Alert />)}
       </div>
-    </div>
+    </div>)}
+    
       <Hero InstructionRef={InstructionRef}/>
       <Instruction1 ref={InstructionRef}/>
       <Interests topics={topics}  setTopics={setTopics} isDataLoaded={isDataLoaded}/>
