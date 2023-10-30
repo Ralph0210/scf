@@ -1,0 +1,23 @@
+.alert_screen_size{
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 150px;
+    right: 5%;
+}
+
+.alert{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.notification_container img{
+    width: 36px;
+}
+
+@media (max-width: 821px) {
+    .alert_screen_size {
+        display: flex;
+    }
+}

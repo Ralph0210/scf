@@ -71,10 +71,10 @@ function App() {
           path="/analyticsPage"
           element={<Analytics_page distinctVariables={distinctVariables} />}
         />
-        <Route path="/about" element={<Pan />} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/exploreData"
-          element={<E3 distinctVariables={distinctVariables} />}
+          element={<Map distinctVariables={distinctVariables} />}
         />
       </Routes>
     </div>

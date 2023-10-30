@@ -17,3 +17,15 @@
     line-height: normal;
 }
 
+.screen_too_small {
+    display: none;
+}
+
+@media (max-width: 821px) {
+
+    .screen_too_small p{
+        padding-left: 2rem;
+        /* padding-top: 1rem; */
+    }
+  }
+

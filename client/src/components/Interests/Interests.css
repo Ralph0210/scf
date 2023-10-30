@@ -24,6 +24,8 @@ line-height: normal;
 margin-bottom: 7.2rem;
 }
 
+
+
 @media (max-width: 1300px) {
     .interests_container{
         width: 100vw;
@@ -31,4 +33,15 @@ margin-bottom: 7.2rem;
         display: flex;
         flex-direction: column;
     }
+  }
+
+  @media (max-width: 821px) {
+    .interests_container{
+        position: relative;
+        width: 100vw;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
   }
