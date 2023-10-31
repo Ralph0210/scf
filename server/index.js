@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./models");
 const { scfp2019, scfp2016, scfp2013, scfp2010, scfp2007, scfp2004, scfp2001, scfp1998, scfp1995, scfp1992, scfp1989 } = require("./models"); // Import your Sequelize models
+require("dotenv").config();
 
 const app = express();
 const port = 3001;
@@ -237,10 +238,12 @@ app.get("/distinct-values", async (req, res) => {
 
 
 db.sequelize.sync().then(() => {
-  app.listen(3001,() => {
+  app.listen(process.env.PORT || 3001 || 3306,() => {
     console.log(`Server is running on http://localhost:${port}`);
   });
-});
+})
+.catch((err) => {
+  console.log(err)})
 
 // Export the function for use in your frontend
 module.exports = {};
