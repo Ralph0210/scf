@@ -41,6 +41,11 @@ select {
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: transform 0.2s;
+}
+
+select:hover{
+  transform: scale(1.1);
 }
 
 .data_container select {
@@ -96,6 +101,11 @@ align-items: center;
   flex-shrink: 0;
   border-radius: 2rem;
   background: #fee7c4;
+  transition: transform 0.2s;
+}
+
+.deletion_container:hover{
+  transform: scale(1.2);
 }
 
 .display_container_components {
@@ -171,4 +181,12 @@ align-items: center;
 
 .units input {
   background-color: #0e518e;
+}
+
+.additionButton{
+  transition: transform 0.2s;
+}
+
+.additionButton:hover{
+  transform: scale(1.2);
 }

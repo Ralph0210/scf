@@ -15,6 +15,11 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    transition: transform 0.2s;
+}
+
+.discoverbutton:hover{
+    transform: scale(1.2);
 }
 
 .screen_too_small {

@@ -77,7 +77,7 @@ const DataSelection = ({
           </select>
         </div>
       ))}
-      <p onClick={handleAddition}>+</p>
+      <p onClick={handleAddition} className='additionButton'>+</p>
     </div>
   );
 };
