@@ -1,3 +1,5 @@
 {
-    "livePreview.defaultPreviewPath": "/client/public/index.html"
+    "livePreview.defaultPreviewPath": "/client/public/index.html",
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/e2cdd47e-1747-45b9-a8df-34473e09dac7/resourceGroups/MySCFAnalysis-rg/providers/Microsoft.Web/sites/MySCFAnalysis",
+    "appService.deploySubpath": "."
 }
