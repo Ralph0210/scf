@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'MySCFAnalysis'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2B1140CF15341E688F108DC92DB7A9D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_826A54D3A1234FCF9AADFCE56712EED5 }}
           package: .
