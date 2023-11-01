@@ -21,14 +21,22 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: Build and test client
+        working-directory: ./client
+        run: |
+          npm install
+          npm run build --if-present
+          npm run test --if-present
+
+      - name: Build and test server
+        working-directory: ./server
         run: |
           npm install
           npm run build --if-present
           npm run test --if-present
 
       - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
+        run: zip release.zip ./client/* ./server/* -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
